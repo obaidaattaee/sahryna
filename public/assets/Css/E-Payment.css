@@ -1,0 +1,156 @@
+
+
+
+
+
+
+
+
+.Page-Name{
+    font-size: 15px;
+    margin-top: 35px;
+    color: rgb(175, 83, 83);
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.Page-Name :hover{
+    font-size: 15px;
+    margin-top: 35px;
+    color: rgb(175, 83, 83);
+    font-family: 'Cairo', sans-serif;
+}
+    
+
+
+
+ 
+.col-forText {
+    text-align: end;
+}
+
+.btn-link {
+    float: right;
+    color: #580707;
+    font-weight: 600;
+    font-size: 18px;
+    font-family: 'Cairo', sans-serif;
+}
+
+.label-Page{
+    float:right;
+}
+
+.btn-link:hover {
+    color: #580707;
+}
+
+.card-header {
+    background-color: #d2d2af;
+}
+
+
+.btn-Option {
+    color: #fff;
+    background-color: #580707;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.Text-Page {
+    color: #580707;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Cairo', sans-serif;
+}
+
+#exampleFormControlTextarea1 {
+    direction: rtl;
+    font-weight:300;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.Page-title {
+    text-align: end;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: #580707;
+    color: #fff;
+    margin-bottom: 3px;
+    font-weight:700;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.linkToPeople {
+    text-decoration: revert;
+    color: #580707;
+}
+
+
+
+.linkToPeople:hover {
+    text-decoration: revert;
+    color: #580707;
+}
+
+
+.fieldlabels {
+    color: gray;
+    float: right;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+}
+
+.input-section1 {
+    direction: rtl;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+#exampleModalLabel{
+    font-size:18px;
+    font-weight:600;
+}
+
+.Success-progess {
+    text-align: center;
+    font-size: 25px;
+    color: #6d1c1c;
+    padding: 30px;
+    font-family: 'Cairo', sans-serif;
+}
+
+.btn-default {
+    color: #6d1c1c;
+    font-size: 17px;
+    font-weight: 500;
+    background-color: #c4c4a3;
+    border-color: #c4c4a3;
+    font-family: 'Cairo', sans-serif;
+}
+
+    .btn-default:hover {
+        color: #c4c4a3;
+        font-size: 17px;
+        font-weight: 500;
+        background-color: #6d1c1c;
+        border-color: #6d1c1c;
+        font-family: 'Cairo', sans-serif;
+    }
+
+
+.modal-header {
+    direction: rtl;
+    background-color: #6d1c1c;
+    color: #fff;
+    padding: 20px;
+    font-family: 'Cairo', sans-serif;
+}
+
+.modal-footer {
+    direction: rtl;
+    font-family: 'Cairo', sans-serif;
+}
+

@@ -1,0 +1,754 @@
+
+
+
+
+
+
+
+ 
+
+   
+
+/* Extra small devices (portrait phones, less than 576px)*/
+@media (max-width: 575.98px) { 
+    
+}
+
+/* Small devices (landscape phones, 576px and up)*/
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .Cards {
+        margin-left: 20px;
+        width: 100%;
+        line-height: 1.2;
+  
+    }
+}
+
+ /* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    
+ }
+
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+    
+ }
+
+/*Extra large devices (large desktops, 1200px and up)*/
+@media (min-width: 1200px) { 
+    
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.navbar-brand img{
+    height: 70px;
+    width: 70px;
+    margin-top: -10px;
+    margin-bottom: -12px;
+}
+
+
+
+
+.imgbrand img{
+    height: 90px;
+    width: 100px;
+    margin-top: -15px;
+    margin-bottom: -15px;
+    border: 3px solid;
+}
+
+
+
+ .p-forpage{
+    text-align: end;font-size: 15px;margin-top: 35px;color: rgb(175, 83, 83);
+    font-family: 'Cairo', sans-serif;
+    
+ }
+
+
+
+
+.li-navbar{
+
+    font-family: 'Cairo', sans-serif;
+
+
+}
+
+
+
+
+
+
+
+.p-ForCards{
+   margin-bottom: 2px;
+    margin-top: -8px;
+    font-size: 12px;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.PriceForalone-ADs{
+    background-color:  #e5e5ca!important;
+    padding: 2px;
+    margin-top: -212px;
+    
+    margin-left: -20px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.card-text{
+    text-align: center;
+}
+
+
+
+
+.img-slider{
+    border-top: 4px solid #580707;
+    border-bottom: 4px solid #580707;
+    box-shadow: 20px 20px 50px #b5b5ad;
+}
+
+@media(max-width:767px){
+
+    .img-slider{
+        margin-top: -20px;
+    }
+    
+}
+
+
+
+
+.card-body{
+     
+    border-top: 3px solid #6d1c1c;
+}
+
+
+
+.text-muted{
+    font-family: 'Cairo', sans-serif;
+ 
+     
+}
+ 
+
+.bg-success {
+    background-color: #6d1c1c;
+}
+
+.p-forcity{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 17px;
+    font-weight: lighter;
+    text-align: end;
+    font-family: 'Cairo', sans-serif;
+    color:  #6d1c1c;
+    
+}
+ 
+
+.p-forprice{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 15px;
+    text-align: end;   
+    font-weight: 800;
+    font-family: 'Cairo', sans-serif;
+    
+    color:  #6d1c1c;
+}
+
+
+.card-title {
+    text-align: end;
+    font-family: 'Cairo', sans-serif;
+    font-size: larger;
+   color:  #6d1c1c;
+    font-weight: 700;
+    margin-top: -10px;
+}
+
+.p-ForP {
+
+    text-align: end;
+    font-size: 14px;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    font-family: 'Cairo', sans-serif;
+  
+}
+
+
+
+.p-ForCards {
+    margin-bottom: 2px;
+    margin-top: -8px;
+    font-size: 12px;
+    text-align: end;
+    font-family: 'Cairo', sans-serif;
+
+
+}
+
+ 
+.Row-Cards{
+    margin-right: 0px;
+    margin-left: -22px;
+}
+
+.numberMember{
+    float: left;
+}
+
+ 
+.PriceFor-ADs-exp1 {
+    display: flex;
+    background-color: #e5e5ca;
+    color: #580707;
+    padding: 5px;
+    margin-top: -194px;
+    margin-left: -20px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+    .PriceFor-ADs {
+        display: flex;
+        background-color: #e5e5ca;
+        color: #580707;
+        padding: 5px;
+        margin-top: -199px;
+        margin-left: -20px;
+        border-radius: 5px;
+        font-size: 18px;
+        font-weight: 700;
+        font-family: 'Cairo', sans-serif;
+    }
+
+ 
+
+
+
+
+/*    navbar      */
+
+
+.bs-example {
+    margin: 20px;
+}
+
+
+
+.navbar-org {
+    background-color: #e5e5ca;
+    padding: 10px;
+    border-bottom: 2px solid #580707;
+}
+
+.navbar-brand {
+    color: #580707;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+
+
+    .navbar-brand:hover {
+        color: #580707;
+    }
+
+.a-navbar {
+    color: #580707;
+    font-size: 17px;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+
+
+
+    .a-navbar:hover {
+        color: #580707;
+    }
+
+/*.........................................*/
+
+
+
+.fa-star {
+    font-size: 15px;
+    cursor: pointer;
+    color: orange;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 300px) and (max-width: 350px) { 
+    .card {
+        width:18rem  ;
+    }
+
+    .for-marquee {
+        display:none;
+    }
+
+
+    .Dis-Ds-lab {
+        display: none;
+    }
+}
+
+
+
+@media (min-width: 768px) and (max-width: 1000px) {
+  
+    .text-prop2{
+        display: none;
+    }
+    .text-muted {
+        font-family: 'Cairo', sans-serif;
+        font-size: xx-small;
+    }
+
+    .card-title {
+      
+         font-size: unset;
+    }
+
+    .p-ForCards {
+     
+        font-size: 10px;
+     
+    }
+    
+
+   
+}
+
+
+@media (min-width: 1001px) and (max-width: 1024px) {
+    .card {
+        width:14rem  ;
+    }
+
+}
+
+
+ 
+@media(max-width:767px) {
+
+    .for-marquee {
+        display:none;
+    }
+
+
+    .Dis-Ds-lab {
+        display: none;
+    }
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.add-ads {
+    padding-right: 30px;
+    padding-left: 30px;
+    border: 2px solid #580707;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+
+.for-marquee {
+    background-color: #bdc3c7;
+    color: #580707;
+    font-size: 20px;
+    padding-top: 10px;
+    margin-top: -38px;
+}
+
+    .for-marquee:hover {
+        cursor: pointer;
+        color: #580707;
+        font-size: 25px;
+    }
+
+
+.input-group, .mb-3 {
+    margin-bottom: 0px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   /* <div class="Stras" style="  margin-top: -130px;margin-left: 65px;">
+        <span onmouseover="starmark(this)" onclick="starmark(this)" id="1one" class="fa fa-star checked"></span>
+        <span onmouseover="starmark(this)" onclick="starmark(this)" id="2one" class="fa fa-star "></span>
+        <span onmouseover="starmark(this)" onclick="starmark(this)" id="3one" class="fa fa-star "></span>
+        <span onmouseover="starmark(this)" onclick="starmark(this)" id="4one" class="fa fa-star"></span>
+        <span onmouseover="starmark(this)" onclick="starmark(this)" id="5one" class="fa fa-star"></span>
+
+    </div> */
+
+
+    /*
+    
+
+
+
+.navbar-brand img{
+    height: 70px;
+    width: 70px;
+    margin-top: -10px;
+    margin-bottom: -12px;
+}
+
+
+
+
+.imgbrand img{
+    height: 90px;
+    width: 100px;
+    margin-top: -15px;
+    margin-bottom: -15px;
+    border: 3px solid;
+}
+
+
+
+ 
+
+
+
+
+.li-navbar{
+
+    font-family: 'dubai-bold';
+
+}
+
+
+
+
+
+
+
+.p-ForCards{
+    margin-bottom: 2px;margin-top: -8px;font-size: 12px;
+}
+
+
+.PriceForalone-ADs{
+    background-color: #69a1d4!important;
+    padding: 2px;
+    margin-top: -207px;
+    color: chocolate;
+    margin-left: -20px;
+    border-radius: 5px;
+    font-size: 18px;
+
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.card-text{
+    text-align: center;
+}
+
+.text-muted{
+    font-family: 'Goldman', cursive;
+    font-family: 'Kufam', cursive;
+    font-family: 'Lora', serif;
+    font-family: 'Markazi Text', serif; 
+     
+}
+
+
+
+.p-forcity{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 17px;
+    font-weight: 700;
+    text-align: end;
+    font-family: 'Goldman', cursive;
+    font-family: 'Kufam', cursive;
+    font-family: 'Lora', serif;
+}
+ 
+
+.p-forprice{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 15px;
+    text-align: end; 
+    font-family: 'Goldman', cursive;
+font-family: 'Lora', serif;
+
+    font-weight: 700;
+}
+
+
+.card-title {
+    text-align: end;
+    font-family: 'Almarai', sans-serif;
+    font-size: larger;
+
+}
+
+.p-ForP {
+    text-align: end;
+    font-size: 15px;
+    font-weight: 800;
+    color: #580707;
+  
+}
+
+
+
+.p-ForCards {
+    margin-bottom: 2px;
+    margin-top: -8px;
+    font-size: 12px;
+    text-align: end;
+    font-family: 'Tajawal', sans-serif;
+}
+
+
+
+
+
+
+.PriceFor-ADs{
+    
+    background-color: #28a745!important;
+    padding: 2px;
+    margin-top: -207px;
+    color: chocolate;
+    margin-left: -20px;
+    border-radius: 5px;
+    font-size: 18px;
+
+    font-family: 'Cairo', sans-serif;
+
+}
+
+
+
+
+ 
+
+
+.bs-example {
+    margin: 20px;
+}
+
+
+
+.navbar-org {
+    background-color: #e5e5ca;
+    padding: 10px;
+    border-bottom: 2px solid #580707;
+}
+
+.navbar-brand {
+    color: #580707;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+
+
+    .navbar-brand:hover {
+        color: #580707;
+    }
+
+.a-navbar {
+    color: #580707;
+    font-size: 17px;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+
+
+
+    .a-navbar:hover {
+        color: #580707;
+    }
+
+ 
+
+
+
+.fa-star {
+    font-size: 15px;
+    cursor: pointer;
+    color: orange;
+}
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 300px) and (max-width: 350px) { 
+    .card {
+        width:18rem  ;
+    }
+
+    .for-marquee {
+        display:none;
+    }
+
+
+    .Dis-Ds-lab {
+        display: none;
+    }
+}
+
+
+
+@media (min-width: 768px) and (max-width: 1000px) {
+    .card {
+        width:10rem  ;
+    }
+
+    
+
+   
+}
+
+
+@media (min-width: 1001px) and (max-width: 1024px) {
+    .card {
+        width:14rem  ;
+    }
+
+}
+
+
+ 
+@media(max-width:767px) {
+
+    .for-marquee {
+        display:none;
+    }
+
+
+    .Dis-Ds-lab {
+        display: none;
+    }
+ 
+}
+
+
+
+.add-ads {
+    padding-right: 30px;
+    padding-left: 30px;
+    border: 2px solid #580707;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+
+.for-marquee {
+    background-color: #bdc3c7;
+    color: #580707;
+    font-size: 20px;
+    padding-top: 10px;
+    margin-top: -38px;
+}
+
+    .for-marquee:hover {
+        cursor: pointer;
+        color: #580707;
+        font-size: 25px;
+    }
+
+
+.input-group, .mb-3 {
+    margin-bottom: 0px;
+}
+
+
+
+    */
+
+
+
+
+    
+ 

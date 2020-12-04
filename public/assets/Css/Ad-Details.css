@@ -1,0 +1,350 @@
+
+
+
+
+
+.Page-Name{
+    font-size: 15px;
+    margin-top: 35px;
+    color: rgb(175, 83, 83);
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.Page-Name :hover{
+    font-size: 15px;
+    margin-top: 35px;
+    color: rgb(175, 83, 83);
+    font-family: 'Cairo', sans-serif;
+}
+    
+
+
+
+
+
+.custom-slider {
+    height: 360px !important;
+}
+
+.carousel-control-prev {
+    text-shadow: 2px 2px 4px #000000;
+    font-size: 30px;
+}
+
+.carousel-inner {
+    height: 100%;
+}
+
+.carousel-img-container {
+    height: 100%;
+}
+
+
+.carousel-item {
+    height: 100%;
+}
+
+img {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: auto !important;
+}
+
+
+
+
+.section-ForTitle {
+    padding: 20px;
+    background-color: #e5e5ca;
+    color: #580707;
+}
+
+.section-ForTitle {
+    text-align: end
+}
+
+.title-forSectionP {
+    text-align: end;
+    font-size: 14px;
+}
+
+
+
+.section-style {
+    text-align: end;
+    background-color: #d2d2af;
+    color: #580707;
+    padding: 15px;
+}
+
+.p-forfont {
+    font-weight: 600;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.h3-forDE {
+    text-align: end;
+    font-size: 15px;
+    margin-bottom: 12px;
+    padding: 10px;
+    border-bottom: 2px solid;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+}
+
+.p-forfont-last {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 300;
+}
+
+.h5-titleforPage {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 600;
+}
+
+.title-forSection {
+    text-align: end;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+}
+
+
+
+
+.toolbar {
+    border-radius: 10px;
+    background-color: forestgreen;
+    padding: 6px;
+    color: #fff;
+    margin-right: 50px;
+}
+
+
+
+.map-container-6 {
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+    height: 0;
+}
+
+    .map-container-6 iframe {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+    }
+
+
+
+.btnblock {
+    background-color: #580707;
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*...............................................*/
+
+
+/* FontAwesome for working BootSnippet :> */
+
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+
+#team {
+    background: #eee !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #108d6f;
+    border-color: #108d6f;
+    box-shadow: none;
+    outline: none;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007b5e;
+    border-color: #007b5e;
+}
+
+section {
+    padding: 60px 0;
+}
+
+    section .section-title {
+        text-align: center;
+        color: #007b5e;
+        margin-bottom: 50px;
+        text-transform: uppercase;
+    }
+
+#team .card {
+    border: none;
+    background: #ffffff;
+}
+
+
+
+
+
+
+.mainflip {
+    -webkit-transition: 1s;
+    -webkit-transform-style: preserve-3d;
+    -ms-transition: 1s;
+    -moz-transition: 1s;
+    -moz-transform: perspective(1000px);
+    -moz-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transition: 1s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.frontside {
+    position: relative;
+    -webkit-transform: rotateY(0deg);
+    -ms-transform: rotateY(0deg);
+    z-index: 2;
+}
+
+.backside {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: white;
+    -webkit-transform: rotateY(-180deg);
+    -moz-transform: rotateY(-180deg);
+    -o-transform: rotateY(-180deg);
+    -ms-transform: rotateY(-180deg);
+    transform: rotateY(-180deg);
+    -webkit-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    -moz-box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+    box-shadow: 5px 7px 9px -4px rgb(158, 158, 158);
+}
+
+.frontside,
+.backside {
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -webkit-transition: 1s;
+    -webkit-transform-style: preserve-3d;
+    -moz-transition: 1s;
+    -moz-transform-style: preserve-3d;
+    -o-transition: 1s;
+    -o-transform-style: preserve-3d;
+    -ms-transition: 1s;
+    -ms-transform-style: preserve-3d;
+    transition: 1s;
+    transform-style: preserve-3d;
+}
+
+    .frontside .card,
+    .backside .card {
+        min-height: 312px;
+    }
+
+        .backside .card a {
+            font-size: 18px;
+            color: #007b5e !important;
+        }
+
+        .frontside .card .card-title,
+        .backside .card .card-title {
+            color: #007b5e !important;
+        }
+
+        .frontside .card .card-body img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+        }
+
+/*......................................................*/
+
+
+
+
+.contactbtn {
+    background-color: #580707;
+    padding: 4px;
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    margin-top: 26px
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+.img-zoom-container {
+    position: relative;
+}
+
+.img-zoom-lens {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    /*set the size of the lens:*/
+    width: 40px;
+    height: 40px;
+}
+
+.img-zoom-result {
+    border: 1px solid #d4d4d4;
+    /*set the size of the result div:*/
+    width: 300px;
+    height: 300px;
+}
+
+
+
+.model-no1{
+    background-color: #d2d2af;
+    color: #6d1c1c;
+}
+
+
+.modeltitle-no1{
+    font-weight: 700;
+    font-family: 'Cairo', sans-serif;
+
+}
+.modeltitle-no1P{
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    text-align: justify;
+}
+
+
+.lead {
+    font-size: 1.25rem;
+    font-weight: 500;
+    font-family: 'Cairo', sans-serif;
+    color: #fff;
+}
+
+.modeltitle-no2P{
+    color: grey;
+    font-weight: 400;
+    font-family: 'Cairo', sans-serif;
+    font-size: larger;;
+}
+

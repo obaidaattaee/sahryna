@@ -1,0 +1,81 @@
+
+
+
+
+
+
+
+
+
+
+
+ 
+.col-forText {
+    text-align: end;
+}
+
+.btn-link {
+    float: right;
+    color: #580707;
+    font-weight: 600;
+    font-size: 18px;
+    font-family: 'Cairo', sans-serif;
+}
+
+.label-Page{
+    float:right;
+}
+
+.btn-link:hover {
+    color: #580707;
+}
+
+.card-header {
+    background-color: #d2d2af;
+}
+
+
+.btn-Option {
+    color: #fff;
+    background-color: #580707;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.Text-Page {
+    color: #580707;
+    font-size: 18px;
+    font-weight: 500;
+    font-family: 'Cairo', sans-serif;
+}
+
+#exampleFormControlTextarea1 {
+    direction: rtl;
+    font-weight:300;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.Page-title {
+    text-align: end;
+    padding: 20px;
+    border-radius: 7px;
+    background-color: #580707;
+    color: #fff;
+    margin-bottom: 3px;
+    font-weight:700;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.linkToPeople {
+    text-decoration: revert;
+    color: #580707;
+}
+
+
+
+.linkToPeople:hover {
+    text-decoration: revert;
+    color: #580707;
+}

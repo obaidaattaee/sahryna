@@ -1,0 +1,181 @@
+
+
+/*    navbar      */
+
+
+.bs-example {
+    margin: 20px;
+}
+
+
+.navbar-brand img{
+    height: 70px;
+    width: 70px;
+    margin-top: -10px;
+    margin-bottom: -12px;
+}
+
+
+.navbar-org {
+    background-color: #e5e5ca;
+    padding: 10px;
+}
+
+.navbar-brand {
+    color: #580707;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+
+
+    .navbar-brand:hover {
+        color: #580707;
+    }
+
+.a-navbar {
+    color: #580707;
+    font-size: 17px;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+
+
+
+    .a-navbar:hover {
+        color: #580707;
+    }
+
+
+
+/*  content          */
+.login-container {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.login-form-1 {
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+    .login-form-1 h3 {
+        text-align: center;
+        color: #580707;
+        font-size: 20px;
+ 
+    }
+
+@media(max-width:550px) {
+    .login-form-1 h3 {
+        margin-top: 35px;
+    }
+}
+
+
+.login-form-2 {
+    padding: 5%;
+    background: #0062cc;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+
+    .login-form-2 h3 {
+        text-align: center;
+        color: #fff;
+    }
+
+.login-container form {
+    padding: 10%;
+}
+
+.btnSubmit {
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.login-form-1 .btnSubmit {
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+    font-family: 'Cairo', sans-serif;
+}
+
+.login-form-2 .btnSubmit {
+    font-weight: 600;
+    color: #0062cc;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+.login-form-2 .ForgetPwd {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-form-1 .ForgetPwd {
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+
+
+.btnSubmit{
+    width: 100%; margin-top: 10px; font-size:12px; padding:10px;   background-color: #6d1c1c !important;
+    font-family: 'bokra';
+   
+}
+
+.form-group .ForgetPwd{
+    font-size:13px;
+    color: #7f7f6b;
+ 
+    font-family: 'Cairo', sans-serif;
+}
+ 
+  .form-control{
+    font-family: 'Cairo', sans-serif;
+
+
+}
+
+.title-form{
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+
+
+
+}
+
+
+
+.li-navbar{
+
+    font-family: 'Cairo', sans-serif;
+
+
+}
