@@ -10,7 +10,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ProfileController extends Controller{
     public function show () {
         $user = auth()->user() ;
-        $user['payment_data'] = Crypt::decrypt($user->payment_data);
+        $user['payment_data'] = decrypt($user->payment_data);
         // dd($user->payment_data['owner_card_name']) ;
         return view('site.profile.show')
                     ->with('user' , $user);
@@ -52,7 +52,7 @@ class ProfileController extends Controller{
         }else {
             $data['signature_image'] = $user->signature_image ;
         }
-        $data ['payment_data'] = Crypt::encrypt($data ['card']);
+        $data ['payment_data'] = encrypt($data ['card']);
         unset($data ['card']) ;
         // dd('asdasd');
         $user->update($data) ;
