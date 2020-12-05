@@ -10,14 +10,14 @@ use RealRashid\SweetAlert\Facades\Alert;
 class ProfileController extends Controller{
     public function show () {
         $user = auth()->user() ;
-        $user['payment_data'] = decrypt($user->payment_data);
+        $user['payment_data'] = $user['payment_data'] ? decrypt($user->payment_data ) : [] ;
         // dd($user->payment_data['owner_card_name']) ;
         return view('site.profile.show')
                     ->with('user' , $user);
     }
     public function edit(){
         $user = auth()->user() ;
-        $user['payment_data'] = Crypt::decrypt($user->payment_data);
+        $user['payment_data'] = $user['payment_data'] ? decrypt($user->payment_data ) : [] ;
         return view('site.profile.edit')
                 ->with('user' , $user);
     }
