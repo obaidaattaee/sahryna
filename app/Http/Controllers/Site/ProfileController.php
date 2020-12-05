@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserPaymentData;
 use Illuminate\Support\Facades\Crypt;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller{
     public function show () {
@@ -56,7 +57,7 @@ class ProfileController extends Controller{
         // dd('asdasd');
         $user->update($data) ;
 
-        session()->flash('msg' , 's: تم تعديل بياناتك بنجاح ');
+        Alert::success('تم التعديل' ,'تم تعديل بياناتك بنجاح');
         return redirect(route('my.profile'));
 
     }
