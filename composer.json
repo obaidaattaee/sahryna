@@ -17,10 +17,10 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
         "realrashid/sweet-alert": "^3.2",
+        "barryvdh/laravel-debugbar": "^3.5",
         "santigarcor/laratrust": "^6.3"
     },
     "require-dev": {
-        "barryvdh/laravel-debugbar": "^3.5",
         "facade/ignition": "^2.5",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
