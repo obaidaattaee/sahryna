@@ -1,4 +1,37 @@
 
+.page-footer{
+
+    background-color: #c4c4a3;
+    border-top: 5px solid #6d1c1c;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.Title-Head{
+    color: #6d1c1c;
+    font-size: 25px;
+    font-family: 'Cairo', sans-serif;
+}
+
+
+.TextForFooter{
+    color: #fff;
+    font-weight: 500;
+    font-family: 'Cairo', sans-serif;
+}
+
+.Link{
+
+}
+
+.list-Link li a{
+    color: #6d1c1c;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'Cairo', sans-serif;
+}
+
+
 
 
 

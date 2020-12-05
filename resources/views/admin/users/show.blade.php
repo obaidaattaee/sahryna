@@ -102,7 +102,13 @@
                         <span >رقم الهاتف  : </span> {{ $user->phone}}
                     </div>
                     <div class="margin-top-20 profile-desc-link">
+                        <span >رقم الهاتف البديل  : </span> {{ $user->alternative_phone}}
+                    </div>
+                    <div class="margin-top-20 profile-desc-link">
                         <span >الرقم الوطني   : </span> {{ $user->person_id}}
+                    </div>
+                    <div class="margin-top-20 profile-desc-link">
+                        <span > صورة التوقيع</span><br> <img width="200px" src="{{ asset('user_images/public/'.$user->signature_image)}}" alt="">
                     </div>
 
                 </div>

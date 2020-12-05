@@ -13,9 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(100)->create();
         $this->call(RoleSeed::class);
         $this->call(AdminSeed::class);
+        \App\Models\User::factory(100)->create()->each( function ($user)  {
+            $user->syncRoles(['user']);
+        });
 
     }
 }

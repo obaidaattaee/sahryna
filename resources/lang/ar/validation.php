@@ -109,6 +109,13 @@ return [
         'string'  => 'يجب أن يحتوي النص :attribute على :size حروفٍ/حرفًا بالضبط.',
         'array'   => 'يجب أن يحتوي :attribute على :size عنصرٍ/عناصر بالضبط.',
     ],
+    'card'                 => [
+        'card_exp_month' => 'تاريخ انتهاء البطاقة',
+        'owner_card_name'    => 'اسم مالك البطاقة',
+        'card_number'  => 'رثم البطاقة',
+        'card_exp_year'   => 'تاريخ انتهاء البطاقة',
+        'card_code'   => 'رقم الكود على بطاقة',
+    ],
     'starts_with'          => 'يجب أن يبدأ :attribute بأحد القيم التالية: :values',
     'string'               => 'يجب أن يكون :attribute نصًا.',
     'timezone'             => 'يجب أن يكون :attribute نطاقًا زمنيًا صحيحًا.',
@@ -176,5 +183,6 @@ return [
         'time'                  => 'الوقت',
         'available'             => 'مُتاح',
         'size'                  => 'الحجم',
+        'card'                  => 'البطاقة',
     ],
 ];

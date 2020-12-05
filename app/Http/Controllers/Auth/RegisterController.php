@@ -56,7 +56,6 @@ class RegisterController extends Controller
             'person_id' => ['required', 'regex:/[0-9]{9}/', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'person_image' => 'avatar.png',
         ]);
     }
 
@@ -76,6 +75,7 @@ class RegisterController extends Controller
             'person_id' => $data['person_id'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'person_image' => 'avatar.png',
         ]);
         $user->attachRole('user');
         return $user ;

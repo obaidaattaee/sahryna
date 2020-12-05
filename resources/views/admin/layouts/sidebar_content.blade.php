@@ -20,7 +20,12 @@ active
              الغبر مفعلين</a>
         </li>
         <li>
-            <a href="index_3.html">
+            <a href="{{ route('users.deleted') }}">
+            <i class="icon-bulb"></i>
+              المحذوفين</a>
+        </li>
+        <li>
+        <a href="{{ route('users.create') }}">
             <i class="icon-graph"></i>
             اضافه مستخدم</a>
         </li>

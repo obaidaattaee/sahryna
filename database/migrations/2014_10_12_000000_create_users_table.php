@@ -22,10 +22,11 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique();
             $table->string('alternative_phone')->nullable();
             $table->boolean('active')->default(1);
-            $table->boolean('delete')->default(0);
+            $table->softDeletes();
             $table->string('person_id')->unique();
             $table->string('person_image')->nullable();
             $table->string('signature_image')->nullable();
+            $table->longText('payment_data')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

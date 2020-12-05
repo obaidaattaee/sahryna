@@ -92,14 +92,14 @@ License: You must have a valid license purchased only from themeforest(the above
 				<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
 				<li class="dropdown dropdown-user">
 					<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-					<img alt="" class="img-circle" src="{{ asset('assets/admin/layout/img/avatar3_small.jpg')}}"/>
+					<img alt="" class="img-circle" src="{{ asset('user_images/public/'.auth()->user()->person_image)}}"/>
 					<span class="username username-hide-on-mobile">
                         {{ ucwords(auth()->user()->name) }} </span>
 					<i class="fa fa-angle-down"></i>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
 						<li>
-							<a href="extra_profile.html">
+							<a href="{{ route('users.show' , ['user' => auth()->id()]) }}">
 							<i class="icon-user"></i> My Profile </a>
 						</li>
 						<li>

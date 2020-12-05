@@ -17,11 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('crypt' , function(){
-    dd( Crypt::encrypt('obaida') ) ;
-});
+    return view('site.home');
+
+})->name('main');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -33,6 +32,7 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin')->group(function(
     Route::get('users/{user}/change_status' ,"App\Http\Controllers\Admin\UserCntroller@changeStatus" )->name('users.change.status');
     Route::get('users/{user}/change_delete_status' ,"App\Http\Controllers\Admin\UserCntroller@changeDeleteStatus" )->name('users.change.delete.status');
     Route::get('users/users/inactive' ,"App\Http\Controllers\Admin\UserCntroller@inactiveUsers" )->name('users.inactive');
+    Route::get('users/users/deleted' ,"App\Http\Controllers\Admin\UserCntroller@deletedUsers" )->name('users.deleted');
     // end user routes
 
     // start roles routes
@@ -40,4 +40,10 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin')->group(function(
     Route::get('roles/{role}/delete' , 'App\Http\Controllers\Admin\RoleController@delete')->name('roles.destroy') ;
     // end roles routes
 
+});
+
+Route::namespace('App\Http\Controllers\Site')->group(function(){
+    Route::get('my/profile' , 'ProfileController@show')->name('my.profile');
+    Route::get('my/profile/edit' , 'ProfileController@edit')->name('my.profile.edit');
+    Route::post('my/profile/{user}/update' , 'ProfileController@update')->name('my.profile.update');
 });

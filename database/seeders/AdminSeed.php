@@ -20,9 +20,10 @@ class AdminSeed extends Seeder
             'phone' => '966123456789',
             'person_id' => "1234567890",
             'email' => "super_admin@mail.com",
+            'person_image' => 'avatar.png',
             'password' => bcrypt('1234567890'),
         ]);
-       
+
         $super_admin->attachRole('super_admin');
     }
 }

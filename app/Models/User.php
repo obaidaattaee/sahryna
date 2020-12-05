@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
@@ -12,14 +13,14 @@ class User extends Authenticatable
 {
     use LaratrustUserTrait;
     use HasFactory, Notifiable;
-
+use SoftDeletes ;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $guarded = [];
-
+    protected $date = ['delete_at'];
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -38,4 +39,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 }
