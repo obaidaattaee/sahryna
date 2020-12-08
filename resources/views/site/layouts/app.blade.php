@@ -91,7 +91,7 @@
                             </li>
 
                             <li class="nav-item active">
-                                <a class="nav-link a-navbar add-ads li-navbar" href="AddAdvertisement.html"  > اضف اعلانك <i class="fas fa-tag"></i> </a>
+                                <a class="nav-link a-navbar add-ads li-navbar" href="{{ route('advertismenets.create') }}"  > اضف اعلانك <i class="fas fa-tag"></i> </a>
                             </li>
 
                             <li class="nav-item active">

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,6 +19,11 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(100)->create()->each( function ($user)  {
             $user->syncRoles(['user']);
         });
+        Category::factory(10)->create() ;
+        $this->call(CitySeeder::class) ;
+        $this->call(AdvertisementType::class) ;
+        $this->call(DeliveryTimeSeeder::class) ;
+        $this->call(SubscriptionSeeder::class) ;
 
     }
 }

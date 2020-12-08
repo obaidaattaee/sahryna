@@ -40,10 +40,44 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin')->group(function(
     Route::get('roles/{role}/delete' , 'App\Http\Controllers\Admin\RoleController@delete')->name('roles.destroy') ;
     // end roles routes
 
+    // start categories routes
+    Route::resource('categories' , 'App\Http\Controllers\Admin\CategoryController')->except('show , destroy') ;
+    Route::get('categories/{category}/delete' , 'App\Http\Controllers\Admin\CategoryController@delete')->name('categoies.destroy') ;
+    Route::get('categories/{category}/status' , 'App\Http\Controllers\Admin\CategoryController@changeStatus')->name('categories.cahnge.states') ;
+    // end categories routes
+
+    // start categories routes
+    Route::resource('advertisement_types' , 'App\Http\Controllers\Admin\AdvertisementTypeController')->except('show , destroy') ;
+    Route::get('advertisement_types/{advertisement_type}/delete' , 'App\Http\Controllers\Admin\AdvertisementTypeController@delete')->name('advertisement_types.destroy') ;
+    Route::get('advertisement_types/{advertisement_type}/status' , 'App\Http\Controllers\Admin\AdvertisementTypeController@changeStatus')->name('advertisement_types.cahnge.states') ;
+    // end categories routes
+
+
+    // start cities routes
+    Route::resource('cities' , 'App\Http\Controllers\Admin\CityController')->except('show , destroy') ;
+    Route::get('cities/{city}/delete' , 'App\Http\Controllers\Admin\CityController@delete')->name('cities.destroy') ;
+    Route::get('cities/{city}/status' , 'App\Http\Controllers\Admin\CityController@changeStatus')->name('cities.cahnge.states') ;
+    // end cities routes
+
+    // start delivery_time routes
+    Route::resource('delivery_times' , 'App\Http\Controllers\Admin\DeleveryTimeController')->except('show , destroy') ;
+    Route::get('delivery_times/{delivery_time}/delete' , 'App\Http\Controllers\Admin\DeleveryTimeController@delete')->name('delivery_times.destroy') ;
+    Route::get('delivery_times/{delivery_time}/status' , 'App\Http\Controllers\Admin\DeleveryTimeController@changeStatus')->name('delivery_times.cahnge.states') ;
+    // end delivery_time routes
+
+    // start delivery_time routes
+    Route::resource('subscriptions' , 'App\Http\Controllers\Admin\SubscriptionController')->except('show , destroy') ;
+    Route::get('subscriptions/{subscription}/delete' , 'App\Http\Controllers\Admin\SubscriptionController@delete')->name('subscriptions.destroy') ;
+    Route::get('subscriptions/{subscription}/status' , 'App\Http\Controllers\Admin\SubscriptionController@changeStatus')->name('subscriptions.cahnge.states') ;
+    // end delivery_time routes
 });
 
 Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('my/profile' , 'ProfileController@show')->name('my.profile');
     Route::get('my/profile/edit' , 'ProfileController@edit')->name('my.profile.edit');
     Route::post('my/profile/{user}/update' , 'ProfileController@update')->name('my.profile.update');
+
+    Route::middleware('auth')->group(function (){
+        Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
+    });
 });

@@ -17,10 +17,23 @@ class CreateAdvertisementsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->integer('department_id');
+            $table->integer('category_id');
             $table->integer('city_id');
-            $table->integer('user_id');
-            $table->float('price');
+            $table->string('phone');
+            $table->boolean('distribute_cost');
+            $table->float('cost');
+            $table->float('retail_price');
+            $table->float('wholesale_price');
+            $table->integer('number_of_partners');
+            $table->integer('subscription_id');
+            $table->json('images');
+            $table->string('addres');
+            $table->integer('delivery_time_id');
+            $table->enum( 'type_of_price', ['wholesale' , 'retail']);
+            $table->integer('advertisement_type_id');
+            $table->timestamp('publish_date')->nullable() ;
+            $table->timestamp('end_publish_date')->nullable() ;
+            $table->softDeletes();
             $table->timestamps();
         });
     }
