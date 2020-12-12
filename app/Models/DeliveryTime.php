@@ -9,6 +9,6 @@ class DeliveryTime extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'time_day' , 'active' ,
+        'time_day' , 'description', 'active' ,
     ];
 }

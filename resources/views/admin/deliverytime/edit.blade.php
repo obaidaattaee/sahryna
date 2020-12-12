@@ -22,6 +22,12 @@
                             <label for="form_control_1">المدة بالايام </label>
 
                         </div>
+                        <div class="form-body">
+                            <div class="form-group form-md-line-input">
+                                <input type="text" class="form-control" name="description" value="{{ old('description') ?? $time->description ?? '' }}" id="form_control_1" placeholder="الوصف">
+                                <label for="form_control_1">الوصف  </label>
+
+                            </div>
 
                     <div class="form-group form-md-line-input">
                         <label class="col-md-2 control-label" for="form_control_1"> الحالة </label>

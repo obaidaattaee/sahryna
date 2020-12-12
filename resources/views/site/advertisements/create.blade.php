@@ -29,8 +29,7 @@
             <div class="col-md-8">
 
 
-
-
+@include('admin.layouts.msg')
 
                 <div class=" title-foraddADS">
                     إضافة الإعلان
@@ -38,28 +37,36 @@
                 </div>
 
 
-                <form class="Form-AddADS">
-
+                <form class="Form-AddADS" enctype="multipart/form-data" action="{{ route('advertismenets.store')}}" method="post">
+                    @csrf
+                    @method('POST')
+                    @error('title')
+                    <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                    @enderror
                     <div class="form-group">
                         <label class="Label-AddADS" for="ProductName"> اسم المنتج  </label>
 
-                        <input type="text" class="form-control inputs-AddADS ProductName DefaultForm" id="ProductName" placeholder="أدرج عنوانا موجزا يصف إعلانك بشكل دقيق.">
+                    <input type="text" name="title" required value="{{ old('title') ?? $adv->title ?? ""}}" class="form-control inputs-AddADS ProductName DefaultForm" id="ProductName" placeholder="أدرج عنوانا موجزا يصف إعلانك بشكل دقيق.">
                     </div>
-
+                    @error('description')
+                    <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+    @enderror
                     <div class="form-group">
                         <label class="Label-AddADS ProductSec" for="ProductDesc1"> وصف الإعلان  </label>
-                        <textarea class="form-control inputs-AddADS textareaDes DefaultFormTextArea" id="ProductDesc1" placeholder="أدرج وصفا مفصّلا ودقيقا لإعلانك" rows="4"></textarea>
+
+                        <textarea name="description" required class="form-control inputs-AddADS textareaDes DefaultFormTextArea" id="ProductDesc1" placeholder="أدرج وصفا مفصّلا ودقيقا لإعلانك" rows="4">{{ old('description') ?? $adv->description ?? ""}}</textarea>
                     </div>
 
-
+                    @error('category_id')
+                    <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+    @enderror
                     <div class="form-group">
                         <label class="Label-AddADS Productsection" for="Productsection"> اختر قسم المنتج </label>
-                        <select id="ProductDesc2" name="Section" class="form-control selectpicker inputs-AddADS Productsection" title=" اختر  القسم   ">
 
-                            <option onclick="GetProperty()">عقارات</option>
-                            <option onclick="GetCars()">مركبات</option>
-                            <option onclick="GetHardware()">اجهزة</option>
-                            <option onclick="GetCars()">مبيعات متنوعة</option>
+                        <select id="ProductDesc2" required name="category_id" class="form-control selectpicker inputs-AddADS Productsection" title=" اختر  القسم   ">
+                            @foreach ($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? "selected" : "e" }}>{{ $category->title }}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -77,18 +84,23 @@
 
 
                     <div class="row">
+
                         <div class="col">
-                            <input type="number" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="ادخل رقم الهاتف">
+                            @error('phone')
+                                <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                            @enderror
+                            <input type="number" required name="phone" value="{{ old('phone') ?? $adv->phone ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="ادخل رقم الهاتف">
                         </div>
                         <div class="col">
-                            <select id="ProductDesc2" name="ProductDesc2" class="form-control selectpicker   inputs-AddADS ProductDesc1" title="ادخل المدينة">
-                                <option>الرياض</option>
-                                <option>مكة المكرمة</option>
-                                <option>الطائف</option>
-                                <option>الخبر</option>
-                                <option>الأحساء</option>
-                                <option>جدة </option>
-                                <option>تبوك </option>
+                            @error('city_id')
+                                <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                            @enderror
+                            <select id="ProductDesc2" required name="city_id" class="form-control selectpicker   inputs-AddADS ProductDesc1" title="ادخل المدينة">
+                                <option value="">قم باختيار المدينه</option>
+                                @foreach ($cities as $city)
+                                <option value="{{ $city->id }}" {{ old('city_id') == $city->id ? "selected" : "" }}>{{ $city->title }}</option>
+                                @endforeach
+
                             </select>
                         </div>
                     </div>
@@ -100,7 +112,7 @@
                                 <label class="form-check-label check-no1" for="defaultCheck1">
                                     إضافة تكاليفٌ ومصاريفٌ الشراء والتوصيلٌ لتتفرق على الحصص
                                 </label>
-                                <input class="form-check-input form-control-md DefaultForm" type="checkbox" value="" id="defaultCheck1">
+                                <input class="form-check-input form-control-md DefaultForm" value="{{ old('distribute_cost') ?? $adv->distribute_cost ?? ""}}" type="checkbox" name="distribute_cost" id="defaultCheck1">
 
                             </div>
                         </div>
@@ -108,67 +120,58 @@
                     <br />
                     <div class="row">
                         <div class="col">
-                            <input type="number" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="ادخل سعر التكاليف">
+                            @error('cost')
+                            <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+            @enderror
+                            <input type="number" required class="form-control inputs-AddADS DefaultForm"  value="{{ old('cost') ?? $adv->cost ?? ""}}" name="cost" id="exampleFormControlInput1" placeholder="ادخل سعر التكاليف">
                         </div>
                     </div>
                     <br />
                     <div class="row">
                         <div class="col">
-                            <input type="number" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="عدد الشركاء المطلوب">
+                            @error('number_of_partners')
+                            <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+            @enderror
+                            <input type="number" required name="number_of_partners" value="{{ old('number_of_partners') ?? $adv->number_of_partners ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="عدد الشركاء المطلوب">
                         </div>
 
                         <div class="col">
-                            <input type="number" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="السعر مفرق">
+                            @error('retail_price')
+                            <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+            @enderror
+                            <input type="number" required name="retail_price" value="{{ old('retail_price') ?? $adv->retail_price ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="السعر مفرق">
                         </div>
 
                         <div class="col">
-                            <input type="number" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="السعر بالجملة ">
+                            @error('wholesale_price')
+                            <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+            @enderror
+                            <input type="number" required name="wholesale_price" value="{{ old('wholesale_price') ?? $adv->wholesale_price ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="السعر بالجملة ">
                         </div>
                     </div>
                     <br />
                     <div class="row" style="margin-right: -50px;">
                         <div class="col">
-
+                            @error('subscription_id')
+                            <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+            @enderror
                             <ol class="list-unstyled ol-List-Item"  >
                                 <li class="ol-list">
-                                    <label class="form-check-label label-checkbox1" for="gridRadios1" >مدة الاعلان</label>
+                                    <label class="form-check-label label-checkbox1" >مدة الاعلان</label>
 
                                 </li>
+                                @foreach ($subscriptions as $index => $subscription)
+                                {{-- {{dd($subscription) }} --}}
                                 <li class="ol-list" style="    margin-right: 12px;">
-                                    <input class="form-check-input " type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                                    <input class="form-check-input " type="radio" onclick="event.preventDefault; changeSubscriptionPrice({{$subscription->price}} , '{{$subscription->title}}')" name="subscription_id" id="gridRadios{{ $index }}" value="{{ $subscription->id }}" {{ $index == 0 ? "checked" : "" }}>
 
-                                    <label class="form-check-label label-checkbox2" for="gridRadios1"  >
-                                        ثلاثة ايام
+                                    <label class="form-check-label label-checkbox2" for="gridRadios{{$index}}"  >
+                                        {{ $subscription->description }}
                                     </label>
 
                                 </li>
+                                @endforeach
 
-                                <li class="ol-list">
-                                    <input class="form-check-input " type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-
-                                    <label class="form-check-label label-checkbox3" for="gridRadios1"   >
-                                        خمسة ايام
-                                    </label>
-
-                                </li>
-                                <li class="ol-list">
-                                    <input class="form-check-input " type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-
-                                    <label class="form-check-label label-checkbox4" for="gridRadios1"  >
-                                        اسبوع
-                                    </label>
-
-                                </li>
-
-
-                                <li class="ol-list">
-                                    <input class="form-check-input " type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-
-                                    <label class="form-check-label label-checkbox5" for="gridRadios1"  >
-                                        اسبوعين
-                                    </label>
-
-                                </li>
                             </ol>
                         </div>
 
@@ -180,18 +183,21 @@
 
 
                     <br />
-                    <div class="form-group" style="margin-bottom:25px">
-                        <a href="#" class="form-control inputs-AddADS   Pay-ADS" id="inputs-AddADS">ادفع قيمة الاعلان وهي 5دولار لمدة 5 ايام</a>
+                    <div class="form-group d-none" id="checkout" style="margin-bottom:25px">
+                        <a href="#" class="form-control inputs-AddADS   Pay-ADS" id="checkout-price">ادفع قيمة الاعلان وهي 5دولار لمدة 5 ايام</a>
                     </div>
 
                     <div class="row">
                         <div class="col">
+                            @error('imagesFiles')
+                                <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                            @enderror
                             <div class="form-group">
 
                                 <div class="input-img" style="padding: 20px;background-color: #e5e5ca;">
                                     <label for="exampleFormControlFile1" class="Add-img">إضافة صور للمنتج</label>
 
-                                    <input type="file" multiple class="form-control-file DefaultForm" id="exampleFormControlFile1">
+                                    <input required type="file" multiple name="imagesFiles[]" class="form-control-file DefaultForm" id="exampleFormControlFile1">
 
                                 </div>
                             </div>
@@ -203,9 +209,9 @@
                      </div>
 
 
-
-
-
+                     @error('address')
+                     <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+     @enderror
                     <div class="row">
                         <div class="col-md-12">
                             <!--Card-->
@@ -224,7 +230,7 @@
                                         <iframe src="https://maps.google.com/maps?q=new%20delphi&t=&z=13&ie=UTF8&iwloc=&output=embed"
                                                 frameborder="0" style="border:0" allowfullscreen></iframe>
                                     </div> --}}
-                                    <input type="text" name="adress" id="pac-input" name="address">
+                                    <input type="text" name="address" required value="{{ old('address') ?? $adv->address ?? ""}}" id="pac-input" name="address">
                                     <div id="map"  style="height: 400px">
                                     </div>
                                 </div>
@@ -249,31 +255,15 @@
 
 
 
-
+                    @error('delivery_time_id')
+                    <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                @enderror
                     <div class="row">
                         <div class="col">
-                            <select id="ProductDesc4" name="ProductDesc2" class="form-control selectpicker   inputs-AddADS ProductDesc4" title="حدد موعد تسليم المنتج للشركاء">
-                                <option>خلال 2 ايام من انتهاء الإعلان واكتمال المشاركات </option>
-                                <option>خلال 5ايام من انتهاء الإعلان واكتمال المشاركات </option>
-                                <option>خلال 7ايام من انتهاء الإعلان واكتمال المشاركات </option>
-                            </select>
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col">
-                            <select id="ProductDesc5" name="ProductDesc5" class="form-control selectpicker   inputs-AddADS ProductDesc5" title="نوع الإعلان">
-                                <option>عروض موسمية  </option>
-                                <option>عروض يومية  </option>
-                                <option>   طلب</option>
-                                <option> عرض </option>
-                            </select>
-                        </div>
-                        <div class="col">
-                            <select id="ProductDesc6" name="ProductDesc6" class="form-control selectpicker   inputs-AddADS ProductDesc6" title="نوع سعر المنتج">
-                                <option>سعر جملة  </option>
-                                <option>سعر مفرق  </option>
-                                <option> مفرق  </option>
+                            <select id="ProductDesc4" required name="delivery_time_id" class="form-control selectpicker   inputs-AddADS ProductDesc4" title="حدد موعد تسليم المنتج للشركاء">
+                               @foreach ($deleviry_times as $deleviry_time)
+                               <option value="{{ $deleviry_time->id }}" {{ old('delivery_time_id') == $deleviry_time->id ?? $adv->address ? "checked" : ""}}>{{ $deleviry_time->description }} </option>
+                               @endforeach
                             </select>
                         </div>
                     </div>
@@ -281,12 +271,46 @@
                     <div class="row">
 
                         <div class="col">
-                            <label class="Label-AddADS" for="exampleFormControlInput1">  موعد انتهاء اعلانك </label>
-                            <input type="date" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput6" placeholder="ادخل سعر التكاليف">
+                            @error('advertisement_type_id')
+                                <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                            @enderror
+
+                             <select id="ProductDesc5" required name="advertisement_type_id" class="form-control selectpicker   inputs-AddADS ProductDesc5" title="نوع الإعلان">
+                                @foreach ($advertisement_types as $type)
+                                    <option value="{{ $type->id }}" {{ old('advertisement_type_id') == $type->id  ? "selected" : ""}}>{{ $type->title }}</option>
+                                @endforeach
+
+                            </select>
                         </div>
+
+
                         <div class="col">
-                            <label class="Label-AddADS" for="exampleFormControlInput1"> تحديد موعد نشر اعلانك   </label>
-                            <input type="date" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput5" placeholder="ادخل سعر التكاليف">
+                            @error('type_of_price')
+                                <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                            @enderror
+                            <select id="ProductDesc6" required name="type_of_price" class="form-control selectpicker   inputs-AddADS ProductDesc6" title="نوع سعر المنتج">
+                                @foreach (['wholesale' => 'سعر بالجملة' , 'retail' => 'سعر مفرق'] as $key => $value)
+                                <option value="{{ $key }}" {{ old('type_of_price') == $key ? "checked" : ""}}>{{ $value }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    @error('publish_date')
+                                <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                            @enderror
+                    <div class="row">
+
+
+                        <div class="col">
+                             <label class="Label-AddADS" for="end_publish_date">  موعد انتهاء اعلانك </label>
+                            <input type="date" name="end_publish_date" value="{{ old('end_publish_date') ?? $adv->end_publish_date ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="end_publish_date" placeholder="ادخل سعر التكاليف">
+                        </div>
+
+                        <div class="col">
+
+                            <label class="Label-AddADS" for="publish_date"> تحديد موعد نشر اعلانك   </label>
+                            <input type="date" required name="publish_date" value="{{ old('publish_date') ?? $adv->publish_date ?? ""}}" onchange="event.preventDefault ; changeEndPublishDate()" class="form-control inputs-AddADS DefaultForm" id="publish_date" placeholder="ادخل سعر التكاليف">
                         </div>
                     </div>
                     <br />
@@ -299,6 +323,10 @@
                     <div class="form-group">
                         <p   class="Noties" style="text-align: end;margin-top: 10px;font-family: 'Cairo', sans-serif;color: #6d1c1c;font-weight: 500;"> ملاحظة : لن يتم نشر اعلانك إلا بعد عملية سداد قيمة الاعلان </a>
                     </div>
+
+
+                    <input type="hidden" name="lat" id="latitude">
+                    <input type="hidden" name="long" id="longitude">
                 </form>
             </div>
             <div class="col-md-2"></div>
@@ -366,7 +394,7 @@
             });
         } else {
             // Browser doesn't support Geolocation
-            console.log('dsdsdsdsddsd');
+            console.log('Browser doesn\'t support Geolocation');
             handleLocationError(false, infoWindow, map.getCenter());
         }
         var geocoder = new google.maps.Geocoder();
@@ -503,6 +531,28 @@
         var Lng  = trainindIdArray[1];
         $("#latitude").val(lat);
         $("#longitude").val(Lng);
+    }
+
+</script>
+<script>
+     function changeSubscriptionPrice(price , title){
+        if (price == 0 ){
+            document.getElementById('checkout').classList.add('d-none') ;
+        }
+        else{
+            document.getElementById('checkout').classList.remove('d-none') ;
+            document.getElementById('checkout-price').innerHTML = ' ادفع قيمة الاعلان و هي  ' + price + ' ريال لمدة  ' + title;
+        }
+    }
+    function changeEndPublishDate(){
+        console.log('change end publish date ');
+        var publish_date = document.getElementById('publish_date').value;
+        var date = new Date(publish_date) ;
+        date.setDate(date.getDate() + 7) ;
+        date = date.toISOString().slice(0,10).split('-') ;
+        console.log(date[0]+"-"+(date[2])+"-"+date[1]);
+        document.getElementById('end_publish_date').setAttribute("value" , date[0]+"-"+(date[2])+"-"+date[1] )  ;
+
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjAGp24IL8hsAfS5-f004Pc2cWJDn5etM&libraries=places&callback=initAutocomplete&language=ar&region=EGasync defer"></script>

@@ -32,6 +32,29 @@ active
     </ul>
 </li>
 
+<li class="start @if (substr(Route::current()->getName() , 0 ,6 ) == "cities" )
+    active
+    @endif">
+
+        <a href="javascript:;">
+            <i class="icon-home"></i>
+        <span class="title">ادارة  الاعلانات</span>
+        <span class="arrow "></span>
+
+        </a>
+        <ul class="sub-menu">
+            <li >
+            <a href="{{ route('cities.index') }} ">
+                <i class="icon-bar-chart"></i>
+                عرض الاعلانات</a>
+            </li>
+            <li >
+                <a href="{{ route('cities.create') }} ">
+                    <i class="icon-bar-chart"></i>
+                    اضافة جديد </a>
+                </li>
+        </ul>
+    </li>
 <li class="start @if (substr(Route::current()->getName() , 0 ,10 ) == "categories" )
     active
     @endif">
@@ -120,6 +143,29 @@ active
                 </li>
                 <li >
                     <a href="{{ route('advertisement_types.create') }} ">
+                        <i class="icon-bar-chart"></i>
+                        اضافة جديد </a>
+                    </li>
+            </ul>
+        </li>
+    <li class="start @if (substr(Route::current()->getName() , 0 ,14 ) == "delivery_times" )
+        active
+        @endif">
+
+            <a href="javascript:;">
+                <i class="icon-home"></i>
+            <span class="title">ادارة   وقت تسليم المنتجات</span>
+            <span class="arrow "></span>
+
+            </a>
+            <ul class="sub-menu">
+                <li >
+                <a href="{{ route('delivery_times.index') }} ">
+                    <i class="icon-bar-chart"></i>
+                    عرض وقت تسليم المنتجات </a>
+                </li>
+                <li >
+                    <a href="{{ route('delivery_times.create') }} ">
                         <i class="icon-bar-chart"></i>
                         اضافة جديد </a>
                     </li>

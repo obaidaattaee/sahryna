@@ -22,6 +22,9 @@
                     <th>
                          مدة التوصيل بالايام
                     </th>
+                    <th>
+                        الوصف
+                   </th>
                    <th>
                         الحالة
                    </th>
@@ -34,6 +37,7 @@
                     {{-- {{ dd($role['permissions']) }} --}}
                         <tr>
                             <td>{{ $time->time_day }}</td>
+                            <td>{{ $time->description }}</td>
                             <td>
                             <a href="{{ route('delivery_times.cahnge.states' , ['delivery_time' => $time->id])}}" class="btn btn-{{ $time->active == 1 ? "danger" : "info" }} btn-sm">{{ $time->active == 1 ? "ايقاف" : "تفعيل" }}</a>
                             </td>

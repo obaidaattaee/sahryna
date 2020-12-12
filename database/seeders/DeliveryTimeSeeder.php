@@ -18,16 +18,19 @@ class DeliveryTimeSeeder extends Seeder
             [
                 'time_day' => 2 ,
                 'active' => 1,
+                'description' => "المدة" ,
             ],
             [
                 'time_day' => 6 ,
                 'active' => 1,
+                'description' => "المدة" ,
             ],
             [
                 'time_day' => 10 ,
                 'active' => 1,
+                'description' => "المدة" ,
             ],
-           
+
         ]);
     }
 }

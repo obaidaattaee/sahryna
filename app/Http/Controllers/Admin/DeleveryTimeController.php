@@ -19,6 +19,7 @@ class DeleveryTimeController extends Controller{
         $data = request()->validate([
             'time_day' => ['required' , 'integer'],
             'active' => 'required' ,
+            'description' => 'required' ,
         ]);
         DeliveryTime::create($data);
         session()->flash('msg' , 's: تم اضافة مدة التوصيل بنجاح') ;
@@ -49,6 +50,7 @@ class DeleveryTimeController extends Controller{
         $data = request()->validate([
             'time_day' => 'required' ,
             'active' => 'required' ,
+            'description' => 'required' ,
         ]);
         $delivery_time->update($data);
         session()->flash('msg' , 's: تم تعديل مدة التوصيل بنجاح') ;

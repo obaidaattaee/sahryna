@@ -54,7 +54,7 @@ class ProfileController extends Controller{
         }
         $data ['payment_data'] = encrypt($data ['card']);
         unset($data ['card']) ;
-        // dd('asdasd');
+
         $user->update($data) ;
 
         Alert::success('تم التعديل' ,'تم تعديل بياناتك بنجاح');

@@ -76,8 +76,9 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('my/profile' , 'ProfileController@show')->name('my.profile');
     Route::get('my/profile/edit' , 'ProfileController@edit')->name('my.profile.edit');
     Route::post('my/profile/{user}/update' , 'ProfileController@update')->name('my.profile.update');
-
+    
     Route::middleware('auth')->group(function (){
         Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
+        Route::post('advertisements/create' , 'AdvertismenetController@store')->name('advertismenets.store');
     });
 });
