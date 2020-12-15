@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Advertisement;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -20,6 +22,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return redirect(route('main'));
+        $advertisements = Advertisement::where('active' , 1)
+                            ->where('end_publish_date' , '>' , Carbon::now())
+                            ->with(['city'])
+                            ->paginate(40);
+        // dd($advertisements) ;
+        return view('site.home')
+                ->with('advertisements' , $advertisements);
     }
 }

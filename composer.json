@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "barryvdh/laravel-debugbar": "^3.5",
+        "bawes/myfatoorah-php": "^1.0",
         "fakerphp/faker": "^1.9.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -17,7 +19,6 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.1",
         "realrashid/sweet-alert": "^3.2",
-        "barryvdh/laravel-debugbar": "^3.5",
         "santigarcor/laratrust": "^6.3"
     },
     "require-dev": {

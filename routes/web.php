@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BaseAdminControllers;
+use App\Models\Advertisement;
 use Illuminate\Support\Facades\Auth ;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('site.home');
+    return redirect(route('home'));
 
 })->name('main');
 
@@ -59,6 +60,16 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin')->group(function(
     Route::get('cities/{city}/status' , 'App\Http\Controllers\Admin\CityController@changeStatus')->name('cities.cahnge.states') ;
     // end cities routes
 
+    // start settings routes
+    Route::get('settings' , 'App\Http\Controllers\Admin\SettingsController@create')->name('admin.settings');
+    Route::get('settings/images' , 'App\Http\Controllers\Admin\SettingsController@images')->name('admin.settings.images');
+    Route::post('settings/images/create' , 'App\Http\Controllers\Admin\SettingsController@insertImage')->name('admin.settings.image.insert');
+    Route::get('settings/images/delete' , 'App\Http\Controllers\Admin\SettingsController@deleteImage')->name('admin.settings.image.delete');
+    Route::get('settings/social' , 'App\Http\Controllers\Admin\SettingsController@social')->name('admin.settings.social');
+    Route::post('settings' , 'App\Http\Controllers\Admin\SettingsController@store')->name('admin.settings.store');
+    Route::post('settings/update' , 'App\Http\Controllers\Admin\SettingsController@update')->name('admin.settings.update');
+
+    // end settings routes
     // start delivery_time routes
     Route::resource('delivery_times' , 'App\Http\Controllers\Admin\DeleveryTimeController')->except('show , destroy') ;
     Route::get('delivery_times/{delivery_time}/delete' , 'App\Http\Controllers\Admin\DeleveryTimeController@delete')->name('delivery_times.destroy') ;
@@ -70,13 +81,24 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin')->group(function(
     Route::get('subscriptions/{subscription}/delete' , 'App\Http\Controllers\Admin\SubscriptionController@delete')->name('subscriptions.destroy') ;
     Route::get('subscriptions/{subscription}/status' , 'App\Http\Controllers\Admin\SubscriptionController@changeStatus')->name('subscriptions.cahnge.states') ;
     // end delivery_time routes
+     // start delivery_time routes
+     Route::resource('advertisements' , 'App\Http\Controllers\Admin\AdvertisementController')->except('destroy') ;
+     Route::get('advertisements/{advertisement}/delete' , 'App\Http\Controllers\Admin\AdvertisementController@delete')->name('advertisements.destroy') ;
+     Route::get('advertisements/{advertisement}/status' , 'App\Http\Controllers\Admin\AdvertisementController@changeStatus')->name('advertisements.cahnge.states') ;
+     // end delivery_time routes
 });
 
 Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('my/profile' , 'ProfileController@show')->name('my.profile');
+    Route::get('user/{user}' , 'ProfileController@userShow')->name('site.user.show');
     Route::get('my/profile/edit' , 'ProfileController@edit')->name('my.profile.edit');
     Route::post('my/profile/{user}/update' , 'ProfileController@update')->name('my.profile.update');
-    
+    Route::get('advertisements/show/{advertisement}/{title}' , 'AdvertismenetController@show')->name('site.advertismenets.show');
+    // Route::get('active_all' , function () {
+    //     Advertisement::query()->update([
+    //         'active' => 1
+    //     ]);
+    // });
     Route::middleware('auth')->group(function (){
         Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
         Route::post('advertisements/create' , 'AdvertismenetController@store')->name('advertismenets.store');

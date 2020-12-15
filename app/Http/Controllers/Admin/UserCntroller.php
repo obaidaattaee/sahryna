@@ -87,8 +87,8 @@ class UserCntroller extends Controller{
         $data =  request()->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'regex:/(966)[0-9]{9}/', 'max:255' , 'unique:users,phone,'.$user->id.',id'],
-            'alternative_phone' => ['required', 'regex:/(966)[0-9]{9}/', 'max:255' , 'unique:users,alternative_phone,'.$user->id.',id'],
+            'phone' => ['required', 'regex:/(966)[0-9]{7}/', 'max:255' , 'unique:users,phone,'.$user->id.',id'],
+            'alternative_phone' => ['required', 'regex:/(966)[0-9]{7}/', 'max:255' , 'unique:users,alternative_phone,'.$user->id.',id'],
             'person_id' => ['required', 'regex:/[0-9]{9}/', 'max:255' , 'unique:users,person_id,'.$user->id.',id'],
         ]);
         if ((request()->file) != null) {
@@ -120,8 +120,8 @@ class UserCntroller extends Controller{
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email' , 'unique:users'],
-            'phone' => ['required', 'regex:/(966)[0-9]{9}/', 'max:255' , 'unique:users'],
-            'alternative_phone' => ['required', 'regex:/(966)[0-9]{9}/', 'max:255' , 'unique:users'],
+            'phone' => ['required', 'regex:/(966)[0-9]{7}/', 'max:255' , 'unique:users'],
+            'alternative_phone' => ['required', 'regex:/(966)[0-9]{7}/', 'max:255' , 'unique:users'],
             'person_id' => ['required', 'regex:/[0-9]{9}/', 'max:255' , 'unique:users'],
             'password' => ['min:8', 'confirmed'],
         ]);

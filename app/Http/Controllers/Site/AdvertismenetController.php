@@ -9,8 +9,10 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\DeliveryTime;
 use App\Models\Subscription;
+use bawes\myfatoorah\MyFatoorah;
 use Carbon\Carbon;
 use RealRashid\SweetAlert\Facades\Alert;
+
 
 class AdvertismenetController extends Controller{
     public function create(){
@@ -39,16 +41,33 @@ class AdvertismenetController extends Controller{
         $images = [] ;
         if($request["imagesFiles"] != null){
             foreach($request["imagesFiles"] as $image){
-                 array_push($images , basename($image->store('advertisement' , 'public'))) ;
+                 array_push($images , basename($image->store('images' , 'public'))) ;
             }
         }
         $data['images'] = json_encode($images) ;
         unset($data ['imagesFiles']) ;
-
+        $data['user_id'] = auth()->id() ;
         $data['end_publish_date'] = Carbon::parse($data['publish_date'])->addDays(7)->toDateString() ;
         // dd($data);
-        Advertisement::create($data);
-        Alert::success('تم اضافة اعلانك بنجاح') ;
-        return redirect(route('main'));
+        $advertisement = Advertisement::create($data);
+        if($advertisement->subscription->price != 0){
+            return 'will redirect to payment page' ;
+        }else{
+            $advertisement->active = 1 ;
+            $advertisement->save();
+            Alert::alert('تم اضافة اعلانك بنجاح') ;
+            return redirect(route('main'));
+        }
+
+
+    }
+    public function show(Advertisement $advertisement){
+        if(!$advertisement->end_publish_date >= Carbon::now() || !$advertisement->active){
+            Alert::warning('هذا الاعلان تم ايقافه');
+        }
+        // dd($advertisement);
+        // dd(Carbon::parse($advertisement->end_publish_date)->diffForHumans());
+        return view('site.advertisements.show')
+                ->with('advertisement' , $advertisement) ;
     }
 }

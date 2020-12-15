@@ -10,4 +10,8 @@ class AdvertisementType extends Model
     use HasFactory;
 
     protected $guarded = [] ;
+
+    public function advertisements(){
+        return $this->hasMany(Advertisement::class , 'id' , 'advertisement_type_id');
+    }
 }

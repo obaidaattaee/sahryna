@@ -44,12 +44,12 @@ active
         </a>
         <ul class="sub-menu">
             <li >
-            <a href="{{ route('cities.index') }} ">
+            <a href="{{ route('advertisements.index') }} ">
                 <i class="icon-bar-chart"></i>
                 عرض الاعلانات</a>
             </li>
             <li >
-                <a href="{{ route('cities.create') }} ">
+                <a href="{{ route('advertisements.create') }} ">
                     <i class="icon-bar-chart"></i>
                     اضافة جديد </a>
                 </li>
@@ -171,6 +171,35 @@ active
                     </li>
             </ul>
         </li>
+
+<li class="start @if (substr(Route::current()->getName() , 0 ,14 ) == "admin.settings" )
+    active
+    @endif">
+
+        <a href="javascript:;">
+            <i class="icon-home"></i>
+        <span class="title">اعدادات الموقع</span>
+        <span class="arrow "></span>
+
+        </a>
+        <ul class="sub-menu">
+            <li >
+            <a href="{{ route('admin.settings') }} ">
+                <i class="icon-bar-chart"></i>
+                الاعدادات </a>
+            </li>
+            <li >
+                <a href="{{ route('admin.settings.images') }} ">
+                    <i class="icon-bar-chart"></i>
+                    الصور الترحيبية </a>
+            </li>
+            <li >
+                <a href="{{ route('admin.settings.social') }} ">
+                    <i class="icon-bar-chart"></i>
+                    التواصل الاجتماعي  </a>
+            </li>
+        </ul>
+    </li>
 <li class="last @if (substr(Route::current()->getName() , 0 ,5 ) == "roles")
 active
 @endif"">

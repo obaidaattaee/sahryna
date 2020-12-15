@@ -11,4 +11,7 @@ class DeliveryTime extends Model
     protected $fillable = [
         'time_day' , 'description', 'active' ,
     ];
+    public function advertisements(){
+        return $this->hasMany(Advertisement::class , 'id' , 'delivery_time_id');
+    }
 }

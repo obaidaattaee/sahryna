@@ -19,12 +19,13 @@ class CreateAdvertisementsTable extends Migration
             $table->text('description') ;
             $table->foreignId('category_id')->constrained('categories') ;
             $table->foreignId('city_id')->constrained('cities') ;
+            $table->foreignId('user_id')->constrained('users') ;
             $table->string('phone');
             $table->boolean('distribute_cost')->default(0);
-            $table->decimal('cost');
+            $table->double('cost');
             $table->integer('number_of_partners');
-            $table->decimal('retail_price');
-            $table->decimal('wholesale_price');
+            $table->double('retail_price');
+            $table->double('wholesale_price');
             $table->foreignId('subscription_id')->constrained('subscriptions');
             $table->json('images');
             $table->string('address');

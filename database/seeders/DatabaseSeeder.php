@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
         $this->call(AdvertisementType::class) ;
         $this->call(DeliveryTimeSeeder::class) ;
         $this->call(SubscriptionSeeder::class) ;
+        $this->call(AdvertisementSee::class) ;
+        $this->call(SettingsSeeder::class) ;
 
     }
 }

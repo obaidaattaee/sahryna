@@ -10,5 +10,7 @@ class Subscription extends Model
     use HasFactory;
 
     protected $guarded = [] ;
-    
+    public function advertisements(){
+        return $this->hasMany(Advertisement::class , 'id' , 'subscription_id');
+    }
 }

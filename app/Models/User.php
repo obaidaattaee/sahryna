@@ -31,6 +31,9 @@ use SoftDeletes ;
         'remember_token',
     ];
 
+    protected $appends = [
+        'user_name'
+    ] ;
     /**
      * The attributes that should be cast to native types.
      *
@@ -39,5 +42,11 @@ use SoftDeletes ;
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function advertisemet(){
+        return $this->hasMany(Advertisement::class , 'id' , 'user_id');
+    }
+    public function getUserNameAttribute(){
+        return $this->attributes['first_name'] . " " .$this->attributes['last_name'] ;
+    }
 
 }

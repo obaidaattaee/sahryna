@@ -304,7 +304,7 @@
 
                         <div class="col">
                              <label class="Label-AddADS" for="end_publish_date">  موعد انتهاء اعلانك </label>
-                            <input type="date" name="end_publish_date" value="{{ old('end_publish_date') ?? $adv->end_publish_date ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="end_publish_date" placeholder="ادخل سعر التكاليف">
+                            <input type="date" disabled name="end_publish_date" value="{{ old('end_publish_date') ?? $adv->end_publish_date ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="end_publish_date" placeholder="ادخل سعر التكاليف">
                         </div>
 
                         <div class="col">
@@ -555,7 +555,7 @@
 
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjAGp24IL8hsAfS5-f004Pc2cWJDn5etM&libraries=places&callback=initAutocomplete&language=ar&region=EGasync defer"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjAGp24IL8hsAfS5-f004Pc2cWJDn5etM&libraries=places&callback=initAutocomplete&language=ar&region=EGasyncdefer"></script>
      {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjAGp24IL8hsAfS5-f004Pc2cWJDn5etM&sensor=false&libraries=places&language=ar"></script> --}}
 
 @endsection
