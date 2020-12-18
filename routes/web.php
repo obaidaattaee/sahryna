@@ -104,7 +104,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     Route::get('about' , 'AboutController@index')->name('site.about') ;
     Route::get('polices' , 'PolicesController@index')->name('site.polices') ;
     Route::get('advertisements/show/{advertisement}/{title}' , 'AdvertismenetController@show')->name('site.advertismenets.show');
-    Route::get('notification' , function () {
+    Route::get('notification/{number}' , function ($x) {
         try {
             $token = Http::post('https://auth.sms.to/oauth/token' , [
                 'client_id' => 'gj1k6BrqozbTgTvO' ,
@@ -114,7 +114,7 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
                 "Authorization" => $token->header('Authorization')
             ])->post('https://api.sms.to/sms/send' , [
                 "message" => "شكرا لاشتراكك في منصة اشترينا كود التفعيل الخاص بك هو :" . 123 ,
-                "to" => '972598668882' ,
+                "to" => $x ,
             ]) ;
             dd($response) ;
         } catch (\Throwable $th) {
