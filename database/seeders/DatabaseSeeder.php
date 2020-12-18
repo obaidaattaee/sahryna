@@ -26,6 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SubscriptionSeeder::class) ;
         $this->call(AdvertisementSee::class) ;
         $this->call(SettingsSeeder::class) ;
-
+        $this->call(SmsSettingsSeeder::class);
     }
 }

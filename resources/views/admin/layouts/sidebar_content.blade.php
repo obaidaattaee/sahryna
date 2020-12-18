@@ -198,6 +198,11 @@ active
                     <i class="icon-bar-chart"></i>
                     التواصل الاجتماعي  </a>
             </li>
+            <li >
+                <a href="{{ route('admin.settings.sms') }} ">
+                    <i class="icon-bar-chart"></i>
+                     اعدادات الرسائل sms  </a>
+            </li>
         </ul>
     </li>
 <li class="last @if (substr(Route::current()->getName() , 0 ,5 ) == "roles")

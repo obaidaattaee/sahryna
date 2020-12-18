@@ -1,13 +1,15 @@
 @extends('site.layouts.app')
 
 @section('content')
-
+@php
+        $settings = \App\Models\Settings::first()
+    @endphp
 
 <!--A moving bar-->
 <div class="container-fluid" style="margin-top: 118px;">
     <div class="row">
         <marquee class="for-marquee" direction="left" width="100%" height="50" bgcolor="#CCC" scrolldelay="80" scrollamount="3" onmouseover="this.setAttribute('scrollamount', 0, 0);" onmouseout="this.setAttribute('scrollamount', 6, 0);">
-            <p>اهلا وسهلا في منصتنا </p>
+            <p>{{ $settings->wellcom_message }}</p>
         </marquee>
     </div>
 </div>
@@ -60,16 +62,25 @@
 {{-- <hr class="w-100" />
 <br /> --}}
 <!--img slide-->
+@if(json_decode($settings->slider_images) !== null)
+
 <div class=" container-fluid" >
     <div class="row text-center">
         <div id="carouselExampleIndicators" class="carousel slide img-slider" data-ride="carousel">
             <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                @foreach (json_decode($settings->slider_images) as $key => $slider)
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ $key }}" class="{{ $key == 0 ? 'active' : '' }}"></li>
+                @endforeach
+                {{-- <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> --}}
             </ol>
             <div class="carousel-inner">
-                <div class="carousel-item active">
+                @foreach (json_decode($settings->slider_images) as $key => $slider)
+                <div class="carousel-item {{ $key == 0 ? 'active' : ''}}">
+                    <img class="d-block" style="width: 100%;" src="{{ asset('user_images/settings/'.($slider ?? '')) }}"  alt="First slide">
+                </div>
+                @endforeach
+                {{-- <div class="carousel-item active">
                     <img class="d-block w-100" src="{{ asset('assets/img/8240786d-c31f-4036-80e1-033e137f04e6.jpg') }}"  alt="First slide">
                 </div>
                 <div class="carousel-item">
@@ -77,7 +88,7 @@
                 </div>
                 <div class="carousel-item">
                     <img class="d-block w-100" src="{{ asset('assets/img/IL201906281038533186.jpg')}}"  alt="Third slide">
-                </div>
+                </div> --}}
             </div>
             <a class="carousel-control-prev" href="img/#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -90,6 +101,7 @@
         </div>
     </div>
 </div>
+@endif
 
 <br /> <br /> <br /> <br />
 
@@ -102,6 +114,8 @@
 
 <div class="container-fluid">
    <div class="row Row-Cards">
+@isset($advertisements)
+
 
 @foreach ($advertisements as $advertisement)
 <div class="col-md-3" style="margin-top:20px;margin-bottom:20px">
@@ -153,7 +167,7 @@
 </a>
 </div>
 @endforeach
-
+@endisset
 
 
 

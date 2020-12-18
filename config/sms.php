@@ -3,6 +3,7 @@
 
 function send_sms($user, $pass, $telephone, $sender, $content)
 {
+    dd($user);
     $phone = preg_replace('/000+/', '', $telephone);
     // User From Sending Site
     $smsUserName = $user;

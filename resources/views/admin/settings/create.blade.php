@@ -1,4 +1,8 @@
 @extends('admin.layouts.app')
+@section('css')
+<script src="https://cdn.ckeditor.com/4.15.1/standard/ckeditor.js"></script>
+
+@endsection
 @section('content')
 {{-- {{ dd($role) }} --}}
 <div class="row">
@@ -33,12 +37,34 @@
                             <label for="form_control_1">دومين الموقع</label>
 
                         </div>
+                        <div>
                         <div class="form-group form-md-line-input">
                             <textarea type="text" class="form-control" name="wellcom_message"  id="form_control_1" placeholder="الرسالة الترحيبية ">{{ old('wellcom_message') ?? $settings->wellcom_message ?? '' }}</textarea>
                             <label for="form_control_1">الرساله الترحيبية </label>
 
                         </div>
-
+                    </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">فكرة الموقع</label>
+                            <div class="col-md-10">
+                                <textarea name="idea"  rows="10">{{ old('idea') ?? $settings->idea ?? '' }}</textarea>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="control-label col-md-2">اهداف الموقع</label>
+                            <div class="col-md-10">
+                                <textarea name="goals" rows="10">{{ old('goals') ?? $settings->goals ?? '' }}</textarea>
+                            </div>
+                        </div>
+                    <br>
+                        <div class="form-group">
+                            <label class="control-label col-md-2"> الشروط و الاحكام</label>
+                            <div class="col-md-10">
+                                <textarea name="polices" rows="10">{{ old('polices') ?? $settings->polices ?? '' }}</textarea>
+                            </div>
+                        </div>
                         <div class="dropzone dz-clickable" id="my-dropzone" >
                             <div id="drop-area">
 
@@ -54,13 +80,15 @@
                             <img src="{{ asset('user_images/settings/'. ($settings->logo_image ?? '')) }}" alt="شعار الموقع" style="max-width: 200px">
 
                         </div>
+
                     </div>
 
                 </div>
+
                 <br><br><br>
                     <div class="form-actions noborder">
                         <button type="submit" class="btn blue">حفظ</button>
-                        <a href="{{ route('categories.index') }}" class="btn default">الغاء</a>
+                        <a href="{{ route('admin.index') }}" class="btn default">الغاء</a>
                     </div>
 
                 </form>
@@ -75,4 +103,16 @@
         <!-- END SAMPLE FORM PORTLET-->
     </div>
 </div>
+
+@endsection
+@section('js')
+<script>
+    CKEDITOR.replace( 'idea' );
+</script>
+<script>
+    CKEDITOR.replace( 'goals' );
+</script>
+<script>
+    CKEDITOR.replace( 'polices' );
+</script>
 @endsection

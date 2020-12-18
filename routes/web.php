@@ -2,8 +2,14 @@
 
 use App\Http\Controllers\Admin\BaseAdminControllers;
 use App\Models\Advertisement;
+use App\Models\User;
+use App\Notifications\Notifications;
+use App\Notifications\SendVerifyCodeNotification;
 use Illuminate\Support\Facades\Auth ;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,9 +72,15 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin')->group(function(
     Route::post('settings/images/create' , 'App\Http\Controllers\Admin\SettingsController@insertImage')->name('admin.settings.image.insert');
     Route::get('settings/images/delete' , 'App\Http\Controllers\Admin\SettingsController@deleteImage')->name('admin.settings.image.delete');
     Route::get('settings/social' , 'App\Http\Controllers\Admin\SettingsController@social')->name('admin.settings.social');
+    Route::post('settings/social/create' , 'App\Http\Controllers\Admin\SettingsController@insertSocial')->name('admin.settings.social.insert');
+    Route::get('settings/social/delete' , 'App\Http\Controllers\Admin\SettingsController@deleteSocial')->name('admin.settings.social.delete');
     Route::post('settings' , 'App\Http\Controllers\Admin\SettingsController@store')->name('admin.settings.store');
     Route::post('settings/update' , 'App\Http\Controllers\Admin\SettingsController@update')->name('admin.settings.update');
 
+    Route::get('settings/sms' , 'App\Http\Controllers\Admin\SettingsController@sms')->name('admin.settings.sms');
+    Route::post('settings/sms' , 'App\Http\Controllers\Admin\SettingsController@smsStore')->name('admin.settings.sms.store');
+    Route::post('settings/update/sms' , 'App\Http\Controllers\Admin\SettingsController@smsUpdate')->name('admin.settings.sms.update');
+    Route::get('settings/sms/status' , 'App\Http\Controllers\Admin\SettingsController@changeStatus')->name('admin.settings.sms.change.status');
     // end settings routes
     // start delivery_time routes
     Route::resource('delivery_times' , 'App\Http\Controllers\Admin\DeleveryTimeController')->except('show , destroy') ;
@@ -89,18 +101,42 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin')->group(function(
 });
 
 Route::namespace('App\Http\Controllers\Site')->group(function(){
-    Route::get('my/profile' , 'ProfileController@show')->name('my.profile');
-    Route::get('user/{user}' , 'ProfileController@userShow')->name('site.user.show');
-    Route::get('my/profile/edit' , 'ProfileController@edit')->name('my.profile.edit');
-    Route::post('my/profile/{user}/update' , 'ProfileController@update')->name('my.profile.update');
+    Route::get('about' , 'AboutController@index')->name('site.about') ;
+    Route::get('polices' , 'PolicesController@index')->name('site.polices') ;
     Route::get('advertisements/show/{advertisement}/{title}' , 'AdvertismenetController@show')->name('site.advertismenets.show');
-    // Route::get('active_all' , function () {
-    //     Advertisement::query()->update([
-    //         'active' => 1
-    //     ]);
-    // });
+    Route::get('notification' , function () {
+        try {
+            $token = Http::post('https://auth.sms.to/oauth/token' , [
+                'client_id' => 'gj1k6BrqozbTgTvO' ,
+                'secret' => '78v7i94YBEJ1dN6FWSPz1eICnHeYCp2p' ,
+            ]) ;
+            $response = Http::withHeaders([
+                "Authorization" => $token->header('Authorization')
+            ])->post('https://api.sms.to/sms/send' , [
+                "message" => "شكرا لاشتراكك في منصة اشترينا كود التفعيل الخاص بك هو :" . 123 ,
+                "to" => '972598668882' ,
+            ]) ;
+            dd($response) ;
+        } catch (\Throwable $th) {
+           dd($th) ;
+        }
+
+    //    $code = "123123" ;
+    //    Notification::send(auth()->user() , new SendVerifyCodeNotification($code));
+    });
     Route::middleware('auth')->group(function (){
         Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
+        Route::get('advertisements/{advertisement}/{user}/delete' , 'AdvertismenetController@delete')->name('site.advertismenets.delete');
+        Route::get('dashboard' , 'DashboardController@index')->name('site.dashboard');
+        Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
         Route::post('advertisements/create' , 'AdvertismenetController@store')->name('advertismenets.store');
+
+        Route::get('my/profile' , 'ProfileController@show')->name('my.profile');
+        Route::get('user/{user}' , 'ProfileController@userShow')->name('site.user.show');
+        Route::get('my/profile/edit' , 'ProfileController@edit')->name('my.profile.edit');
+        Route::post('my/profile/{user}/update' , 'ProfileController@update')->name('my.profile.update');
+
+
+        Route::post('message/send' , 'MessageController@store')->name('site.message.send');
     });
 });

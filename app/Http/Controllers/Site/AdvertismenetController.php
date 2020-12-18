@@ -70,4 +70,14 @@ class AdvertismenetController extends Controller{
         return view('site.advertisements.show')
                 ->with('advertisement' , $advertisement) ;
     }
+
+   public function delete(Advertisement $advertisement , $user){
+        if ( $advertisement->user_id !== (int)$user ){
+            abort(404) ;
+        }else{
+            $advertisement->delete() ;
+            Alert::success('تم حذف الاعلان');
+            return redirect(route('site.dashboard')) ;
+        }
+   }
 }

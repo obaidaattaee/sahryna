@@ -1,15 +1,16 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
+    @php
+        $settings = \App\Models\Settings::first()
+    @endphp
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Home Page</title>
+    <title>{{ $settings->title ?? "موقع اشترينا" }}</title>
      <script src="https://kit.fontawesome.com/99d5e885f9.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://www.fontstatic.com/f=hanimation" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    {{-- <link rel="preconnect" href="https://fonts.gstatic.com">
    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet">
    <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@700&display=swap" rel="stylesheet">
@@ -26,19 +27,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@900&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@900&display=swap" rel="stylesheet"> --}}
+<style>
+    .fa-stack[data-count]:after{
+  position:absolute;
+  right:0%;
+  top:1%;
+  content: attr(data-count);
+  font-size:50%;
+  padding:.6em;
+  border-radius:999px;
+  line-height:.75em;
+  color: white;
+  background:rgba(255,0,0,.85);
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+}
+</style>
 <link href="{{ asset('css/app.css')}}" rel="stylesheet" />
 <link href="{{ asset('assets/Css/HomePage.css')}}" rel="stylesheet" />
 @yield('css')
 </head>
 <body>
-
+    @auth
+@php
+    $message_count = auth()->user()->inbox->where('readed' , 0)->count() ;
+@endphp
+@endauth
           <!--navbar-->
           <nav class="navbar navbar-expand-md fixed-top navbar-org">
             <div class="container">
                 <a href="{{ route('main')}}" class="navbar-brand">
-                    <img src="{{ asset('assets/img/اشترينا001.jpg')}}"   >
+                    <img src="{{ asset('user_images/settings/'.($settings->logo_image ?? "اشترينا001.jpg"))}}"   >
                 </a>
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
@@ -51,14 +72,14 @@
 
                     <div class="navbar-nav">
                         @guest
-                        @if (Route::current()->getName() == 'register')
-                        <a href="{{ route('register')}}" class="nav-item nav-link a-navbar li-navbar">   تسجيل اشتراك  <i class="fas fa-user-plus"></i> </a>
+                @if (Route::current()->getName() == 'login')
+                <a href="{{ route('register')}}" class="nav-item nav-link a-navbar li-navbar">   تسجيل اشتراك  <i class="fas fa-user-plus"></i> </a>
 
-                        @else
-                        <a href="{{ route('login')}}" class="nav-item nav-link a-navbar li-navbar">   تسجيل دخول  <i class="fas fa-user-plus"></i> </a>
+                @else
+                <a href="{{ route('login')}}" class="nav-item nav-link a-navbar li-navbar">   تسجيل دخول  <i class="fas fa-user-plus"></i> </a>
 
-                        @endif
-                        @endguest
+                @endif
+                @endguest
                         @auth
 
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -73,21 +94,31 @@
                         <ul class="navbar-nav">
 
                             <li class="nav-item active">
-                                <a class="nav-link a-navbar li-navbar" href="DashboardCustomer.html" target="_blanck">    لوحة التحكم   <i class="fas fa-chart-pie"></i></a>
+                                <a class="nav-link a-navbar li-navbar" href="{{ route('site.dashboard') }}" target="_blanck">    لوحة التحكم   <i class="fas fa-chart-pie"></i></a>
                             </li>
-
 
 
                             <li class="nav-item dropdown ">
                                 <a class="nav-link dropdown-toggle a-navbar li-navbar" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="cursor" style="cursor: pointer;">
-
-                                        <i class="far fa-bell" style="cursor: pointer;"></i>
+                                    <span class="fa-stack fa cursor" data-count="{{ count(auth()->user()->unreadnotifications) + $message_count }}">
+                                        <i class="fa fa-circle fa-stack-2x" style="color: #580707"></i>
+                                        <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                                    <a class="dropdown-item" href="#">لا يوجد اشعارات جديدة حتى الان</a>
-                                    <a class="dropdown-item" href="#">لقد تم تغيير كلمة مرور الخاصة بحسابك </a>
+                                    @if (count(auth()->user()->unreadnotifications) == 0)
+                                        <a class="dropdown-item" href="#">لا يوجد اشعارات جديدة حتى الان</a>
+                                    @if($message_count > 0)
+                                    <a class="dropdown-item" href="{{ route('site.dashboard') }}"> يوجد لديك <span style="border-radius: 10px; background-color: rgb(240, 69, 69) ; padding: 5px "> {{auth()->user()->inbox->count()}}</span> رساله واردة جديدة</a>
+
+                                    @endif
+                                        @else
+                                        @foreach (auth()->user()->unreadnotifications->take(10) as $item)
+                                        <a class="dropdown-item" href="{{ route('site.dashboard') }}">{{ $item->data['message'] }}</a>
+
+                                        @endforeach
+                                    @endif
+
                                 </div>
                             </li>
 
@@ -124,6 +155,7 @@
             </div>
         </nav>
 
+        {{-- @include('admin.layouts.msg') --}}
 
 @yield('content')
 
@@ -157,10 +189,10 @@
 
             <ul class="list-unstyled list-Link">
               <li>
-                <a href="AboutWebsite.html">فكرة منصة اشترينا</a>
+                <a href="{{ route('site.about') }}">فكرة منصة اشترينا</a>
               </li>
               <li>
-                <a href="Policy.html"> الشروط والاحكام</a>
+                <a href="{{ route('site.polices') }}"> الشروط والاحكام</a>
               </li>
 
 
@@ -180,13 +212,13 @@
 
             <ul class="list-unstyled list-Link">
               <li>
-                <a href="Sign-upPage.html">تسجيل الاشتراك</a>
+                <a href="{{ route('register') }}">تسجيل الاشتراك</a>
               </li>
               <li>
-                <a href="loginPage.html">تسجيل الدخول</a>
+                <a href="{{ route('login') }}">تسجيل الدخول</a>
               </li>
               <li>
-                <a href="HomePage.html">صفحة الاعلانات</a>
+                <a href="{{ route('home') }}">صفحة الاعلانات</a>
               </li>
 
             </ul>
@@ -199,10 +231,9 @@
              <div class="col-md-4 mx-auto">
 
                 <!-- Content -->
-                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 Title-Head" >موقع اشترينا</h5>
+                <h5 class="font-weight-bold text-uppercase mt-3 mb-4 Title-Head" >{{ $settings->title ?? "موقع اشترينا" }}</h5>
                 <p class="TextForFooter">
-
-                  .موقع يهدف الى  إتاحة خيار الشراكة في شراء سلع بالجملة ثم تفريقها بين الشركاء
+                    {{$settings->description ?? ".موقع يهدف الى  إتاحة خيار الشراكة في شراء سلع بالجملة ثم تفريقها بين الشركاء" }}
                 </p>
 
               </div>
@@ -221,32 +252,26 @@
 
 
     <!-- Social buttons -->
+    @if(json_decode($settings->social) !== null)
+
     <ul class="list-unstyled list-inline text-center" style="margin-top:15px">
+        @foreach (json_decode($settings->social) as $key => $social)
       <li class="list-inline-item">
-        <a class="btn-floating btn-fb mx-1">
-          <i class="fab fa-facebook-f " style="background-color: #0056b3;  color: #fff;border-radius: 12px;font-size: 25px;    padding: 7px;"> </i>
+        <a  href="{{ $social->url }}">
+          <img src="{{ asset('user_images/settings/'.($social->image ?? '')) }}" style="max-width: 50px; max-height: 50px  color: #fff;border-radius: 12px;font-size: 25px;    padding: 7px;">
         </a>
       </li>
-      <li class="list-inline-item">
-        <a class="btn-floating btn-tw mx-1">
-          <i class="fab fa-twitter" style=" border-radius: 30px; font-size: 25px;padding: 7px;background-color: #55acee !important;color: #fff;"> </i>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a class="btn-floating btn-gplus mx-1 GoogleIcon"  >
-          <i class="fab fa-google" style="  padding: 7px; border-radius: 35px; color: #fff;background-color: #dd4b39 !important; font-size: 25px;"> </i>
-        </a>
-      </li>
-
-
+      @endforeach
     </ul>
+    @endif
+
     <!-- Social buttons -->
     <hr>
     <!-- Copyright -->
     <div class="footer-copyright text-center py-3">
-        <a href="{{ route('main') }}" style="color: #6d1c1c;  font-weight: 900;">Aishtarayna.com</a>
+        <a href="{{ route('main') }}" style="color: #6d1c1c;  font-weight: 900;">{{ $settings->domain ?? "Aishtarayna.com" }}</a>
 
-       <span style="color: #6d1c1c;"  > © 2020 Copyright: </span>
+       <span style="color: #6d1c1c;"  > © {{ date("Y") }} Copyright: </span>
 
 
     </div>

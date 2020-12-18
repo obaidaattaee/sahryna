@@ -58,7 +58,7 @@ class AdvertisementSee extends Seeder
                 "images" => '["XgWYAiQPXlRhpeYXMGfZlChEfmFBmXXiMcpLfJjv.jpg"]'  ,
                 "user_id" => 1 ,
                 "end_publish_date" => "2021-01-03",
-                "active" => 1,
+                "active" => 0,
             ],[
                 "title" => "Doobaida personally believe that your working environment is ..."  ,
                 "description" => "sasssssssssss",
@@ -100,9 +100,9 @@ class AdvertisementSee extends Seeder
                 "lat" => "31.445109381683537",
                 "long" => "34.65399056091817",
                 "images" => '["XgWYAiQPXlRhpeYXMGfZlChEfmFBmXXiMcpLfJjv.jpg"]'  ,
-                "user_id" => 1 ,
+                "user_id" => 2 ,
                 "end_publish_date" => "2021-01-03",
-                "active" => 1,
+                "active" => 0,
             ],
         ]);
     }

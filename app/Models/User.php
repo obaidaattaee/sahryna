@@ -32,7 +32,7 @@ use SoftDeletes ;
     ];
 
     protected $appends = [
-        'user_name'
+        'user_name' , 'my_message' , 'inbox'
     ] ;
     /**
      * The attributes that should be cast to native types.
@@ -42,11 +42,18 @@ use SoftDeletes ;
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function advertisemet(){
-        return $this->hasMany(Advertisement::class , 'id' , 'user_id');
+    public function advertisemets(){
+        return $this->hasMany(Advertisement::class , 'user_id' , 'id');
     }
     public function getUserNameAttribute(){
         return $this->attributes['first_name'] . " " .$this->attributes['last_name'] ;
+    }
+
+    public function getMyMessageAttribute(){
+        return $this->hasMany(Message::class , 'from' , 'id');
+    }
+    public function getInboxAttribute(){
+        return $this->hasMany(Message::class , 'to' , 'id');
     }
 
 }

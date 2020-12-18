@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserPaymentData;
+use App\Notifications\VerifyUserProfileNotification;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Notification;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class ProfileController extends Controller{
@@ -56,7 +58,7 @@ class ProfileController extends Controller{
         unset($data ['card']) ;
 
         $user->update($data) ;
-
+        Notification::send($user , new VerifyUserProfileNotification());
         Alert::success('تم التعديل' ,'تم تعديل بياناتك بنجاح');
         return redirect(route('my.profile'));
 

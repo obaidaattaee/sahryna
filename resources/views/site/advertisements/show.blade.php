@@ -88,11 +88,11 @@
     height: 100%;
 }
 
-img {
+/* img {
     max-width: 100% !important;
     max-height: 100% !important;
     width: auto !important;
-}
+} */
 
 
 
@@ -599,7 +599,7 @@ section {
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a class=" text-xs-center contactbtn" target="_blank" href="{{ route('site.user.show' , ['user' => $advertisement->user->id ]) }}" style="background-color: #580707;padding: 4px;color: #fff;    font-size: 11px; text-decoration:none;">
+                                        <a class=" text-xs-center contactbtn" target="_blank" href="{{ route('site.dashboard' , ['user' => $advertisement->user->id ]) }}" style="background-color: #580707;padding: 4px;color: #fff;    font-size: 11px; text-decoration:none;">
                                             مراسلة صاحب الإعلان
                                         </a>
                                     </li>

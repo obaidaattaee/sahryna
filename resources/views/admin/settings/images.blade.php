@@ -7,7 +7,7 @@
         <div class="portlet box blue-hoki">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-globe"></i>اعدادات عامة
+                    <i class="fa fa-globe"></i>اعدادات عامة \ الصور الترحيبية في الموقع
                 </div>
                 <div class="tools">
                 </div>
@@ -38,13 +38,18 @@
                     <tr>
                         <form action="{{ route('admin.settings.image.insert') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            <td> اضافة صورة جديدة :<input type="file" name="logo_image" id="fileElem" accept="image/*">
+                            <td>                                <p>يجب ان تكون ابعاد الصورة اكبر من 1000 * 700</p>
+
+                                 اضافة صورة جديدة :<input type="file" name="logo_image" id="fileElem" accept="image/*">
                             </td>
                             <td>
+
                                 <input type="submit" class="btn btn-success" value="اضافة">
                             </td>
                         </form>
+
                     </tr>
+
                </tbody>
                 </table>
             </div>

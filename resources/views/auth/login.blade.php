@@ -1,5 +1,8 @@
-@extends('layouts.app')
+@extends('site.layouts.app')
+@section('css')
+<link href="{{ asset('assets/Css/StyleLogin.css') }} " rel="stylesheet" />
 
+@endsection
 @section('content')
 
 
@@ -13,27 +16,33 @@
 
             <form method="POST" action="{{ route('login') }}" dir="rtl">
 
-                @if ($errors->any())
 
-                @foreach ($errors->all() as $error)
-                <div class="alert alert-danger" role="alert">{{ $error }}</div>
-                @endforeach
-                @endif
+
                 @csrf
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder=" البريد الالكتروني او رقم الهاتف او اسم المستخدم" value="" style="font-size: 1.1rem;" name="email"/>
+                    <input type="text" class="form-control" placeholder=" البريد الالكتروني او رقم الهاتف او الرقم الوطني " value="" style="font-size: 1.1rem;" name="email"/>
                     @error('email')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                    <div class="alert alert-danger" style="text-align: right" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
+                    @error('phone')
+                    <div class="alert alert-danger" style="text-align: right" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
+                    @error('person_id')
+                    <div class="alert alert-danger" style="text-align: right" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
                     @enderror
                 </div>
                 <div class="form-group">
                     <input type="password" class="form-control" placeholder=" كلمة المرور " value="" style="font-size: 1.1rem;" name="password"/>
                     @error('password')
-                        <span class="invalid-feedback" role="alert">
+                        <div class="alert alert-danger" style="text-align: right" role="alert">
                             <strong>{{ $message }}</strong>
-                        </span>
+                        </div>
                     @enderror
                 </div>
                 <div class="form-group">

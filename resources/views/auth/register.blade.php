@@ -1,5 +1,8 @@
-@extends('layouts.app')
+@extends('site.layouts.app')
+@section('css')
+<link href="{{ asset('assets/Css/StyleLogin.css') }} " rel="stylesheet" />
 
+@endsection
 @section('content')
 
 
@@ -13,39 +16,62 @@
                 <form dir="rtl" method="POST" action="{{ route('register') }}">
                     @csrf
 
-
-
-                    @if ($errors->any())
-                    @foreach ($errors->all() as $error)
-                    <div class="alert alert-danger" role="alert">{{ $error }}</div>
-                    @endforeach
-                    @endif
-
-
                     <div class="form-group">
                     <input type="text" name="first_name"  class="form-control" placeholder="الاسم الاول" value="{{ old("first_name") ?? "" }}" style="    font-size: 1.1rem;" />
                     </div>
+                    @error('first_name')
+                    <div class="alert alert-danger" style="text-align: right" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
                     <div class="form-group">
                         <input type="text" name="last_name"  class="form-control" placeholder="الاسم الاخير" value="{{ old("last_name") ?? "" }}" style="    font-size: 1.1rem;" />
                     </div>
-
+                    @error('last_name')
+                    <div class="alert alert-danger" style="text-align: right" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
                     <div class="form-group">
                         <input type="email" name="email"  class="form-control" placeholder="البريد الالكتروني" value="{{ old("email") ?? "" }}" style="    font-size: 1.1rem;" />
                     </div>
+                    @error('email')
+                    <div class="alert alert-danger" style="text-align: right" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
                     <div class="form-group">
                         <input type="text" name="phone"  class="form-control" placeholder="رقم الهاتف" value="{{ old("phone") ?? "" }}" style="    font-size: 1.1rem;" />
                     </div>
+                    @error('phone')
+                    <div class="alert alert-danger" style="text-align: right" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
                     <div class="form-group">
                         <input type="text" name="person_id"  class="form-control" placeholder="الرقم الوطني" value="{{ old("person_id") ?? "" }}" style="    font-size: 1.1rem;" />
                     </div>
-
+                    @error('person_id')
+                    <div class="alert alert-danger" style="text-align: right" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
                     <div class="form-group">
                         <input type="password" name="password" class="form-control" placeholder=" كلمة المرور " value="" style="   font-size:  1.1rem;" />
                     </div>
+                    @error('password')
+                    <div class="alert alert-danger" style="text-align: right" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
                     <div class="form-group">
                         <input type="password" name="password_confirmation" class="form-control" placeholder=" تاكيد كلمة المرور " value="" style="   font-size:  1.1rem;" />
                     </div>
-
+                    @error('password_confirmation')
+                    <div class="alert alert-danger" style="text-align: right" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </div>
+                    @enderror
                     <div class="form-group">
                         <input type="submit" class="btnSubmit" value="تسجيل" style="width: 100%; margin-top: 10px; font-size:12px; padding:10px;   background-color: #6d1c1c !important;font-family: 'Cairo', sans-serif;" />
                     </div>
