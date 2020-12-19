@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 class MyFatoorah extends Controller
 {
-    private $testmode = false;
+    private $testmode = true;
     public function __construct()
     {
         if ($this->testmode || url('/') == 'http://obaida.test') {
             /**Demo test */
-            $this->merchant_username = 'apiaccount@myfatoorah.com';
-            $this->merchant_password = 'api12345*';
-            $url = parse_url("https://apidemo.myfatoorah.com");
+            $this->merchant_username = 'obaataii@gmail.com';
+            $this->merchant_password = 'Adg156789@';
+            $url = parse_url("https://apisa.myfatoorah.com/Token");
         }else{
             /**Real info */
             $this->merchant_username = 'ardhwatalab@gmail.com';

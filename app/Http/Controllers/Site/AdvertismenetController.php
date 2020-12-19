@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MyFatoorah as ControllersMyFatoorah;
 use App\Http\Requests\AdvertisementRequest;
 use App\Models\Advertisement;
 use App\Models\AdvertisementType;
@@ -47,12 +48,35 @@ class AdvertismenetController extends Controller{
         unset($data ['imagesFiles']) ;
         $data['user_id'] = auth()->id() ;
 
-        $adveritsement_duration = Subscription::findOrFail($data['subscription_id'])->time_day ;
-        $data['end_publish_date'] = Carbon::parse($data['publish_date'])->addDays($adveritsement_duration)->toDateString() ;
+        $subscription = Subscription::findOrFail($data['subscription_id']) ;
+        $data['end_publish_date'] = Carbon::parse($data['publish_date'])->addDays($subscription->time_day)->toDateString() ;
         // dd($data);
         $advertisement = Advertisement::create($data);
         if($advertisement->subscription->price != 0){
-            return 'will redirect to payment page' ;
+            $invoice_params = [
+                "InvoiceValue" => (float)$subscription->price,
+                "CustomerName" => auth()->user()->user_name,
+                "CountryCodeId" => 1,
+                "CustomerMobile" => substr(auth()->user()->phone , 2 ),
+                "CustomerEmail" => auth()->user()->email,
+                "DisplayCurrencyId" => 1,
+                "SendInvoiceOption" => 1,
+                'DisplayCurrencyIsoAlpha' => 'SAR',
+                'CountryCodeId' => '+966',
+                'DisplayCurrencyId' => 2,
+                "InvoiceItems" => [
+                    "ProductName"=> "Pro01",
+                    "UnitPrice"=> "100.00",
+                    "Quantity"=> "12",
+                    "ExtendedAmount"=> "1,200.00"
+                ] ,
+                "CallBackUrl" => "http://google.com",
+                "Language"=> 1,
+                "adv_id" =>  $advertisement->id ,
+            ];
+            $myfatoorah = new ControllersMyFatoorah ;
+            $result = $myfatoorah->createProductInvoice($invoice_params);
+            return isset($result['RedirectUrl']) ? redirect()->to($result['RedirectUrl']) : back()->with('error', (string) $result["Message"]);
         }else{
             $advertisement->active = 1 ;
             $advertisement->save();
