@@ -44,10 +44,9 @@
                             <td>
                             <a href="{{ route('advertisements.cahnge.states' , ['advertisement' => $advertisement->id])}}" class="btn btn-{{ $advertisement->active == 1 ? "danger" : "info" }} btn-sm">{{ $advertisement->active == 1 ? "ايقاف" : "تفعيل" }}</a>
                             </td>
-                            <td>{{ $advertisement->user->first_name . " " . $advertisement->user->last_name  }}</td>
+                            <td><a href="{{ route('users.show' , ['user' =>$advertisement->user->id ]) }}">{{ $advertisement->user->user_name }}</a></td>
                             <td>
                                 <a href="{{ route('advertisements.show' , ['advertisement' => $advertisement->id])}}" class="btn btn-primary btn-sm">معاينة</a>
-                                <a href="{{ route('advertisements.edit' , ['advertisement' => $advertisement->id])}}" class="btn btn-info btn-sm">تعديل</a>
                                 <a href="{{ route('advertisements.destroy' , ['advertisement' => $advertisement->id])}}" class="btn btn-danger btn-sm">حذف</a>
                             </td>
                         </tr>

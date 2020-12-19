@@ -647,7 +647,7 @@ section {
 
             </div>
 
-
+            @if (auth()->user()->payment_data !== null)
             <div class="col-12">
                 <div class="row">
                     <div class="col">
@@ -691,6 +691,8 @@ section {
                     </div>
                 </div>
             </div>
+            @endif
+
 
         </div>
     </div>

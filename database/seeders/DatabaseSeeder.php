@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeed::class);
         $this->call(AdminSeed::class);
-        \App\Models\User::factory(100)->create()->each( function ($user)  {
+        \App\Models\User::factory(10)->create()->each( function ($user)  {
             $user->syncRoles(['user']);
         });
         Category::factory(10)->create() ;

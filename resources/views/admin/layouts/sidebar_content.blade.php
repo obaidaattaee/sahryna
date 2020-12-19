@@ -225,3 +225,13 @@ active
         </li>
     </ul>
 </li>
+<li class="last @if (substr(Route::current()->getName() , 0 ,6 ) == "errors")
+    active
+    @endif"">
+
+            <a href="{{ route('admin.errors')}}">
+                <i class="icon-pointer"></i>
+                <span class="title"></span>
+            رسائل النظام </a>
+        </li>
+

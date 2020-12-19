@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Errors;
 use App\Models\SmsSettings;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -32,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = "phone/verification";
 
     /**
      * Create a new controller instance.
@@ -55,7 +56,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'regex:/(966)[0-9]{9}/', 'unique:users' , 'max:255'],
+            // 'phone' => ['required', 'regex:/(966)[0-9]{9}/', 'unique:users' , 'max:255'],
             'person_id' => ['required', 'regex:/[0-9]{9}/','unique:users' , 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -146,16 +147,24 @@ class RegisterController extends Controller
         //     $msg = "خطأ في اسم المرسل";
         // }
         // $arr = ['code' => $result[0], 'message' => $msg];
+        try {
+            $token = Http::post('https://auth.sms.to/oauth/token' , [
+                'client_id' => $user ,
+                'secret' => $pass ,
+            ]) ;
 
-        $token = Http::post('https://auth.sms.to/oauth/token' , [
-            'client_id' => $user ,
-            'secret' => $pass ,
-        ]) ;
-        $response = Http::withHeaders([
-            "Authorization" => $token->header('Authorization')
-        ])->post('https://api.sms.to/sms/send' , [
-            "message" => $content ,
-            "to" => $telephone ,
-        ]) ;
+            $response = Http::withHeaders([
+                "Authorization" => $token->header('Authorization')
+            ])->post('https://api.sms.to/sms/send' , [
+                "message" => $content ,
+                "to" => $telephone ,
+            ]) ;
+        } catch (\Throwable $th) {
+            Errors::create([
+                'message' => "يوجد مشكله في ارسال كود تاكد من المستخدمين الجدد"
+            ]) ;
+        }
+
     }
+
 }

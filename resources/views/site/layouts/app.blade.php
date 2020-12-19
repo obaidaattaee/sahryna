@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $settings->title ?? "موقع اشترينا" }}</title>
-     <script src="https://kit.fontawesome.com/99d5e885f9.js" crossorigin="anonymous"></script>
+     {{-- <script src="https://kit.fontawesome.com/99d5e885f9.js" crossorigin="anonymous"></script> --}}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://www.fontstatic.com/f=hanimation" />
     {{-- <link rel="preconnect" href="https://fonts.gstatic.com">

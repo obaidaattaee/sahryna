@@ -29,9 +29,7 @@
                         <img src="{{ asset('user_images/public/'.$user->person_image)}}" alt="" />
                     </div>
                 </div>
-                <div class="col-md-2">
-                    <a href="{{ route('my.profile.edit' )}}" class="profile-edit-btn" name="btnAddMore" style="font-family: 'Cairo', sans-serif;" >توثيق الحساب</a>
-                </div>
+               
                 <div class="col-md-6" style="margin-top: 10px;">
                     <div class="profile-head">
                         <h5>

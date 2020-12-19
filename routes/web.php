@@ -1,15 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\BaseAdminControllers;
-use App\Models\Advertisement;
-use App\Models\User;
-use App\Notifications\Notifications;
-use App\Notifications\SendVerifyCodeNotification;
 use Illuminate\Support\Facades\Auth ;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,16 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return redirect(route('home'));
-
-})->name('main');
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::prefix('admin')->middleware('auth' , 'role:super_admin')->group(function(){
+Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function(){
     Route::get('/' , [BaseAdminControllers::class , 'index'])->name('admin.index');
     // start user routes
     Route::resource('users' , 'App\Http\Controllers\Admin\UserCntroller') ;
@@ -98,9 +84,22 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin')->group(function(
      Route::get('advertisements/{advertisement}/delete' , 'App\Http\Controllers\Admin\AdvertisementController@delete')->name('advertisements.destroy') ;
      Route::get('advertisements/{advertisement}/status' , 'App\Http\Controllers\Admin\AdvertisementController@changeStatus')->name('advertisements.cahnge.states') ;
      // end delivery_time routes
+
+
+     // start errors routes
+    Route::get('errors' , 'App\Http\Controllers\Admin\ErrorsController@index')->name('admin.errors') ;
+
+     // end errors routes
 });
 
-Route::namespace('App\Http\Controllers\Site')->group(function(){
+Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' , 'profileverirfication'])->group(function(){
+
+    Route::get('/', function () {
+        return redirect(route('home'));
+
+    })->name('main');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
     Route::get('about' , 'AboutController@index')->name('site.about') ;
     Route::get('polices' , 'PolicesController@index')->name('site.polices') ;
     Route::get('advertisements/show/{advertisement}/{title}' , 'AdvertismenetController@show')->name('site.advertismenets.show');
@@ -124,7 +123,10 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
     //    $code = "123123" ;
     //    Notification::send(auth()->user() , new SendVerifyCodeNotification($code));
     });
-    Route::middleware('auth')->group(function (){
+    Route::middleware('auth' )->group(function (){
+
+
+
         Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
         Route::get('advertisements/{advertisement}/{user}/delete' , 'AdvertismenetController@delete')->name('site.advertismenets.delete');
         Route::get('dashboard' , 'DashboardController@index')->name('site.dashboard');
@@ -139,4 +141,12 @@ Route::namespace('App\Http\Controllers\Site')->group(function(){
 
         Route::post('message/send' , 'MessageController@store')->name('site.message.send');
     });
+
+});
+Route::group(['middleware' => ['auth'] ] , function () {
+    // start code verification routes
+    Route::get('phone/verification' , 'App\Http\Controllers\Auth\CodeVerificationController@codeVerifiy')->name('code.verify') ;
+    Route::post('phone/verification' , 'App\Http\Controllers\Auth\CodeVerificationController@codeVerification')->name('phone.verification') ;
+    Route::get('phone/resend/code' , 'App\Http\Controllers\Auth\CodeVerificationController@codeResend')->name('code.resend') ;
+    //end code verification routes
 });
