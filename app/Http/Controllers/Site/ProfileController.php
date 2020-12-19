@@ -58,9 +58,13 @@ class ProfileController extends Controller{
         unset($data ['card']) ;
 
         $user->update($data) ;
-        Notification::send($user , new VerifyUserProfileNotification());
+        Notification::send($user , new VerifyUserProfileNotification("تم توثيق حسابك بنجاح"));
         Alert::success('تم التعديل' ,'تم تعديل بياناتك بنجاح');
         return redirect(route('my.profile'));
 
+    }
+    public function userShow(User $user){
+        return view('site.profile.user')
+                ->with('user' , $user);
     }
 }

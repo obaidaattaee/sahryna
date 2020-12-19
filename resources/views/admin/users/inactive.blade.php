@@ -51,7 +51,7 @@
                         <td>
                             <a href="{{ route('users.show' , ['user' => $user->id])}}" class="btn btn-success btn-sm">معاينة</a>
                             <a href="{{ route('users.edit' , ['user' => $user->id])}}" class="btn btn-info btn-sm">تعديل</a>
-                            <a href="{{ route('users.change.delete.status' , ['user' => $user->id])}}" onclick="return confirm('هل انت متاكد من حذف {{ $user->first_name . '' . $user->last_name }}')" class="btn btn-danger btn-sm">حذف</a>
+                            <a href="{{ route('users.change.delete.status' , ['user' => $user->id])}}" onclick="return confirm('هل انت متاكد من حذف {{ $user->first_name . '' . $user->last_name }}')" class="btn btn-{{$user->deleted_at == null ? "danger" : "success"}} btn-sm">{{$user->deleted_at == null ? "حذف" : "اعادة"}}</a>
                        </td>
                     </tr>
                     @endforeach

@@ -31,8 +31,7 @@ class AdvertismenetController extends Controller{
                 ->with('cities' , $cities)
                 ->with('deleviry_times' , $deleviry_times)
                 ->with('advertisement_types' , $advertisement_types)
-                ->with('subscriptions' , $subscriptions)
-                ;
+                ->with('subscriptions' , $subscriptions);
     }
     public function store(AdvertisementRequest $request){
         $request['distribute_cost'] = $request['distribute_cost'] ? 1 : 0 ;
@@ -47,7 +46,9 @@ class AdvertismenetController extends Controller{
         $data['images'] = json_encode($images) ;
         unset($data ['imagesFiles']) ;
         $data['user_id'] = auth()->id() ;
-        $data['end_publish_date'] = Carbon::parse($data['publish_date'])->addDays(7)->toDateString() ;
+
+        $adveritsement_duration = Subscription::findOrFail($data['subscription_id'])->time_day ;
+        $data['end_publish_date'] = Carbon::parse($data['publish_date'])->addDays($adveritsement_duration)->toDateString() ;
         // dd($data);
         $advertisement = Advertisement::create($data);
         if($advertisement->subscription->price != 0){

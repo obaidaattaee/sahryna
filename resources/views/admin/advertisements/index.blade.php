@@ -23,8 +23,11 @@
                          العنوان
                     </th>
                     <th>
-                         الوصف
+                         متبقي للاعلان
                     </th>
+                    <th>
+                        الشركاء
+                   </th>
                     <th>
                         الحالة
                    </th>
@@ -39,8 +42,9 @@
                     @foreach ($advertisements as $advertisement)
                     {{-- {{ dd($role['permissions']) }} --}}
                         <tr>
-                            <td>{{ $advertisement->title }}</td>
-                            <td>{{ $advertisement->description }}</td>
+                            <td>{{ substr( $advertisement->title  , 0 , 10)  }} ...</td>
+                            <td>{{ Carbon\Carbon::parse($advertisement->end_publish_date)->diffForHumans() }}</td>
+                            <td></td>
                             <td>
                             <a href="{{ route('advertisements.cahnge.states' , ['advertisement' => $advertisement->id])}}" class="btn btn-{{ $advertisement->active == 1 ? "danger" : "info" }} btn-sm">{{ $advertisement->active == 1 ? "ايقاف" : "تفعيل" }}</a>
                             </td>

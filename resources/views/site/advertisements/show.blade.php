@@ -594,12 +594,12 @@ section {
                                 <h4 class="card-title" style="text-align: center;    font-family: 'Cairo', sans-serif;">{{ $advertisement->user->first_name . " " . $advertisement->user->last_name}}</h4>
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
-                                        <a class="social-icon text-xs-center contactbtn" target="_blank" href="{{ route('site.user.show' , ['user' => $advertisement->user->id ]) }}" style="background-color: #580707;padding: 4px;color: #fff;    font-size: 11px;">
+                                        <a class="social-icon text-xs-center contactbtn" href="{{ route('site.user.show' , ['user' => $advertisement->user->id ]) }}" style="background-color: #580707;padding: 4px;color: #fff;    font-size: 11px;">
                                             الاتصال بالمعلن
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a class=" text-xs-center contactbtn" target="_blank" href="{{ route('site.dashboard' , ['user' => $advertisement->user->id ]) }}" style="background-color: #580707;padding: 4px;color: #fff;    font-size: 11px; text-decoration:none;">
+                                        <a class=" text-xs-center contactbtn" href="{{ route('site.dashboard' , ['user' => $advertisement->user->id ]) }}" style="background-color: #580707;padding: 4px;color: #fff;    font-size: 11px; text-decoration:none;">
                                             مراسلة صاحب الإعلان
                                         </a>
                                     </li>
@@ -646,8 +646,9 @@ section {
 
 
             </div>
+@auth
 
-            @if (auth()->user()->payment_data !== null)
+            @if (auth()->user()->payment_data !== null && $advertisement->active && $advertisement->end_publish_date >= Carbon\Carbon::now())
             <div class="col-12">
                 <div class="row">
                     <div class="col">
@@ -693,6 +694,8 @@ section {
             </div>
             @endif
 
+
+            @endauth
 
         </div>
     </div>

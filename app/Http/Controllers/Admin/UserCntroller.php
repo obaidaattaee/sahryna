@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use function PHPUnit\Framework\isNull;
 
 class UserCntroller extends Controller{
+
     function index (){
         $users = User::with('roles')
                     ->with('roles:role_user.user_id')
@@ -44,14 +45,14 @@ class UserCntroller extends Controller{
         }
         else{
             session()->flash('msg' , 's: تم الغات تفعيل عضوية '.$user->first_name . " " . $user->last_name);
-
         }
         return redirect(route('users.index'));
     }
-    public function changeDeleteStatus(User $user){
+    public function changeDeleteStatus($user_id){
+        $user = DB::table('users')->select('*')->where('id' , $user_id)->first();
         $status = $user->deleted_at == null ? 1 : 0  ;
         if($status == 1){
-            $user->update([
+            DB::table('users')->where('id' , $user_id)->update([
                 'deleted_at' => new DateTime('now') ,
                 'active' => 0 ,
             ]);
@@ -59,7 +60,7 @@ class UserCntroller extends Controller{
             return redirect(route('users.inactive'));
         }
         else{
-            $user->update([
+            DB::table('users')->where('id' , $user_id)->update([
                 'deleted_at' => null ,
                 'active' => 1 ,
             ]);

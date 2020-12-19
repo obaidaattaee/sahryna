@@ -3,6 +3,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\SmsSettings;
+use App\Notifications\VerifyUserProfileNotification;
+use Illuminate\Support\Facades\Notification;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class CodeVerificationController extends Controller{
@@ -23,6 +25,7 @@ class CodeVerificationController extends Controller{
         elseif ($user->code === $code['code']) {
             $user->code = null ;
             $user->save() ;
+            Notification::send($user , new VerifyUserProfileNotification('مبروك تم تاكيد هويتك بنجاح')) ;
             Alert::success('تم تاكيد رقم الهاتف بنجاح') ;
             return redirect(route("home")) ;
                 }

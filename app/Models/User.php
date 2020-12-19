@@ -42,7 +42,7 @@ use SoftDeletes ;
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function advertisemets(){
+    public function advertisements(){
         return $this->hasMany(Advertisement::class , 'user_id' , 'id');
     }
     public function getUserNameAttribute(){

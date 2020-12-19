@@ -29,7 +29,8 @@
                         <img src="{{ asset('user_images/public/'.$user->person_image)}}" alt="" />
                     </div>
                 </div>
-               
+                <div class="col-md-2">
+                </div>
                 <div class="col-md-6" style="margin-top: 10px;">
                     <div class="profile-head">
                         <h5>

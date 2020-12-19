@@ -16,9 +16,9 @@ class VerifyUserProfileNotification extends Notification
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($message)
     {
-        //
+        $this->message = $message ;
     }
 
     /**
@@ -41,7 +41,7 @@ class VerifyUserProfileNotification extends Notification
     public function toDatabase($notifiable)
     {
         return[
-            'message' => 'مبروك. لقد تم توثيق حسابك بنجاح ' ,
+            'message' => $this->message ,
         ];
 
     }

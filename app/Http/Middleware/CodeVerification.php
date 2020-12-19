@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Settings;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -17,8 +18,10 @@ class CodeVerification
     public function handle(Request $request, Closure $next)
     {
         if (auth()->check()) {
-            if (auth()->user()->code !== null) {
-                return redirect()->route('code.verify');
+            if (Settings::first()->code == 1) {
+                if (auth()->user()->code !== null) {
+                    return redirect()->route('code.verify');
+                }
             }
         }
         return $next($request);

@@ -20,9 +20,8 @@ class ProfileVerification
         if (auth()->check()) {
             if (auth()->user()->code == null) {
                 if (auth()->user()->payment_data == null) {
-                    Alert::warning('يرجى توثيق الحساب لتتمكن من الاستفادة من خدمات الموقع') ;
-                            return $next($request);
-
+                    Alert::info('يرجى  استكمال بياناتك الشخصية لتتمكن من  الاستفادة من خدمات الموقع') ;
+                    return redirect()->route('my.profile.edit') ;
                 }
             }
         }

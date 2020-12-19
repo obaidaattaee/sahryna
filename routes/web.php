@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\BaseAdminControllers;
+use App\Http\Controllers\Auth\CodeVerificationController;
+use App\Models\Advertisement;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth ;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
@@ -92,61 +95,42 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function
      // end errors routes
 });
 
-Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' , 'profileverirfication'])->group(function(){
-
-    Route::get('/', function () {
-        return redirect(route('home'));
-
-    })->name('main');
+Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ])->group(function(){
+    Route::get('/', function () {return redirect(route('home'));})->name('main');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
     Route::get('about' , 'AboutController@index')->name('site.about') ;
     Route::get('polices' , 'PolicesController@index')->name('site.polices') ;
     Route::get('advertisements/show/{advertisement}/{title}' , 'AdvertismenetController@show')->name('site.advertismenets.show');
-    Route::get('notification/{number}' , function ($x) {
-        try {
-            $token = Http::post('https://auth.sms.to/oauth/token' , [
-                'client_id' => 'gj1k6BrqozbTgTvO' ,
-                'secret' => '78v7i94YBEJ1dN6FWSPz1eICnHeYCp2p' ,
-            ]) ;
-            $response = Http::withHeaders([
-                "Authorization" => $token->header('Authorization')
-            ])->post('https://api.sms.to/sms/send' , [
-                "message" => "شكرا لاشتراكك في منصة اشترينا كود التفعيل الخاص بك هو :" . 123 ,
-                "to" => $x ,
-            ]) ;
-            dd($response) ;
-        } catch (\Throwable $th) {
-           dd($th) ;
-        }
 
-    //    $code = "123123" ;
-    //    Notification::send(auth()->user() , new SendVerifyCodeNotification($code));
-    });
-    Route::middleware('auth' )->group(function (){
-
-
-
-        Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
+    Route::get('test' , function(){
+        dd(Advertisement::latest()->first());
+        $count = Advertisement::where('active' , 0)->whereDate('publish_date'  , Carbon::today())->update([
+            'active' => 1
+        ]);
+        dd($count) ;
+    }) ;
+    Route::middleware(['auth'])->group(function (){
         Route::get('advertisements/{advertisement}/{user}/delete' , 'AdvertismenetController@delete')->name('site.advertismenets.delete');
         Route::get('dashboard' , 'DashboardController@index')->name('site.dashboard');
-        Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
-        Route::post('advertisements/create' , 'AdvertismenetController@store')->name('advertismenets.store');
 
+        Route::post('message/send' , 'MessageController@store')->name('site.message.send');
+        // start code verification routes
+        Route::get('phone/verification' , [CodeVerificationController::class , 'codeVerifiy'])->name('code.verify') ;
+        Route::post('phone/verification' , [CodeVerificationController::class , 'codeVerification'])->name('phone.verification') ;
+        Route::get('phone/resend/code' , [CodeVerificationController::class , 'codeResend'])->name('code.resend') ;
+        //end code verification routes
+
+        //start profile routes
         Route::get('my/profile' , 'ProfileController@show')->name('my.profile');
         Route::get('user/{user}' , 'ProfileController@userShow')->name('site.user.show');
         Route::get('my/profile/edit' , 'ProfileController@edit')->name('my.profile.edit');
         Route::post('my/profile/{user}/update' , 'ProfileController@update')->name('my.profile.update');
-
-
-        Route::post('message/send' , 'MessageController@store')->name('site.message.send');
+        //end prodile routes
+        Route::group(['middleware'=> 'profileverirfication'] , function(){
+            Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
+            Route::post('advertisements/create' , 'AdvertismenetController@store')->name('advertismenets.store');
+        });
     });
 
 });
-Route::group(['middleware' => ['auth'] ] , function () {
-    // start code verification routes
-    Route::get('phone/verification' , 'App\Http\Controllers\Auth\CodeVerificationController@codeVerifiy')->name('code.verify') ;
-    Route::post('phone/verification' , 'App\Http\Controllers\Auth\CodeVerificationController@codeVerification')->name('phone.verification') ;
-    Route::get('phone/resend/code' , 'App\Http\Controllers\Auth\CodeVerificationController@codeResend')->name('code.resend') ;
-    //end code verification routes
-});
+

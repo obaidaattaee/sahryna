@@ -58,7 +58,7 @@
             <div class="col-md-12 hello_user">
                 <p class="UserName-forP">
 
-                    مرحبا بك : <a href="{{ route('my.profile') }}" class="UserName"> ابراهيم مصطفى </a>
+                    مرحبا بك : <a href="{{ route('my.profile') }}" class="UserName">{{ $user->user_name }} </a>
 
                 </p>
             </div>
@@ -344,11 +344,11 @@
 
                 <div class="col-md-6 text-center box-lastmassagesend">
                     <p>اخر الرسائل المرسلة </p>
-                    <p class="number-forP"> 10 </p>
+                    <p class="number-forP"> {{ $user->my_message->count() }} </p>
                 </div>
                 <div class="col-md-6 text-center box-lastmassagerecive ">
                     <p> اخر الرسائل الواردة</p>
-                    <p class="number-forP"> 10 </p>
+                    <p class="number-forP"> {{ $user->inbox->count() }} </p>
                 </div>
             </div>
         </div>

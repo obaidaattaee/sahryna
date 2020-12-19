@@ -14,6 +14,7 @@ class AdvertisementSee extends Seeder
      */
     public function run()
     {
+        for ($i = 0 ; $i <= 10 ; $i++) {
         Advertisement::insert([
             [
                 "title" => "Doobaida personally believe that your working environment is ..."  ,
@@ -57,7 +58,7 @@ class AdvertisementSee extends Seeder
                 "long" => "34.65399056091817",
                 "images" => '["XgWYAiQPXlRhpeYXMGfZlChEfmFBmXXiMcpLfJjv.jpg"]'  ,
                 "user_id" => 1 ,
-                "end_publish_date" => "2021-01-03",
+                "end_publish_date" => "2021-12-20",
                 "active" => 0,
             ],[
                 "title" => "Doobaida personally believe that your working environment is ..."  ,
@@ -96,14 +97,19 @@ class AdvertisementSee extends Seeder
                 "delivery_time_id" => "2",
                 "advertisement_type_id" => "2",
                 "type_of_price" => "retail",
-                "publish_date" => "2020-12-27",
+                "publish_date" => "2020-12-19",
                 "lat" => "31.445109381683537",
                 "long" => "34.65399056091817",
                 "images" => '["XgWYAiQPXlRhpeYXMGfZlChEfmFBmXXiMcpLfJjv.jpg"]'  ,
                 "user_id" => 2 ,
-                "end_publish_date" => "2021-01-03",
+                "end_publish_date" => "2020-12-26",
                 "active" => 0,
             ],
         ]);
     }
+    $this->command->getOutput()->writeln("<comment>Seeding:</comment> adsads");
+
+
+}
+
 }

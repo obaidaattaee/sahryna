@@ -17,6 +17,6 @@ class MessageController extends Controller{
         $data['from'] = auth()->id() ;
         Message::create($data) ;
         Alert::success('تم ارسال رسالتك بنجاح') ;
-        return redirect()->route('site.dashboard') ;
+        return redirect()->route('site.dashboard' , ['user'=>$data['to']]) ;
     }
 }
