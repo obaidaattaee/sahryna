@@ -70,7 +70,7 @@ class AdvertismenetController extends Controller{
                     "Quantity"=> "12",
                     "ExtendedAmount"=> "1,200.00"
                 ] ,
-                "CallBackUrl" => "http://google.com",
+                "CallBackUrl" => route('site.payment.callback'),
                 "Language"=> 1,
                 "adv_id" =>  $advertisement->id ,
             ];
