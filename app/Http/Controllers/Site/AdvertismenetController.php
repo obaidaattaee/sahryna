@@ -79,6 +79,7 @@ class AdvertismenetController extends Controller{
             return isset($result['RedirectUrl']) ? redirect()->to($result['RedirectUrl']) : back()->with('error', (string) $result["Message"]);
         }else{
             $advertisement->active = 1 ;
+            $advertisement->verified = 1 ;
             $advertisement->save();
             Alert::alert('تم اضافة اعلانك بنجاح') ;
             return redirect(route('main'));

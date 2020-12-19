@@ -36,7 +36,9 @@ class CreateAdvertisementsTable extends Migration
             $table->date('end_publish_date');
             $table->string('lat');
             $table->string('long');
+            $table->uuid('code')->nullable();
             $table->boolean('active')->default(0) ;
+            $table->boolean('verified')->default(0) ;
             $table->timestamps();
         });
 
