@@ -99,7 +99,7 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ]
     Route::get('/', function () {return redirect(route('home'));})->name('main');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('about' , 'AboutController@index')->name('site.about') ;
-    Route::get('payment/callback' , 'PaymentCallback@index')->name('site.payment.callback') ;
+    Route::get('payment/callback' , 'PaymentCallbackController@index')->name('site.payment.callback') ;
     Route::get('polices' , 'PolicesController@index')->name('site.polices') ;
     Route::get('advertisements/show/{advertisement}/{title}' , 'AdvertismenetController@show')->name('site.advertismenets.show');
 
