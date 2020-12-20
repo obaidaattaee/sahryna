@@ -7,6 +7,7 @@ use App\Models\Errors;
 use App\Models\SmsSettings;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Providers\AppServiceProvider;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
@@ -33,7 +34,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = "phone/verification";
+    protected $redirectTo = RouteServiceProvider::HOME ;
 
     /**
      * Create a new controller instance.
