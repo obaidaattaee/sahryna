@@ -15,4 +15,8 @@ class PaymentCallbackController extends Controller{
         Alert::alert('تم اضافة اعلانك بنجاح') ;
         return redirect(route('main'));
    }
+   
 }
+
+
+
