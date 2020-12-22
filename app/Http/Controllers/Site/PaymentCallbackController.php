@@ -10,7 +10,7 @@ class PaymentCallbackController extends Controller{
     public function index (){
         $myfatoora = new MyFatoorah;
         $myfatoora->callback();
-        dd($myfatoora->callback());
+        dd($myfatoora->callback() == 'faliure' ? "faild" : "success");
         $advertisement = Advertisement::findOrfail(request()->session()->get('advertisement')['advertisement_id']);
         $advertisement->active = 1 ;
         $advertisement->verified = 1 ;
