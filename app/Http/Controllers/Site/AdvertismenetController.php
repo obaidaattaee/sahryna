@@ -52,10 +52,9 @@ class AdvertismenetController extends Controller{
         $data['end_publish_date'] = Carbon::parse($data['publish_date'])->addDays($subscription->time_day)->toDateString() ;
         // dd($data);
         $advertisement = Advertisement::create($data);
-        session()->put('advertisement_data' , [
+        session()->put('advertisement' , [
             'advertisement_id' => $advertisement->id ,
-
-            'user_id' => $advertisement->user_id,
+            'user_id' => $advertisement->user_id ,
         ]);
         if($advertisement->subscription->price != 0){
             $invoice_params = [
@@ -69,10 +68,10 @@ class AdvertismenetController extends Controller{
                 'DisplayCurrencyIsoAlpha' => 'SAR',
                 'CountryCodeId' => '+966',
                 'DisplayCurrencyId' => 2,
-                "InvoiceItemsCreate" => [
-                    "ProductName"=> "Pro01",
-                    "UnitPrice"=> "100.00",
-                    "Quantity"=> "12",
+                "InvoiceItems" => [
+                    "ProductName"=> (string)$advertisement->title,
+                    "UnitPrice"=> (string)$subscription->price,
+                    "Quantity"=> "1",
                     "ExtendedAmount"=> "1,200.00"
                 ] ,
                 "CallBackUrl" => route('site.payment.callback'),
@@ -81,6 +80,7 @@ class AdvertismenetController extends Controller{
             ];
             $myfatoorah = new ControllersMyFatoorah ;
             $result = $myfatoorah->createProductInvoice($invoice_params);
+            // dd($result);
             return isset($result['RedirectUrl']) ? redirect()->to($result['RedirectUrl']) : back()->with('error', (string) $result["Message"]);
         }else{
             $advertisement->active = 1 ;
