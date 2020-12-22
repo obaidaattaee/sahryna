@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BaseAdminControllers;
 use App\Http\Controllers\Auth\CodeVerificationController;
+use App\Http\Controllers\TestController;
 use App\Models\Advertisement;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth ;
@@ -103,13 +104,7 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ]
     Route::get('polices' , 'PolicesController@index')->name('site.polices') ;
     Route::get('advertisements/show/{advertisement}/{title}' , 'AdvertismenetController@show')->name('site.advertismenets.show');
 
-    Route::get('test' , function(){
-        dd(Advertisement::latest()->first());
-        $count = Advertisement::where('active' , 0)->whereDate('publish_date'  , Carbon::today())->update([
-            'active' => 1
-        ]);
-        dd($count) ;
-    }) ;
+    Route::get('test' , [TestController::class , 'store']) ;
     Route::middleware(['auth'])->group(function (){
         Route::get('advertisements/{advertisement}/{user}/delete' , 'AdvertismenetController@delete')->name('site.advertismenets.delete');
         Route::get('dashboard' , 'DashboardController@index')->name('site.dashboard');

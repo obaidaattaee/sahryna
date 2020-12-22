@@ -52,6 +52,7 @@ class AdvertismenetController extends Controller{
         $data['end_publish_date'] = Carbon::parse($data['publish_date'])->addDays($subscription->time_day)->toDateString() ;
         // dd($data);
         $advertisement = Advertisement::create($data);
+        session()->put('advertisement_data' , $advertisement);
         if($advertisement->subscription->price != 0){
             $invoice_params = [
                 "InvoiceValue" => (float)$subscription->price,
@@ -64,7 +65,7 @@ class AdvertismenetController extends Controller{
                 'DisplayCurrencyIsoAlpha' => 'SAR',
                 'CountryCodeId' => '+966',
                 'DisplayCurrencyId' => 2,
-                "InvoiceItems" => [
+                "InvoiceItemsCreate" => [
                     "ProductName"=> "Pro01",
                     "UnitPrice"=> "100.00",
                     "Quantity"=> "12",
