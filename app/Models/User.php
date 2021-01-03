@@ -43,17 +43,21 @@ use SoftDeletes ;
         'email_verified_at' => 'datetime',
     ];
     public function advertisements(){
-        return $this->hasMany(Advertisement::class , 'user_id' , 'id');
+        return $this->hasMany(Advertisement::class);
     }
     public function getUserNameAttribute(){
         return $this->attributes['first_name'] . " " .$this->attributes['last_name'] ;
     }
-
     public function getMyMessageAttribute(){
         return $this->hasMany(Message::class , 'from' , 'id');
     }
     public function getInboxAttribute(){
         return $this->hasMany(Message::class , 'to' , 'id');
     }
-
+    public function users_advertisements(){
+        return $this->belongsToMany(Advertisement::class , 'users_advertisements' ,'user_id' , 'advertisement_id' );
+    }
+    public function contributes(){
+        return $this->hasMany(UserAdvertisement::class ,'user_id' , 'id' );
+    }
 }

@@ -19,6 +19,7 @@ class CreateMessagesTable extends Migration
             $table->foreignId('to')->constrained('users');
             $table->text('message');
             $table->boolean('readed')->default(0);
+            $table->integer('flag');
             $table->string('title');
             $table->timestamps();
         });

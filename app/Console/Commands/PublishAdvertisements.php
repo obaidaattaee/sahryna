@@ -40,14 +40,15 @@ class PublishAdvertisements extends Command
      */
     public function handle()
     {
-        $count = Advertisement::where('active' , 0)->whereDate('publish_date'  , Carbon::today())->update([
+        $count = Advertisement::where('active' , 0)->where('verified' , 1)->whereDate('publish_date'  , Carbon::today())->update([
             'active' => 1
         ]);
         $count_end = Advertisement::where('active' , 1)->whereDate('end_publish_date'  , Carbon::today())->update([
-            'active' => 0
+            'active' => 0 ,
+            'verified' => 0
         ]);
         Errors::insert([
-            ['message' => "تم نفعيل $count اعلانا اليوم و تم ايقاف $count_end" . Carbon::now()] ,
+            ['message' => "تم نفعيل  $count اعلانا اليوم و تم ايقاف  $count_end" . " " . Carbon::now()] ,
         ]) ;
 
         echo "ok\n";

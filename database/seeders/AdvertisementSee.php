@@ -38,11 +38,12 @@ class AdvertisementSee extends Seeder
                 "user_id" => 1 ,
                 "end_publish_date" => "2021-01-03",
                 "active" => 1,
+                "verified" => 1,
             ],[
                 "title" => "Doobaida personally believe that your working environment is ..."  ,
                 "description" => "sasssssssssss",
                 "category_id" => "7",
-                "city_id" => "2",
+                "city_id" => "5",
                 "phone" => "9661234543223",
                 "cost" => "32",
                 "number_of_partners" => "2",
@@ -60,11 +61,12 @@ class AdvertisementSee extends Seeder
                 "user_id" => 1 ,
                 "end_publish_date" => "2021-12-20",
                 "active" => 0,
+                "verified" => 0,
             ],[
                 "title" => "Doobaida personally believe that your working environment is ..."  ,
                 "description" => "sasssssssssss",
                 "category_id" => "7",
-                "city_id" => "2",
+                "city_id" => "4",
                 "phone" => "9661234543223",
                 "cost" => "32",
                 "number_of_partners" => "2",
@@ -82,6 +84,7 @@ class AdvertisementSee extends Seeder
                 "user_id" => 1 ,
                 "end_publish_date" => "2021-01-03",
                 "active" => 1,
+                "verified" => 0,
             ],[
                 "title" => "Doobaida personally believe that your working environment is ..."  ,
                 "description" => "sasssssssssss",
@@ -102,8 +105,9 @@ class AdvertisementSee extends Seeder
                 "long" => "34.65399056091817",
                 "images" => '["XgWYAiQPXlRhpeYXMGfZlChEfmFBmXXiMcpLfJjv.jpg"]'  ,
                 "user_id" => 2 ,
-                "end_publish_date" => "2020-12-26",
-                "active" => 0,
+                "end_publish_date" => "2021-1-4",
+                "active" => 1,
+                "verified" => 1,
             ],
         ]);
     }

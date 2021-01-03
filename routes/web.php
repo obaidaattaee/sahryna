@@ -125,6 +125,13 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ]
         Route::group(['middleware'=> 'profileverirfication'] , function(){
             Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
             Route::post('advertisements/create' , 'AdvertismenetController@store')->name('advertismenets.store');
+            Route::post('user/{user}/advertisements/{advertisement}/create/supscription' , 'AdvertismenetController@addSubscription')->name('advertismenets.add.subscription');
+            Route::get('user/{user}/advertisements/{advertisement}/delete/{subscription}/supscription' , 'AdvertismenetController@deleteSubscription')->name('advertismenets.delete.subscription');
+
+
+            Route::get('contribute/code/verify' , 'AdvertismenetController@contributeCode')->name('contribute.code');
+            Route::post('contribute/code/verify' , 'AdvertismenetController@contributeCodeVerify')->name('contribute.code.verify');
+            Route::post('contribute/complete/verify' , 'AdvertismenetController@contributeCompleteVerify')->name('contribute.complete.verify');
         });
     });
 

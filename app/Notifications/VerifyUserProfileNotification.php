@@ -16,9 +16,10 @@ class VerifyUserProfileNotification extends Notification
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($title , $message)
     {
         $this->message = $message ;
+        $this->title = $title ;
     }
 
     /**
@@ -41,6 +42,7 @@ class VerifyUserProfileNotification extends Notification
     public function toDatabase($notifiable)
     {
         return[
+            'title' => $this->title ,
             'message' => $this->message ,
         ];
 

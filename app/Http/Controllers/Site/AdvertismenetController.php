@@ -10,8 +10,12 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\DeliveryTime;
 use App\Models\Subscription;
+use App\Models\User;
+use App\Models\UserAdvertisement;
+use App\Notifications\VerifyUserProfileNotification;
 use bawes\myfatoorah\MyFatoorah;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Notification;
 use RealRashid\SweetAlert\Facades\Alert;
 
 
@@ -83,7 +87,7 @@ class AdvertismenetController extends Controller{
             // dd($result);
             return isset($result['RedirectUrl']) ? redirect()->to($result['RedirectUrl']) : back()->with('error', (string) $result["Message"]);
         }else{
-            $advertisement->active = 1 ;
+            $advertisement->active = 0 ;
             $advertisement->verified = 1 ;
             $advertisement->save();
             Alert::alert('تم اضافة اعلانك بنجاح') ;
@@ -103,7 +107,11 @@ class AdvertismenetController extends Controller{
     }
 
    public function delete(Advertisement $advertisement , $user){
-        if ( $advertisement->user_id !== (int)$user ){
+        if ( $advertisement->reminnig_contributes !==  $advertisement->number_of_partners) {
+            Alert::warning('عذرا لا يمكن حذف العلان لوجود طلبات مشاركة');
+            return redirect(route('site.dashboard')) ;
+        }
+        if ( $advertisement->user_id !== (int)$user  ){
             abort(404) ;
         }else{
             $advertisement->delete() ;
@@ -111,4 +119,92 @@ class AdvertismenetController extends Controller{
             return redirect(route('site.dashboard')) ;
         }
    }
+   public function addSubscription(User $user , Advertisement $advertisement){
+        $subscripes_number = $advertisement->number_of_partners - $advertisement->userSubscriptions()->sum("number_of_parts") ;
+        $data = request()->validate([
+            'number_of_parts' => ['required' , 'numeric' ,'max:'.$subscripes_number]
+        ], [] , [
+            'number_of_parts' => 'الحصص'
+        ]);
+        $data['code'] = $this->generateRandomString(8);
+        $data['status'] = 0;
+        $data['user_id'] = $user->id;
+        $data['advertisement_id'] = $advertisement->id;
+
+        $contribute = UserAdvertisement::create($data);
+        if ($advertisement->number_of_partners - $advertisement->contributes()->sum('number_of_parts') == 0) {
+            UserAdvertisement::where('advertisement_id'  , $advertisement->id)->update([
+                'status' => 1
+            ]);
+            $advertisement->update([
+                'active' => 2
+            ]);
+            Notification::send($user , new VerifyUserProfileNotification('تم اضافة شراكتك بنجاح'  , 'تم اضافة شراكتك بنجاح , و سيتم التواصل معكم خلال ' . $advertisement->deleveiryTime->time_day . " " .  $advertisement->deleveiryTime->description . " " . " من طرف المعلن لاستلام البضاعة" )) ;
+            Notification::send($advertisement->user , new VerifyUserProfileNotification('تهانينا لقد اكتمل الشركاء للاعلان  '. " " . $advertisement->title , 'عزيزي المشترك تم اكتمال عدد الشركاء للاعلان  ' . " " . $advertisement->title ." " ."لذلك يتوجب عليك تسليم المنتج خلال مدة لا تزيد عن " . $advertisement->deleveiryTime->time_day . " " .  $advertisement->deleveiryTime->description )) ;
+            Alert::success( 'تم اضافة شراكتك بنجاح , و سيتم التواصل معكم خلال'  . $advertisement->deleveiryTime->time_day . " " .  $advertisement->deleveiryTime->description . " " . " من طرف المعلن لاستلام البضاعة" );
+            return redirect(route('home'));
+        }
+        Notification::send($user , new VerifyUserProfileNotification('تم اضافة شراكتك بنجاح ' ,'تم اضافة شراكتك بنجاح , سيتم مراجعتها من طرف المعلن و اشعارك في حالة القبول ')) ;
+        Notification::send($advertisement->user , new VerifyUserProfileNotification('عزيزي المعلن , يوجد لديك طلب مشاركة '  , 'عزيزي المعلن , يوجد لديك طلب مشاركة على اعلانك رقم' .$advertisement->id)) ;
+        Alert::success('تم اضافة شراكتك بنجاح , سيتم مراجعتها من طرف المعلن و اشعارك في حالة القبول ');
+        return redirect(route('site.advertismenets.show' , ['advertisement'=>$advertisement->id , 'title'=>$advertisement->title]));
+   }
+   public function deleteSubscription(User $user , Advertisement $advertisement , UserAdvertisement $subscription){
+        if ($subscription->advertisement()->first()->reminnig_contributes == 0) {
+            Alert::warning('عذرا لايمكنك الانسحاب من الشراكة لاكتمال عدد الشركاء في هذا الاعلان');
+            return redirect(route('site.dashboard')) ;
+        }
+        $subscription->delete() ;
+        Alert::success('تم سحب شراكتك بنجاح');
+        return redirect(route('site.dashboard')) ;
+    }
+
+   public  function generateRandomString($length = 20) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+    public function contributeCode(){
+        return  view('site.dashboard.verify_code') ;
+    }
+    public function contributeCodeVerify(){
+        $code = request()->validate([
+            'code' => ['required' , 'size:8']
+        ] , [] , ['code' => "كود التحقق"]);
+        $contribute = UserAdvertisement::where('code' , $code['code'])->first();
+        if ($contribute == null) {
+            Alert::warning('الكود اللذي قمت بادخاله غير صحيح يرجى التاكد');
+            return redirect(route('contribute.code'));
+        }
+        switch ($contribute->status) {
+            case 0:
+                Alert::info('لم يكتمل عدد الشركاء لهذا العلان');
+                break;
+            case 2:
+                Alert::info('هذا المنتج تم تسليمة ');
+                break;
+
+        }
+        return view('site.dashboard.product_details')
+                    ->with('contribute' , $contribute) ;
+    }
+    public function contributeCompleteVerify(){
+        $id = request()->validate([
+            'id' => ['required' , 'exists:users_advertisements']
+        ] , [] , ['code' => "كود التحقق"]);
+
+        $contribute = UserAdvertisement::findOrFail($id['id']);
+        $contribute->update([
+            'status' => 2
+        ]);
+
+        Alert::warning('شكرا لتعاملكم معنا ');
+        return redirect(route('site.dashboard'));
+
+    }
 }

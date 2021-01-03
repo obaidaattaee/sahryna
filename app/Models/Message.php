@@ -12,7 +12,7 @@ class Message extends Model
     protected $guarded = [] ;
 
     public function toUser(){
-        return $this->belongsTo(User::class , 'id' , 'to');
+        return $this->belongsTo(User::class , 'to' , 'id' );
     }
     public function fromUser(){
         return $this->belongsTo(User::class , 'from' , 'id');

@@ -32,7 +32,7 @@
     color: rgb(175, 83, 83);
     font-family: 'Cairo', sans-serif;
 }
-    
+
 .navbar-brand img{
     height: 70px;
     width: 70px;
@@ -57,7 +57,7 @@
 
     .navbar-brand:hover {
         color: #580707;
-      
+
     }
 
 .a-navbar {
@@ -201,7 +201,7 @@
 .editUser {
     margin-bottom: 10px;
     padding-top: 10px;
-    
+
 }
 
 .col-4-section1, .col-4-section2, .col-4-section3 {
@@ -227,7 +227,7 @@
 
 .keyword ,.box-lastmassagerecive,.box-lastmassagesend{
     font-family: 'Cairo', sans-serif;
- 
+
 }
 
 @media(min-width:320px),(max-width:414px){
@@ -235,7 +235,7 @@
         margin-left: 7px;
         margin-right: 2px;
     }
-    
+
 }
 
 
@@ -244,7 +244,7 @@
         margin-left: 0px;
         margin-right: 0px;
     }
-    
+
 }
 
 
@@ -416,7 +416,7 @@ nav-link:hover {
 }
 
 .title-boxNotices ,.title-boxmassage,.title-ofADS{
- 
+
     font-family: 'Cairo', sans-serif;
 }
 
@@ -430,7 +430,7 @@ nav-link:hover {
 }
 
 #nav-Notices-tab,#nav-Messages-tab,#nav-Ads-tab,#nav-Yourrequests-tab:hover{
-     
+
 
     color: #6d1c1c;
 }
@@ -450,7 +450,7 @@ nav-link:hover {
     font-size: 17px;
     text-decoration: none;
     font-family: 'Cairo', sans-serif;
-    
+
 }
 
 
@@ -487,9 +487,6 @@ nav-link:hover {
     font-family: 'Cairo', sans-serif;
 }
 
-.Link{
-
-}
 
 .list-Link li a{
     color: #6d1c1c;
@@ -499,64 +496,65 @@ nav-link:hover {
 }
 
 
-/*
-<!--navbar-->
-<nav class="navbar navbar-expand-md    fixed-top navbar-org">
-    <div class="container-fluid">
-        <a href="#" class="navbar-brand">
-            <img src="img/اشترينا001.jpg"   >
-        </a>
-
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <a class="nav-link a-navbar add-ads li-navbar" href="#"> اضف اعلانك <i class="fas fa-tag"></i> </a>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-between" id="#">
-            <ul class="navbar-nav">
-          
-            </ul>
-
-            <ul class="navbar-nav">
-
-                <li class="nav-item active">
-                    <a class="nav-link a-navbar li-navbar" href="DashboardCustomer.html" target="_blanck">    لوحة التحكم   <i class="fas fa-chart-pie"></i></a>
-                </li>
 
 
 
-                <li class="nav-item dropdown ">
-                    <a class="nav-link dropdown-toggle a-navbar li-navbar" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="cursor" style="cursor: pointer;">
 
-                            <i class="far fa-bell" style="cursor: pointer;"></i>
-                        </span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                        <a class="dropdown-item" href="#">لا يوجد اشعارات جديدة حتى الان</a>
-                        <a class="dropdown-item" href="#">لقد تم تغيير كلمة مرور الخاصة بحسابك </a>
-                    </div>
-                </li>
 
-                <li class="nav-item active">
-                    <a class="nav-link a-navbar add-ads li-navbar" href="AddAdvertisement.html"  > اضف اعلانك <i class="fas fa-tag"></i> </a>
-                </li>
 
-                <li class="nav-item active">
-                    <a class="nav-link a-navbar li-navbar" href="#" > الاقسام <i class="fas fa-th-list"></i> </a>
-                </li>
 
-                <li class="nav-item dropdown ">
-                    <a class="nav-link dropdown-toggle a-navbar li-navbar" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="cursor" style="cursor: pointer;"> ابراهيم مصطفى   <i class="fa fa-user" style="cursor: pointer;"></i></span> </a>
-                    <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                        <a class="dropdown-item" href="EditProfile.html">حسابي</a>
 
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">تسجيل خروج</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- End navbar-->
-*/
+
+
+
+
+
+
+
+.md-avatar{
+    width: 70px;
+    height: 70px;
+    float: right;
+}
+
+.Member-Name{
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #6d1c1c;
+
+}
+
+
+.Massege-inside{
+    margin-top: -10px;
+    color: #959494;
+    font-weight: 500;
+}
+
+
+.DataSend{
+    margin-bottom: 1px;
+    color: #999;
+    font-size: 14px;
+    border-top: 1px solid #c4c4a3;
+    margin-top: 5px;
+    padding: 10px;
+}
+
+
+.for-img{
+    padding: 8px;
+}
+
+.for-Rowborder{
+    border-top: 1px solid #c4c4a3;
+    margin-top: 5px;
+}
+
+
+.for-border{
+
+}
+
+/*     padding: 15px;border-bottom: 1px solid #c4c4a3;border-top: 1px solid #c4c4a3;*/

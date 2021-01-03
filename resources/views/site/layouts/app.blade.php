@@ -114,7 +114,7 @@
                                     @endif
                                         @else
                                         @foreach (auth()->user()->unreadnotifications->take(10) as $item)
-                                        <a class="dropdown-item" href="{{ route('site.dashboard') }}">{{ $item->data['message'] }}</a>
+                                        <a class="dropdown-item" href="{{ route('site.dashboard') }}">{{ $item->data['title'] }}</a>
 
                                         @endforeach
                                     @endif

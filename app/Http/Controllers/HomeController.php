@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
+use App\Models\City;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -23,11 +24,20 @@ class HomeController extends Controller
     public function index()
     {
         $advertisements = Advertisement::where('active' , 1)
+                            ->where('verified' , 1)
                             ->where('end_publish_date' , '>' , Carbon::now())
-                            ->with(['city'])
-                            ->paginate(40);
+                            ->with(['city']);
+
+        $city = request()['city'];
+        if ($city !== null) {
+            // dd($city);
+            $advertisements = $advertisements->where('city_id' , $city);
+        }
+        $advertisements = $advertisements->paginate(40) ;
         // dd($advertisements) ;
+        $cities = City::where('active' , 1) -> get() ;
         return view('site.home')
-                ->with('advertisements' , $advertisements);
+                ->with('advertisements' , $advertisements)
+                ->with('cities' , $cities);
     }
 }

@@ -10,16 +10,17 @@ class PaymentCallbackController extends Controller{
     public function index (){
         $myfatoora = new MyFatoorah;
         $myfatoora->callback();
-        dd($myfatoora->callback() == 'faliure' ? "faild" : "success");
-        $advertisement = Advertisement::findOrfail(request()->session()->get('advertisement')['advertisement_id']);
-        $advertisement->active = 1 ;
-        $advertisement->verified = 1 ;
-        $advertisement->save();
-        Alert::alert('تم اضافة اعلانك بنجاح') ;
-        return redirect(route('main'));
-   }
-
+        if ($myfatoora->callback() == 'faliure') {
+            Alert::warning('عملية دفع فاشلة, يرجى اعادة الدفع مرة اخرى');
+            return redirect(route('main'));
+        }
+        else{
+            $advertisement = Advertisement::findOrfail(request()->session()->get('advertisement')['advertisement_id']);
+            $advertisement->active = 1 ;
+            $advertisement->verified = 1 ;
+            $advertisement->save();
+            Alert::alert('تم اضافة اعلانك بنجاح') ;
+            return redirect(route('main'));
+        }
+    }
 }
-
-
-

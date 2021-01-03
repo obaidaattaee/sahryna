@@ -25,12 +25,9 @@
                     اختر المدينة
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-
-
-                    <a class="dropdown-item" href="#"> الرياض</a>
-                    <a class="dropdown-item" href="#">  الجدة</a>
-                    <a class="dropdown-item" href="#"> مكة المكرمة   </a>
-                    <a class="dropdown-item" href="#">  الزلفي</a>
+                    @foreach ($cities as $city)
+                        <a class="dropdown-item" href="{{ route('home' , ['city' => $city->id]) }}">{{ $city->title }}</a>
+                    @endforeach
 
                 </div>
             </div>
@@ -147,9 +144,13 @@
                 <div class="form-row" style="    margin-top: -3px;">
 
                     <div class="form-group col-md-12">
-                        <p class="p-ForP">عدد الاعضاء المطلوبين </p>
+                        <p class="p-ForP">عدد الاعضاء المطلوبين : <span>{{$advertisement->number_of_partners}}</span> </p>
+
                         <div class="progress"  >
-                            <div class="progress-bar progress-bar-striped " role="progressbar" style="width: 75%;background-color: #6d1c1c;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">تبقى   3 اعضاء</div>
+                            @php
+                                $bar_percentage = ($advertisement->userSubscriptions()->sum('number_of_parts') / $advertisement->number_of_partners) *100 ;
+                            @endphp
+                            <div class="progress-bar progress-bar-striped " role="progressbar" style="width: {{ $bar_percentage == 0 ? 100 : $bar_percentage }}%;background-color: '#6d1c1c' ;background-color:{{ $bar_percentage == 0 ?   "#6d1c1c" : "#28a745" }};"  aria-valuemin="0" aria-valuemax="100">تبقى   {{ $advertisement->number_of_partners - $advertisement->userSubscriptions()->sum('number_of_parts') }} اعضاء</div>
                         </div>
                     </div>
 

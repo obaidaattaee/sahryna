@@ -26,7 +26,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('advertisements:publish')->everyMinute();
-        $schedule->call(function () {echo "hello " ; })->everyMinute();
     }
 
     /**

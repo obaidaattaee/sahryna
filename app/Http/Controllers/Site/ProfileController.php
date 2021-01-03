@@ -58,7 +58,7 @@ class ProfileController extends Controller{
         unset($data ['card']) ;
 
         $user->update($data) ;
-        Notification::send($user , new VerifyUserProfileNotification("تم توثيق حسابك بنجاح"));
+        Notification::send($user , new VerifyUserProfileNotification( 'تم توثيق حسابك بنجاح' , 'تهانينا ! تم توثيق حسابك بنجاح , يمكنك الان الاستفادة من خدمات الموقع'));
         Alert::success('تم التعديل' ,'تم تعديل بياناتك بنجاح');
         return redirect(route('my.profile'));
 

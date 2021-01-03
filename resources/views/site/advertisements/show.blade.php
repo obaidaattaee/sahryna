@@ -632,52 +632,63 @@ section {
                 <h3 class="h3-forDE">  السعر   </h3>
             </div>
             <p class="section-style p-forfont">  سعر الحصة :  {{ round($advertisement->cost_of_share , 2) }} ر.س</p>
-
             <div class="form-group col-md-12">
                 <p class="p-ForP" style="  font-family: 'Cairo', sans-serif;font-size: 15px;font-weight: 600;color: #580707;margin-top: 21px; margin-bottom: 20px;">
                     عدد الاعضاء المطلوبين  :
 
                     <span href="#" class="   toolbar  ">{{ $advertisement->number_of_partners }}</span>
                 </p>
+                @php
+                    $bar_percentage = ($advertisement->userSubscriptions()->sum('number_of_parts') / $advertisement->number_of_partners) *100 ;
+                @endphp
                 <div class="progress" style="direction: rtl;background-color: #e5e5ca; height: 25px; ">
-                    <div class="progress-bar progress-bar-striped " role="progressbar" style=" font-family: 'Cairo', sans-serif;width: 75%;background-color: #6d1c1c;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">تبقى   3 اعضاء</div>
+                    <div class="progress-bar progress-bar-striped " role="progressbar" style=" font-family: 'Cairo', sans-serif;width: {{ $bar_percentage }}%;background-color: {{ $bar_percentage ==100 ?"#28a745" : "#6d1c1c"}};" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">تبقى   {{ $advertisement->number_of_partners - $advertisement->userSubscriptions()->sum('number_of_parts') }} اعضاء</div>
                 </div>
-
 
 
             </div>
 @auth
 
-            @if (auth()->user()->payment_data !== null && $advertisement->active && $advertisement->end_publish_date >= Carbon\Carbon::now())
+            @if (auth()->user()->payment_data !== null && $advertisement->active && $advertisement->end_publish_date >= Carbon\Carbon::now() &&  $bar_percentage !== 100)
             <div class="col-12">
-                <div class="row">
-                    <div class="col">
-                        <button type="button" class="btn btn-default btnblock btn-block" data-toggle="modal" data-target="#exampleModalLong" style="margin-top:27px">
-                            تقديم طلب مشاركة
-                        </button>
-                    </div>
-                    <div class="col" >
+                <form id="subscription_form" method="post" action="{{route('advertismenets.add.subscription' , ['user'=>auth()->id() , 'advertisement'=>$advertisement->id])}}">
+                @csrf
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-default btnblock btn-block" data-toggle="modal" data-target="#exampleModalLong" style="margin-top:27px">
+                                تقديم طلب مشاركة
+                            </button>
+                        </div>
+                        <div class="col" >
 
-                        <h6 class="p-forfont" style="  text-align: end; color: #580707;">عدد الحصص</h6>
+                            <h6 class="p-forfont" style="  text-align: end; color: #580707;">عدد الحصص</h6>
 
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="" style=" border-color: #fff;   background-color: #580707;">
-                                    <i class="fa fa-minus" aria-hidden="true"></i>
-                                </button>
-                            </span>
-                            <input type="text" id="quantity" name="quantity" class="form-control input-number" value="10" min="1" max="100">
-                            <span class="input-group-btn">
-                                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="" style="    border-color: #fff;background-color: #580707;">
-                                    <i class="fa fa-plus" aria-hidden="true"></i>
-                                </button>
-                            </span>
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="" style=" border-color: #fff;   background-color: #580707;">
+                                        <i class="fa fa-minus" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+                                <input type="text" id="quantity" name="number_of_parts" class="form-control input-number" value="{{ $advertisement->number_of_partners }}" min="1" max="{{ $advertisement->number_of_partners }}">
+
+                                <span class="input-group-btn">
+                                    <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="" style="    border-color: #fff;background-color: #580707;">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+                            </div>
+
+
+
                         </div>
 
-
-
                     </div>
-                </div>
+                    @error('number_of_parts')
+                    <div class="row" style="direction: rtl">
+                        <div class="alert alert-danger" style="text-align: right">{{$message}}</div>
+                    </div>
+                        @enderror
+                </form>
                 <br>
                 <div class="row">
                     <div class="col">
@@ -758,7 +769,7 @@ section {
             <!--Footer-->
             <div class="modal-footer justify-content-center">
 
-                <button type="button" class="btn btn-success" data-dismiss="modal" style="   "> موافق     </button>
+                <button type="submit" form="subscription_form" class="btn btn-success"  style="   "> موافق     </button>
             </div>
         </div>
         <!--/.Content-->

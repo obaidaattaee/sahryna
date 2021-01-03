@@ -15,6 +15,11 @@ class CreateUsersAdvertisementsTable extends Migration
     {
         Schema::create('users_advertisements', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('advertisement_id')->constrained('advertisements');
+            $table->integer('status') ;  // [0 => 'قيد الانتظار'] [1 => اكتملت المشاركات] [2 => "تم استلام المنتج"]
+            $table->integer('number_of_parts') ;
+            $table->string('code') ;
             $table->timestamps();
         });
     }
