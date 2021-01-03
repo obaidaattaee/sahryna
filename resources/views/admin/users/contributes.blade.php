@@ -71,26 +71,26 @@
                 <div class="row list-separated profile-stat">
                     <div class="col-md-4 col-sm-4 col-xs-6">
                         <div class="uppercase profile-stat-title">
-                             {{ $user->advertisements->count() }}
+                             37
                         </div>
                         <div class="uppercase profile-stat-text">
-                             الاعلانات
+                             Projects
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-6">
                         <div class="uppercase profile-stat-title">
-                             {{ $user->contributes->count() }}
+                             51
                         </div>
                         <div class="uppercase profile-stat-text">
-                             المشاركات
+                             Tasks
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-4 col-xs-6">
                         <div class="uppercase profile-stat-title">
-                             {{ $user->contributes->sum('number_of_parts') }}
+                             61
                         </div>
                         <div class="uppercase profile-stat-text">
-                             الحصص 
+                             Uploads
                         </div>
                     </div>
                 </div>
