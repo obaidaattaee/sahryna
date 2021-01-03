@@ -13,4 +13,8 @@ class Subscription extends Model
     public function advertisements(){
         return $this->hasMany(Advertisement::class , 'id' , 'subscription_id');
     }
+
+    public function role(){
+        return $this->belongsTo(Role::class , 'role_id' , 'id');
+    }
 }

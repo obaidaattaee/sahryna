@@ -20,6 +20,7 @@ class CreateSubscriptionsTable extends Migration
             $table->float('price') ;
             $table->integer('time_day') ;
             $table->boolean('active') ;
+            $table->foreignId('role_id')->constrained("roles") ;
             $table->timestamps();
         });
     }

@@ -72,6 +72,10 @@
                         <strong>{{ $message }}</strong>
                     </div>
                     @enderror
+
+                    <div class="form-group">
+                        <input type="radio" name="password_confirmation" class="form-control" placeholder=" تاكيد كلمة المرور " value="" style="   font-size:  1.1rem;" />
+                    </div>
                     <div class="form-group">
                         <input type="submit" class="btnSubmit" value="تسجيل" style="width: 100%; margin-top: 10px; font-size:12px; padding:10px;   background-color: #6d1c1c !important;font-family: 'Cairo', sans-serif;" />
                     </div>

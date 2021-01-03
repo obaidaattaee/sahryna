@@ -20,6 +20,7 @@ class SubscriptionSeeder extends Seeder
                 'description' => 'اعلان لمدة يوم واحد  ' ,
                 'price' => 0 ,
                 'time_day' => 1 ,
+                'role_id' => 3 ,
                 'active' => 1 ,
             ],
             [
@@ -27,6 +28,7 @@ class SubscriptionSeeder extends Seeder
                 'description' => 'اعلان لمدة يومين   ' ,
                 'price' => 2 ,
                 'time_day' => 2 ,
+                'role_id' => 3 ,
                 'active' => 1 ,
             ],
             [
@@ -34,6 +36,31 @@ class SubscriptionSeeder extends Seeder
                 'description' => 'اعلان لمدة  ثلاثة ايام  ' ,
                 'price' => 3 ,
                 'time_day' => 3 ,
+                'role_id' => 3 ,
+                'active' => 1 ,
+            ],
+            [
+                'title' => '  يوم واحد' ,
+                'description' => 'اعلان لمدة يوم واحد  ' ,
+                'price' => 0 ,
+                'time_day' => 1 ,
+                'role_id' => 2 ,
+                'active' => 1 ,
+            ],
+            [
+                'title' => '  يومين ' ,
+                'description' => 'اعلان لمدة يومين   ' ,
+                'price' => 2 ,
+                'time_day' => 2 ,
+                'role_id' => 2 ,
+                'active' => 1 ,
+            ],
+            [
+                'title' => ' ثلاثة ايام ' ,
+                'description' => 'اعلان لمدة  ثلاثة ايام  ' ,
+                'price' => 3 ,
+                'time_day' => 3 ,
+                'role_id' => 2 ,
                 'active' => 1 ,
             ],
         ]);

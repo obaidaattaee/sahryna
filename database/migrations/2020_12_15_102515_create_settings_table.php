@@ -25,6 +25,7 @@ class CreateSettingsTable extends Migration
             $table->json('social')->nullable();
             $table->json('slider_images')->nullable();
             $table->string('description');
+            $table->boolean('buyer_subscription')->default(0) ;
             $table->timestamps();
         });
     }

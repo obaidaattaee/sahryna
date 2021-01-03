@@ -179,4 +179,13 @@ dd(request()->all());
         session()->flash('msg' , 'تم حفظ بيانات بوابة الرسائل بنجاح') ;
         return redirect(route('admin.settings.sms')) ;
     }
+    public function buyerSubscriptionStatus(){
+        $buyer_subscription = Settings::first();
+        $buyer_subscription->update([
+            'buyer_subscription' => !$buyer_subscription->buyer_subscription
+        ]);
+
+        $buyer_subscription->buyer_subscription ? session()->flash('msg' , 's: تم تفعيل الدفع للتجار ') : session()->flash('msg' , 's: تم ايقاف الدفع للتجار ');
+        return redirect(route('subscriptions.index'));
+    }
 }

@@ -58,6 +58,27 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group form-md-line-input">
+                        <label class="col-md-2 control-label" for="form_control_1"> المستخدم </label>
+                        <div class="col-md-10">
+                            <div class="md-checkbox-list">
+                                <div class="form-group form-md-radios">
+                                    <div class="md-radio-list">
+                                        @foreach ($roles as $role)
+                                            <div class="md-radio">
+                                                <input type="radio" id="radio1" name="role_id" value="{{$role->id}}" class="md-radiobtn">
+                                                <label for="radio1">
+                                                <span class="inc"></span>
+                                                <span class="check"></span>
+                                                <span class="box"></span>
+                                                {{ $role->display_name }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <br><br><br>
                     <div class="form-actions noborder">

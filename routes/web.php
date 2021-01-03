@@ -64,6 +64,7 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function
     Route::get('settings/social' , 'App\Http\Controllers\Admin\SettingsController@social')->name('admin.settings.social');
     Route::post('settings/social/create' , 'App\Http\Controllers\Admin\SettingsController@insertSocial')->name('admin.settings.social.insert');
     Route::get('settings/social/delete' , 'App\Http\Controllers\Admin\SettingsController@deleteSocial')->name('admin.settings.social.delete');
+    Route::get('settings/buyer_subscriptions/change_status' , 'App\Http\Controllers\Admin\SettingsController@buyerSubscriptionStatus')->name('admin.settings.buyer.subscription.status');
     Route::post('settings' , 'App\Http\Controllers\Admin\SettingsController@store')->name('admin.settings.store');
     Route::post('settings/update' , 'App\Http\Controllers\Admin\SettingsController@update')->name('admin.settings.update');
 

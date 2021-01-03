@@ -13,9 +13,9 @@
 
             </div>
             <div class="portlet-body form">
-                <form role="form" method="post" action="{{ route('subscriptions.update' , ['subscription' => $subscription->id]) }}">
+                <form role="form" method="post" action="{{ route('subscriptions.store') }}">
                     @csrf
-                    @method('PUT')
+                    @method('POST')
                     <div class="form-body">
                         <div class="form-group form-md-line-input">
                             <input type="text" class="form-control" name="title" value="{{ old('title') ?? $subscription->title ?? '' }}" id="form_control_1" placeholder="عنوان الاشتراك ">
@@ -45,7 +45,7 @@
 
 
                                     <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox1" class="md-check" name="active"  {{ $subscription->active  ? "checked" : ""}}>
+                                    <input type="checkbox" id="checkbox1" class="md-check" name="active"  {{ old('active')  ? "checked" : ""}}>
                                         <label for="checkbox1">
                                         <span class="inc"></span>
                                         <span class="check"></span>
@@ -55,27 +55,6 @@
 
 
 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group form-md-line-input">
-                        <label class="col-md-2 control-label" for="form_control_1"> المستخدم </label>
-                        <div class="col-md-10">
-                            <div class="md-checkbox-list">
-                                <div class="form-group form-md-radios">
-                                    <div class="md-radio-list">
-                                        @foreach ($roles as $role)
-                                            <div class="md-radio">
-                                                <input type="radio" {{ $subscription->role_id == $role->id ? "checked" : "" }} id="{{$role->id}}" name="role_id" value="{{$role->id}}" class="md-radiobtn">
-                                                <label for="{{$role->id}}">
-                                                <span class="inc"></span>
-                                                <span class="check"></span>
-                                                <span class="box"></span>
-                                                {{ $role->display_name }}</label>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
