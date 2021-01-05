@@ -19,6 +19,8 @@
 <br>
 
 
+@if (count($advertisements) > 0)
+
 
 
 <div class="container">
@@ -84,6 +86,11 @@
     </div>
 </div>
 
+@else
+<center>
+    <div class="alert alert-danger col-8" style="text-align: center">عذرا لا يوجد اعلانات</div>
+</center>
+@endif
 
 
 

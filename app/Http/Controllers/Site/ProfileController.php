@@ -67,4 +67,8 @@ class ProfileController extends Controller{
         return view('site.profile.user')
                 ->with('user' , $user);
     }
+    public function userAdvertisements(User $user){
+        return view('site.profile.user_advertisements')
+                ->with('user' , $user);
+    }
 }

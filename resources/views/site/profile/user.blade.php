@@ -43,6 +43,12 @@
                             <li class="nav-item">
                                 <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">حول الحساب</a>
                             </li>
+                            {{-- @if (in_array(2 , $user->roles->pluck('id')->toArray())) --}}
+                                <li class="nav-item">
+                                    <a class="nav-link " id="home-tab"  href="{{ route('user.advertisements' , ['user' => $user->id]) }}">عرض الاعلانات</a>
+                                </li>
+                            {{-- @endif --}}
+
 
                         </ul>
                     </div>

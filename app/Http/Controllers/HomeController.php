@@ -30,9 +30,15 @@ class HomeController extends Controller
                             ->with(['city']);
 
         $city = request()['city'];
+        $q = request()['city'];
         if ($city !== null) {
             // dd($city);
             $advertisements = $advertisements->where('city_id' , $city);
+        }
+        if ($q !== null) {
+            // dd($city);
+            $advertisements = $advertisements->where('title' , 'like' , "%{$q}%");
+            $advertisements = $advertisements->where('description' , 'like' , "%{$q}%");
         }
         $advertisements = $advertisements->paginate(40) ;
         // dd($advertisements) ;

@@ -122,6 +122,7 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ]
         Route::get('my/profile' , 'ProfileController@show')->name('my.profile');
         Route::get('user/{user}' , 'ProfileController@userShow')->name('site.user.show');
         Route::get('my/profile/edit' , 'ProfileController@edit')->name('my.profile.edit');
+        Route::get('user/{user}/advertisements' , 'ProfileController@userAdvertisements')->name('user.advertisements');
         Route::post('my/profile/{user}/update' , 'ProfileController@update')->name('my.profile.update');
         //end prodile routes
         Route::group(['middleware'=> 'profileverirfication'] , function(){
