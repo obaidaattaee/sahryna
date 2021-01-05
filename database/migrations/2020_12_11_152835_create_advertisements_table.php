@@ -26,7 +26,7 @@ class CreateAdvertisementsTable extends Migration
             $table->integer('number_of_partners');
             $table->double('retail_price');
             $table->double('wholesale_price');
-            $table->foreignId('subscription_id')->constrained('subscriptions');
+            $table->integer('subscription_id')->nullable();
             $table->json('images');
             $table->string('address');
             $table->foreignId('delivery_time_id')->constrained('delivery_times');
@@ -38,7 +38,7 @@ class CreateAdvertisementsTable extends Migration
             $table->string('long');
             $table->softDeletes();
             $table->uuid('code')->nullable();
-            $table->integer('active')->default(0) ; // 0 to inactive 1 to active 2 to complete contribute 3 closed 
+            $table->integer('active')->default(0) ; // 0 to inactive 1 to active 2 to complete contribute 3 closed
             $table->boolean('verified')->default(0) ;
             $table->timestamps();
         });

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Settings;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AdvertisementRequest extends FormRequest
@@ -24,6 +25,28 @@ class AdvertisementRequest extends FormRequest
      */
     public function rules()
     {
+        if(in_array(2 , auth()->user()->roles->pluck('id')->toArray())  && Settings::first()->buyer_subscription == 0 ){
+            return [
+                "title" => [ 'required' ],
+                "description" =>  [ 'required' ],
+                "category_id" =>  [ 'required' ],
+                "city_id" =>  [ 'required' ],
+                "phone" =>  [ 'required' ],
+                "cost" => [ 'required' ],
+                "number_of_partners" => [ 'required' ],
+                "retail_price" => [ 'required' ],
+                "wholesale_price" => [ 'required' ],
+                "imagesFiles" => [ 'required' ],
+                "address" => [ 'required' ],
+                "delivery_time_id" => [ 'required' ],
+                "advertisement_type_id" => [ 'required' ],
+                "type_of_price" => [ 'required' ],
+                "publish_date" => [ 'required' ],
+                "lat" => [ 'required' ],
+                "long" => [ 'required' ],
+            ] ;
+        }else{
+
         return [
             "title" => [ 'required' ],
             "description" =>  [ 'required' ],
@@ -34,7 +57,7 @@ class AdvertisementRequest extends FormRequest
             "number_of_partners" => [ 'required' ],
             "retail_price" => [ 'required' ],
             "wholesale_price" => [ 'required' ],
-            "subscription_id" => [ 'required' ],
+            "subscription_id" => [ 'required' ,'exists:subscriptions,id' ],
             "imagesFiles" => [ 'required' ],
             "address" => [ 'required' ],
             "delivery_time_id" => [ 'required' ],
@@ -44,6 +67,8 @@ class AdvertisementRequest extends FormRequest
             "lat" => [ 'required' ],
             "long" => [ 'required' ],
         ] ;
+
+    }
     }
 
     public function attributes()

@@ -127,7 +127,7 @@
                             </li>
 
                             <li class="nav-item active">
-                                <a class="nav-link a-navbar li-navbar" href="#" > الاقسام <i class="fas fa-th-list"></i> </a>
+                                <a class="nav-link a-navbar add-ads li-navbar" href="{{ route('buyers.advertisements') }}" > اعلانات التجار <i class="fas fa-th-list"></i> </a>
                             </li>
 
                             <li class="nav-item dropdown ">

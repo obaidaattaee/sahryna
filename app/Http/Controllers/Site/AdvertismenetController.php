@@ -9,6 +9,7 @@ use App\Models\AdvertisementType;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\DeliveryTime;
+use App\Models\Settings;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Models\UserAdvertisement;
@@ -25,12 +26,22 @@ class AdvertismenetController extends Controller{
             Alert::warning('عزيزي المشترك قم بتوثيق حسابك لتتمكن من نشر الاعلان');
             return redirect(route('my.profile.edit'));
         }
-
+        // dd(auth()->user()->roles->pluck('id')->toArray());
         $categories = Category::where('active' , 1)->get() ;
         $cities = City::where('active' , 1)->get() ;
         $deleviry_times = DeliveryTime::where('active' , 1)->get() ;
         $advertisement_types = AdvertisementType::where('active' , 1)->get() ;
-        $subscriptions = Subscription::where('active' , 1)->get() ;
+
+
+        // dd($subscriptions_roles_ids);
+        $buyer_subscription = Settings::first()->buyer_subscription;
+        if ( $buyer_subscription == 0 && in_array( 2 , auth()->user()->roles->pluck('id')->toArray() ) ) {
+            $subscriptions = Subscription::where('active' , 1)->whereIn('role_id'  , auth()->user()->roles->pluck('id')->toArray()  )->get() ;
+        }elseif(in_array( 3 , auth()->user()->roles->pluck('id')->toArray() )){
+            $subscriptions = Subscription::where('active' , 1)->whereIn('role_id'  , auth()->user()->roles->pluck('id')->toArray()  )->get() ;
+        }else{
+            $subscriptions = collect();
+        }
         return view('site.advertisements.create')
                 ->with('categories' , $categories)
                 ->with('cities' , $cities)
@@ -51,49 +62,62 @@ class AdvertismenetController extends Controller{
         $data['images'] = json_encode($images) ;
         unset($data ['imagesFiles']) ;
         $data['user_id'] = auth()->id() ;
+        if (isset($data['subscription_id'] )) {
 
-        $subscription = Subscription::findOrFail($data['subscription_id']) ;
-        $data['end_publish_date'] = Carbon::parse($data['publish_date'])->addDays($subscription->time_day)->toDateString() ;
-        // dd($data);
+
+            $subscription = Subscription::findOrFail($data['subscription_id']) ;
+            $data['end_publish_date'] = Carbon::parse($data['publish_date'])->addDays($subscription->time_day)->toDateString() ;
+            // dd($data);
+            $advertisement = Advertisement::create($data);
+            session()->put('advertisement' , [
+                'advertisement_id' => $advertisement->id ,
+                'user_id' => $advertisement->user_id ,
+            ]);
+
+            if($advertisement->subscription->price != 0){
+
+                $invoice_params = [
+                    "InvoiceValue" => (float)$subscription->price,
+                    "CustomerName" => auth()->user()->user_name,
+                    "CountryCodeId" => 1,
+                    "CustomerMobile" => substr(auth()->user()->phone , 2 ),
+                    "CustomerEmail" => auth()->user()->email,
+                    "DisplayCurrencyId" => 1,
+                    "SendInvoiceOption" => 1,
+                    'DisplayCurrencyIsoAlpha' => 'SAR',
+                    'CountryCodeId' => '+966',
+                    'DisplayCurrencyId' => 2,
+                    "InvoiceItems" => [
+                        "ProductName"=> (string)$advertisement->title,
+                        "UnitPrice"=> (string)$subscription->price,
+                        "Quantity"=> "1",
+                        "ExtendedAmount"=> "1,200.00"
+                    ] ,
+                    "CallBackUrl" => route('site.payment.callback'),
+                    "Language"=> 1,
+                    "adv_id" =>  $advertisement->id ,
+                ];
+
+                $myfatoorah = new ControllersMyFatoorah ;
+                $result = $myfatoorah->createProductInvoice($invoice_params);
+                // dd($result);
+                return isset($result['RedirectUrl']) ? redirect()->to($result['RedirectUrl']) : back()->with('error', (string) $result["Message"]);
+            }else{
+                $advertisement->active = 0 ;
+                $advertisement->verified = 1 ;
+                $advertisement->save();
+                Alert::alert('تم اضافة اعلانك بنجاح') ;
+                return redirect(route('main'));
+            }
+    }else{
+        $data['subscription_id'] = null ;
+        $data['end_publish_date']  = $data['publish_date']  ;
+        $data['active']  = 1 ;
+
         $advertisement = Advertisement::create($data);
-        session()->put('advertisement' , [
-            'advertisement_id' => $advertisement->id ,
-            'user_id' => $advertisement->user_id ,
-        ]);
-        if($advertisement->subscription->price != 0){
-            $invoice_params = [
-                "InvoiceValue" => (float)$subscription->price,
-                "CustomerName" => auth()->user()->user_name,
-                "CountryCodeId" => 1,
-                "CustomerMobile" => substr(auth()->user()->phone , 2 ),
-                "CustomerEmail" => auth()->user()->email,
-                "DisplayCurrencyId" => 1,
-                "SendInvoiceOption" => 1,
-                'DisplayCurrencyIsoAlpha' => 'SAR',
-                'CountryCodeId' => '+966',
-                'DisplayCurrencyId' => 2,
-                "InvoiceItems" => [
-                    "ProductName"=> (string)$advertisement->title,
-                    "UnitPrice"=> (string)$subscription->price,
-                    "Quantity"=> "1",
-                    "ExtendedAmount"=> "1,200.00"
-                ] ,
-                "CallBackUrl" => route('site.payment.callback'),
-                "Language"=> 1,
-                "adv_id" =>  $advertisement->id ,
-            ];
-            $myfatoorah = new ControllersMyFatoorah ;
-            $result = $myfatoorah->createProductInvoice($invoice_params);
-            // dd($result);
-            return isset($result['RedirectUrl']) ? redirect()->to($result['RedirectUrl']) : back()->with('error', (string) $result["Message"]);
-        }else{
-            $advertisement->active = 0 ;
-            $advertisement->verified = 1 ;
-            $advertisement->save();
-            Alert::alert('تم اضافة اعلانك بنجاح') ;
-            return redirect(route('main'));
-        }
-
+        Alert::alert('تم اضافة اعلانك بنجاح') ;
+        return redirect(route('main'));
+    }
 
     }
     public function show(Advertisement $advertisement){

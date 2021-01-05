@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -50,6 +51,12 @@ class LoginController extends Controller
             request()['person_id'] = request()->email ;
             return 'person_id' ;
         }
+    }
+    public function showLoginForm()
+    {
+
+        return view('auth.login') ;
+
     }
     protected function validateLogin(Request $request)
     {

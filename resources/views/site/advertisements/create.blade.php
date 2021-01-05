@@ -13,7 +13,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12" style="text-align: end">
-                    <a href="HomePage.html" class="Page-Name" >  العودة للصفحة الرئيسية </a>
+                    <a href="{{ route('home') }}" class="Page-Name" >  العودة للصفحة الرئيسية </a>
                     <hr class="w-100" />
                 </div>
             </div>
@@ -150,41 +150,44 @@
                         </div>
                     </div>
                     <br />
-                    <div class="row" style="margin-right: -50px;">
-                        <div class="col">
-                            @error('subscription_id')
-                            <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
-            @enderror
-                            <ol class="list-unstyled ol-List-Item"  >
-                                <li class="ol-list">
-                                    <label class="form-check-label label-checkbox1" >مدة الاعلان</label>
+                    @if ($subscriptions->count()  > 0)
+                        <div class="row" style="margin-right: -50px;">
+                            <div class="col">
+                                @error('subscription_id')
+                                    <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                                @enderror
+                                <ol class="list-unstyled ol-List-Item"  >
+                                    <li class="ol-list">
+                                        <label class="form-check-label label-checkbox1" >مدة الاعلان</label>
 
-                                </li>
-                                @foreach ($subscriptions as $index => $subscription)
-                                {{-- {{dd($subscription) }} --}}
-                                <li class="ol-list" style="    margin-right: 12px;">
-                                    <input class="form-check-input " type="radio" onclick="event.preventDefault; changeSubscriptionPrice({{$subscription->price}} , '{{$subscription->title}}')" name="subscription_id" id="gridRadios{{ $index }}" value="{{ $subscription->id }}" {{ $index == 0 ? "checked" : "" }}>
+                                    </li>
+                                    @foreach ($subscriptions as $index => $subscription)
+                                    {{-- {{dd($subscription) }} --}}
+                                    <li class="ol-list" style="    margin-right: 12px;">
+                                        <input class="form-check-input " type="radio" onclick="event.preventDefault; changeSubscriptionPrice({{$subscription->price}} , '{{$subscription->title}}')" name="subscription_id" id="gridRadios{{ $index }}" value="{{ $subscription->id }}" {{ $index == 0 ? "checked" : "" }}>
 
-                                    <label class="form-check-label label-checkbox2" for="gridRadios{{$index}}"  >
-                                        {{ $subscription->description }}
-                                    </label>
+                                        <label class="form-check-label label-checkbox2" for="gridRadios{{$index}}"  >
+                                            {{ $subscription->description }}
+                                        </label>
 
-                                </li>
-                                @endforeach
+                                    </li>
+                                    @endforeach
 
-                            </ol>
+                                </ol>
+                            </div>
+
+
+
+
                         </div>
+                    @endif
 
-
-
-
-                    </div>
 
 
 
                     <br />
                     <div class="form-group d-none" id="checkout" style="margin-bottom:25px">
-                        <a href="#" class="form-control inputs-AddADS   Pay-ADS" id="checkout-price">ادفع قيمة الاعلان وهي 5دولار لمدة 5 ايام</a>
+                        <div class="form-control inputs-AddADS   Pay-ADS" id="checkout-price"></div>
                     </div>
 
                     <div class="row">
@@ -541,7 +544,7 @@
         }
         else{
             document.getElementById('checkout').classList.remove('d-none') ;
-            document.getElementById('checkout-price').innerHTML = ' ادفع قيمة الاعلان و هي  ' + price + ' ريال لمدة  ' + title;
+            document.getElementById('checkout-price').innerHTML = ' عليك دفع  قيمة الاعلان و هي  ' + price + ' ريال لمدة  ' + title;
         }
     }
     function changeEndPublishDate(){

@@ -100,6 +100,7 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function
 Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ])->group(function(){
     Route::get('/', function () {return redirect(route('home'));})->name('main');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/buyers/advertisements', [App\Http\Controllers\HomeController::class, 'buyerAdvertisements'])->name('buyers.advertisements');
     Route::get('about' , 'AboutController@index')->name('site.about') ;
     Route::get('payment/callback' , 'PaymentCallbackController@index')->name('site.payment.callback') ;
     Route::get('polices' , 'PolicesController@index')->name('site.polices') ;

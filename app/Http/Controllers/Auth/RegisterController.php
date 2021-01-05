@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Errors;
+use App\Models\Role;
 use App\Models\SmsSettings;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -57,6 +58,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
+            'role' => ['required', 'exists:roles,id'],
             // 'phone' => ['required', 'regex:/(966)[0-9]{9}/', 'unique:users' , 'max:255'],
             'person_id' => ['required', 'regex:/[0-9]{9}/','unique:users' , 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -82,7 +84,9 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
             'person_image' => 'avatar.png',
         ]);
-        $user->attachRole('user');
+
+        $user->attachRole($data['role']);
+
         $sms_settings =  SmsSettings::first() ;
         if ($sms_settings->active == 1) {
             $this->sendCode($user , $sms_settings);
@@ -97,6 +101,12 @@ class RegisterController extends Controller
         $user->code = $code;
         $user->save();
         $this->send_sms($sms_settings->user_name , $sms_settings->password , $user->phone , "asdads" , $sms_settings . $code );
+    }
+    public function showRegistrationForm()
+    {
+        $roles = Role::get()->except(1);
+        return view('auth.register')
+                ->with('roles' , $roles);
     }
 
     function send_sms($user, $pass, $telephone, $sender, $content)
