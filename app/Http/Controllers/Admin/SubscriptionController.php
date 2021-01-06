@@ -8,7 +8,7 @@ use App\Models\Subscription;
 
 class SubscriptionController extends Controller{
     public function index () {
-        $subscriptions = Subscription::get();
+        $subscriptions = Subscription::with('role')->get();
         return view('admin.subscriptions.index')
                     ->with('subscriptions' , $subscriptions) ;
 

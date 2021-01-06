@@ -19,7 +19,6 @@ class UserCntroller extends Controller{
                     ->with('roles:role_user.role_id')
                     ->with('roles:role_user.user_type')
                     ->where('active' , 1)
-
                     ->get() ;
 
         return view('admin.users.index')

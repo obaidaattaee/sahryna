@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,7 +17,7 @@ use SoftDeletes ;
         'publish_date' , 'end_publish_date'
     ] ;
 
-    protected $appends = ['cost_of_share' , 'reminnig_contributes'] ;
+    protected $appends = ['cost_of_share' , 'reminnig_contributes' , 'status'] ;
 
     public function user(){
         return $this->belongsTo(User::class , 'user_id' , 'id');
@@ -49,5 +50,8 @@ use SoftDeletes ;
     }
     public function getReminnigContributesAttribute(){
         return $this->attributes['number_of_partners'] - $this->contributes()->sum('number_of_parts') ;
+    }
+    public function getStatusAttribute(){
+        return $this->attributes['active'] == 1 && $this->attributes['verified'] == 1 && $this->end_publish_date > Carbon::now() ? 1 : 0 ;
     }
 }

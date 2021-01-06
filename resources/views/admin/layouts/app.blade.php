@@ -72,8 +72,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	<div class="page-header-inner">
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
-			<a href="a">
-                <h3 class="logo-default" style="color: white">kmlkm</h3>
+			<a href="{{ route('admin.index') }}">
+                <h3 class="logo-default" style="color: white">{{ ucwords(env('APP_NAME' , 'aishtarayna')) }}</h3>
 			</a>
 			<div class="menu-toggler sidebar-toggler hide">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -220,7 +220,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	<div class="page-footer-inner">
 		 @php
             echo date("Y")
-         @endphp &copy;  <a href="http://github.com/obaidaattaee"  target="_blank">obaida attaee</a>
+         @endphp &copy;          <a href="{{ route('main') }}">Aishtarayna.com</a>
+
 	</div>
 	<div class="scroll-to-top">
 		<i class="icon-arrow-up"></i>

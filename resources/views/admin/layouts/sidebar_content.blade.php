@@ -32,7 +32,7 @@ active
     </ul>
 </li>
 
-<li class="start @if (substr(Route::current()->getName() , 0 ,6 ) == "cities" )
+<li class="start @if (substr(Route::current()->getName() , 0 ,14 ) == "advertisements" )
     active
     @endif">
 
@@ -46,7 +46,12 @@ active
             <li >
             <a href="{{ route('advertisements.index') }} ">
                 <i class="icon-bar-chart"></i>
-                عرض الاعلانات</a>
+                عرض علانات المستخدمين</a>
+            </li>
+            <li >
+            <a href="{{ route('advertisements.index.buyers') }} ">
+                <i class="icon-bar-chart"></i>
+                عرض علانات التجار</a>
             </li>
             <li >
                 <a href="{{ route('advertisements.create') }} ">

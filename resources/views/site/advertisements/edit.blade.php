@@ -13,7 +13,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12" style="text-align: end">
-                    <a href="HomePage.html" class="Page-Name" >  العودة للصفحة الرئيسية </a>
+                    <a href="{{ route('home') }}" class="Page-Name" >  العودة للصفحة الرئيسية </a>
                     <hr class="w-100" />
                 </div>
             </div>
@@ -29,17 +29,16 @@
             <div class="col-md-8">
 
 
-@include('admin.layouts.msg')
 
                 <div class=" title-foraddADS">
-                    إضافة الإعلان
+                    تعديل الإعلان
                     <hr class="w-100" />
                 </div>
+@include('admin.layouts.msg')
 
-
-                <form class="Form-AddADS" enctype="multipart/form-data" action="{{ route('advertismenets.store')}}" method="post">
+                <form class="Form-AddADS" enctype="multipart/form-data" action="{{ route('advertisements.update' , ['advertisement' => $adv->id])}}" method="post">
                     @csrf
-                    @method('POST')
+                    @method('PUT')
                     @error('title')
                     <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
                     @enderror
@@ -65,7 +64,7 @@
 
                         <select id="ProductDesc2" required name="category_id" class="form-control selectpicker inputs-AddADS Productsection" title=" اختر  القسم   ">
                             @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? "selected" : "e" }}>{{ $category->title }}</option>
+                            <option value="{{ $category->id }}" {{ $adv->category->id == $category->id ? "selected" : "e" }}>{{ $category->title }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -98,7 +97,7 @@
                             <select id="ProductDesc2" required name="city_id" class="form-control selectpicker   inputs-AddADS ProductDesc1" title="ادخل المدينة">
                                 <option value="">قم باختيار المدينه</option>
                                 @foreach ($cities as $city)
-                                <option value="{{ $city->id }}" {{ old('city_id') == $city->id ? "selected" : "" }}>{{ $city->title }}</option>
+                                <option value="{{ $city->id }}" {{ $adv->city->id == $city->id ? "selected" : "" }}>{{ $city->title }}</option>
                                 @endforeach
 
                             </select>
@@ -112,7 +111,7 @@
                                 <label class="form-check-label check-no1" for="defaultCheck1">
                                     إضافة تكاليفٌ ومصاريفٌ الشراء والتوصيلٌ لتتفرق على الحصص
                                 </label>
-                                <input class="form-check-input form-control-md DefaultForm" value="{{ old('distribute_cost') ?? $adv->distribute_cost ?? ""}}" type="checkbox" name="distribute_cost" id="defaultCheck1">
+                                <input class="form-check-input form-control-md DefaultForm" value="{{ $adv->distribute_cost == 1 ?? ""}}" type="checkbox" name="distribute_cost" id="defaultCheck1">
 
                             </div>
                         </div>
@@ -150,41 +149,44 @@
                         </div>
                     </div>
                     <br />
-                    <div class="row" style="margin-right: -50px;">
-                        <div class="col">
-                            @error('subscription_id')
-                            <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
-            @enderror
-                            <ol class="list-unstyled ol-List-Item"  >
-                                <li class="ol-list">
-                                    <label class="form-check-label label-checkbox1" >مدة الاعلان</label>
+                    @if ($subscriptions->count()  > 0)
+                        <div class="row" style="margin-right: -50px;">
+                            <div class="col">
+                                @error('subscription_id')
+                                    <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                                @enderror
+                                <ol class="list-unstyled ol-List-Item"  >
+                                    <li class="ol-list">
+                                        <label class="form-check-label label-checkbox1" >مدة الاعلان</label>
 
-                                </li>
-                                @foreach ($subscriptions as $index => $subscription)
-                                {{-- {{dd($subscription) }} --}}
-                                <li class="ol-list" style="    margin-right: 12px;">
-                                    <input class="form-check-input " type="radio" onclick="event.preventDefault; changeSubscriptionPrice({{$subscription->price}} , '{{$subscription->title}}')" name="subscription_id" id="gridRadios{{ $index }}" value="{{ $subscription->id }}" {{ $index == 0 ? "checked" : "" }}>
+                                    </li>
+                                    @foreach ($subscriptions as $index => $subscription)
+                                    {{-- {{dd($subscription) }} --}}
+                                    <li class="ol-list" style="    margin-right: 12px;">
+                                        <input class="form-check-input " type="radio" onclick="event.preventDefault; changeSubscriptionPrice({{$subscription->price}} , '{{$subscription->title}}')" name="subscription_id" id="gridRadios{{ $index }}" value="{{ $subscription->id }}" {{ $index == 0 ? "checked" : "" }}>
 
-                                    <label class="form-check-label label-checkbox2" for="gridRadios{{$index}}"  >
-                                        {{ $subscription->description }}
-                                    </label>
+                                        <label class="form-check-label label-checkbox2" for="gridRadios{{$index}}"  >
+                                            {{ $subscription->description }}
+                                        </label>
 
-                                </li>
-                                @endforeach
+                                    </li>
+                                    @endforeach
 
-                            </ol>
+                                </ol>
+                            </div>
+
+
+
+
                         </div>
+                    @endif
 
-
-
-
-                    </div>
 
 
 
                     <br />
                     <div class="form-group d-none" id="checkout" style="margin-bottom:25px">
-                        <a href="#" class="form-control inputs-AddADS   Pay-ADS" id="checkout-price">ادفع قيمة الاعلان وهي 5دولار لمدة 5 ايام</a>
+                        <div class="form-control inputs-AddADS   Pay-ADS" id="checkout-price"></div>
                     </div>
 
                     <div class="row">
@@ -197,12 +199,24 @@
                                 <div class="input-img" style="padding: 20px;background-color: #e5e5ca;">
                                     <label for="exampleFormControlFile1" class="Add-img">إضافة صور للمنتج</label>
 
-                                    <input required type="file" multiple name="imagesFiles[]" class="form-control-file DefaultForm" id="exampleFormControlFile1">
+                                    <input type="file" multiple name="imagesFiles[]" class="form-control-file DefaultForm" id="exampleFormControlFile1">
 
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+
+                            <div class="form-group" style="margin-bottom: 40px;">
+                                <label class="Label-AddADS" for="exampleFormControlInput1"> صور الحالية للاعلان</label>
+                            </div>
+
+                        <div class="row">
+                            @foreach (json_decode($adv->images) as $image)
+                                <div class="col-3"><img src="{{asset('user_images/images/'.$image)}}" alt="asads" style="max-width:300px ; max-height: 200px"></div>
+                            @endforeach
+                        </div>
 
                     <div class="form-group" style="margin-bottom: 40px;">
                         <label class="Label-AddADS" for="exampleFormControlInput1"> تحديد موقع تسليم المنتج لشركاء </label>
@@ -230,7 +244,7 @@
                                         <iframe src="https://maps.google.com/maps?q=new%20delphi&t=&z=13&ie=UTF8&iwloc=&output=embed"
                                                 frameborder="0" style="border:0" allowfullscreen></iframe>
                                     </div> --}}
-                                    <input type="text" name="address" required value="{{ old('address') ?? $adv->address ?? ""}}" id="pac-input" name="address">
+                                    <input type="text" name="address" required value="{{ $adv->address ?? ""}}" id="pac-input" name="address">
                                     <div id="map"  style="height: 400px">
                                     </div>
                                 </div>
@@ -254,7 +268,6 @@
                     <br />
 
 
-
                     @error('delivery_time_id')
                     <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
                 @enderror
@@ -262,7 +275,7 @@
                         <div class="col">
                             <select id="ProductDesc4" required name="delivery_time_id" class="form-control selectpicker   inputs-AddADS ProductDesc4" title="حدد موعد تسليم المنتج للشركاء">
                                @foreach ($deleviry_times as $deleviry_time)
-                               <option value="{{ $deleviry_time->id }}" {{ old('delivery_time_id') == $deleviry_time->id ?? $adv->address ? "checked" : ""}}>{{ $deleviry_time->description }} </option>
+                               <option value="{{ $deleviry_time->id }}" {{ $adv->deleveiryTime->id == $deleviry_time->id ? "selected" : ""}}>{{ $deleviry_time->description }} </option>
                                @endforeach
                             </select>
                         </div>
@@ -277,7 +290,7 @@
 
                              <select id="ProductDesc5" required name="advertisement_type_id" class="form-control selectpicker   inputs-AddADS ProductDesc5" title="نوع الإعلان">
                                 @foreach ($advertisement_types as $type)
-                                    <option value="{{ $type->id }}" {{ old('advertisement_type_id') == $type->id  ? "selected" : ""}}>{{ $type->title }}</option>
+                                    <option value="{{ $type->id }}" {{ $adv->advertisementType->id == $type->id  ? "selected" : ""}}>{{ $type->title }}</option>
                                 @endforeach
 
                             </select>
@@ -290,7 +303,7 @@
                             @enderror
                             <select id="ProductDesc6" required name="type_of_price" class="form-control selectpicker   inputs-AddADS ProductDesc6" title="نوع سعر المنتج">
                                 @foreach (['wholesale' => 'سعر بالجملة' , 'retail' => 'سعر مفرق'] as $key => $value)
-                                <option value="{{ $key }}" {{ old('type_of_price') == $key ? "checked" : ""}}>{{ $value }}</option>
+                                <option value="{{ $key }}" {{ $adv->type_of_price == $key ? "selected" : ""}}>{{ $value }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -325,8 +338,8 @@
                     </div>
 
 
-                    <input type="hidden" name="lat" id="latitude">
-                    <input type="hidden" name="long" id="longitude">
+                    <input type="hidden" name="lat" id="latitude" value="{{ $adv->lat ?? "" }}">
+                    <input type="hidden" name="long" id="longitude" value="{{ $adv->long ?? "" }}">
                 </form>
             </div>
             <div class="col-md-2"></div>
@@ -354,8 +367,8 @@
     $("#pac-input").focusin(function() {
         $(this).val('');
     });
-    $('#latitude').val('');
-    $('#longitude').val('');
+    $('#latitude').value = {{ $adv->lat }};
+    $('#longitude').value = {{ $adv->long }};
     // This example adds a search box to a map, using the Google Place Autocomplete
     // feature. People can enter geographical searches. The search box will return a
     // pick list containing a mix of places and predicted search terms.
@@ -369,13 +382,13 @@
             mapTypeId: 'roadmap'
         });
         // move pin and current location
-        infoWindow = new google.maps.InfoWindow;
+        // infoWindow = new google.maps.InfoWindow;
         geocoder = new google.maps.Geocoder();
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
                 var pos = {
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
+                    lat: @php echo $adv->lat @endphp,
+                    lng: @php echo $adv->long @endphp
                 };
                 map.setCenter(pos);
                 var marker = new google.maps.Marker({
@@ -534,6 +547,8 @@
     }
 
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjAGp24IL8hsAfS5-f004Pc2cWJDn5etM&libraries=places&callback=initAutocomplete&language=ar&region=KSAasyncdefer"></script>
+
 <script>
      function changeSubscriptionPrice(price , title){
         if (price == 0 ){
@@ -541,7 +556,7 @@
         }
         else{
             document.getElementById('checkout').classList.remove('d-none') ;
-            document.getElementById('checkout-price').innerHTML = ' ادفع قيمة الاعلان و هي  ' + price + ' ريال لمدة  ' + title;
+            document.getElementById('checkout-price').innerHTML = ' عليك دفع  قيمة الاعلان و هي  ' + price + ' ريال لمدة  ' + title;
         }
     }
     function changeEndPublishDate(){
@@ -555,7 +570,6 @@
 
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjAGp24IL8hsAfS5-f004Pc2cWJDn5etM&libraries=places&callback=initAutocomplete&language=ar&region=EGasyncdefer"></script>
      {{-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjAGp24IL8hsAfS5-f004Pc2cWJDn5etM&sensor=false&libraries=places&language=ar"></script> --}}
 
 @endsection

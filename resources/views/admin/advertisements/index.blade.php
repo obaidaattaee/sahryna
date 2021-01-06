@@ -44,13 +44,17 @@
                         <tr>
                             <td>{{ substr( $advertisement->title  , 0 , 10)  }} ...</td>
                             <td>{{ Carbon\Carbon::parse($advertisement->end_publish_date)->diffForHumans() }}</td>
-                            <td></td>
                             <td>
-                            <a href="{{ route('advertisements.cahnge.states' , ['advertisement' => $advertisement->id])}}" class="btn btn-{{ $advertisement->active == 1 ? "danger" : "info" }} btn-sm">{{ $advertisement->active == 1 ? "ايقاف" : "تفعيل" }}</a>
+                                <ul>@foreach ($advertisement->userSubscriptions as $user)
+                                <li><a href="{{ route('users.show' , ['user' => $user->id]) }}">{{ $user->user_name }}</a> </li>
+                            @endforeach</ul></td>
+                            <td>
+                            <a href="{{ route('advertisements.cahnge.states' , ['advertisement' => $advertisement->id])}}" class="btn btn-{{ $advertisement->status == 1 ? "danger" : "info" }} btn-sm">{{ $advertisement->status == 1 ? "ايقاف" : "تفعيل" }}</a>
                             </td>
                             <td><a href="{{ route('users.show' , ['user' =>$advertisement->user->id ]) }}">{{ $advertisement->user->user_name }}</a></td>
                             <td>
                                 <a href="{{ route('advertisements.show' , ['advertisement' => $advertisement->id])}}" class="btn btn-primary btn-sm">معاينة</a>
+                                <a href="{{ route('advertisements.edit' , ['advertisement' => $advertisement->id])}}" class="btn btn-info btn-sm">تعديل</a>
                                 <a href="{{ route('advertisements.destroy' , ['advertisement' => $advertisement->id])}}" class="btn btn-danger btn-sm">حذف</a>
                             </td>
                         </tr>

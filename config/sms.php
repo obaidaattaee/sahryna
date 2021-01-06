@@ -1,5 +1,5 @@
 <?php
-
+/*
 
 function send_sms($user, $pass, $telephone, $sender, $content)
 {
@@ -53,3 +53,4 @@ function send_sms($user, $pass, $telephone, $sender, $content)
     $arr = ['code' => $result[0], 'message' => $msg];
     return $arr;
 }
+*/

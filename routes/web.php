@@ -86,6 +86,7 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function
     // end delivery_time routes
      // start delivery_time routes
      Route::resource('advertisements' , 'App\Http\Controllers\Admin\AdvertisementController')->except('destroy') ;
+     Route::get('advertisements/buyers/data' , 'App\Http\Controllers\Admin\AdvertisementController@buyersAdvertisements')->name('advertisements.index.buyers') ;
      Route::get('advertisements/{advertisement}/delete' , 'App\Http\Controllers\Admin\AdvertisementController@delete')->name('advertisements.destroy') ;
      Route::get('advertisements/{advertisement}/status' , 'App\Http\Controllers\Admin\AdvertisementController@changeStatus')->name('advertisements.cahnge.states') ;
      // end delivery_time routes
