@@ -102,22 +102,7 @@ License: You must have a valid license purchased only from themeforest(the above
 							<a href="{{ route('users.show' , ['user' => auth()->id()]) }}">
 							<i class="icon-user"></i> My Profile </a>
 						</li>
-						<li>
-							<a href="page_calendar.html">
-							<i class="icon-calendar"></i> My Calendar </a>
-						</li>
-						<li>
-							<a href="inbox.html">
-							<i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
-							3 </span>
-							</a>
-						</li>
-						<li>
-							<a href="page_todo.html">
-							<i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
-							7 </span>
-							</a>
-						</li>
+						
 						<li class="divider">
 						</li>
 
