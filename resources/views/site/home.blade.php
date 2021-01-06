@@ -75,8 +75,8 @@
             </ol>
             <div class="carousel-inner">
                 @foreach (json_decode($settings->slider_images) as $key => $slider)
-                <div class="carousel-item {{ $key == 0 ? 'active' : ''}}">
-                    <img class="d-block" style="width: 100%;max-height: 600px" src="{{ asset('user_images/settings/'.($slider ?? '')) }}"  alt="First slide">
+                <div class="carousel-item {{ $key == 0 ? 'active' : ''}}" style="max-height: 600px">
+                    <img class="d-block img-responsive" style="width: 100%;height: 100%;" src="{{ asset('user_images/settings/'.($slider ?? '')) }}"  alt="First slide">
                 </div>
                 @endforeach
                 {{-- <div class="carousel-item active">
