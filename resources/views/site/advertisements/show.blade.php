@@ -732,7 +732,7 @@ section {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="    background-color:  #d2d2af;border-color: #6d1c1c;color: #6d1c1c; margin-left: 8px;"> تراجع عن المشاركة </button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#centralModalSuccess" onclick="Popup()" style="background-color: #6d1c1c;border-color: #6d1c1c;"> تأكيد المشاركة </button>
+                <button type="submit" form="subscription_form"  class="btn btn-primary" data-toggle="modal" data-target="#centralModalSuccess" onclick="Popup()" style="background-color: #6d1c1c;border-color: #6d1c1c;"> تأكيد المشاركة </button>
             </div>
         </div>
     </div>
@@ -742,39 +742,6 @@ section {
 
 
 
-<div class="modal fade" id="centralModalSuccess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="  direction:rtl;">
-    <div class="modal-dialog modal-notify modal-success" role="document">
-        <!--Content-->
-        <div class="modal-content">
-            <!--Header-->
-            <div class="modal-header bg-success model-no2">
-                <p class="heading lead">تمت المشاركة بنجاح</p>
-
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: none;">
-                    <span aria-hidden="true" class="white-text">&times;</span>
-                </button>
-            </div>
-
-            <!--Body-->
-            <div class="modal-body">
-                <div class="text-center text- white-text">
-                    <i class="fas fa-check fa-4x mb-3 animated rotateIn" style="    color: green;"></i>
-                    <p class="modeltitle-no2P">
-                        تمت المشاركة لشراء السلعة الفلبنيةٌ و يمٌكن متابعة التفاصيلٌ
-                        في لوحة التحكم
-                    </p>
-                </div>
-            </div>
-
-            <!--Footer-->
-            <div class="modal-footer justify-content-center">
-
-                <button type="submit" form="subscription_form" class="btn btn-success"  style="   "> موافق     </button>
-            </div>
-        </div>
-        <!--/.Content-->
-    </div>
-</div>
 @endsection
 @section('js')
 <script src="{{ asset('assets/Js/bootstrap-select.js')}}"></script>
