@@ -54,6 +54,21 @@ active
                 عرض علانات التجار</a>
             </li>
             <li >
+            <a href="{{ route('advertisements.index.active') }} ">
+                <i class="icon-bar-chart"></i>
+                عرض الاعلانات الفعالة </a>
+            </li>
+            <li >
+            <a href="{{ route('advertisements.index.inactive') }} ">
+                <i class="icon-bar-chart"></i>
+                عرض الاعلانات المتوقفة </a>
+            </li>
+            <li >
+            <a href="{{ route('advertisements.index.success') }} ">
+                <i class="icon-bar-chart"></i>
+                عرض الاعلانات المكتملة </a>
+            </li>
+            <li >
                 <a href="{{ route('advertisements.create') }} ">
                     <i class="icon-bar-chart"></i>
                     اضافة جديد </a>

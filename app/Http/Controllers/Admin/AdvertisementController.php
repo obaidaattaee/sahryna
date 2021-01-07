@@ -120,4 +120,43 @@ class AdvertisementController extends Controller{
         return view('admin.advertisements.index')
                 ->with('advertisements' , $advertisements) ;
     }
+    public function inactiveAdvertisements(){
+
+        $advertisements = Advertisement::with('user')->with('userSubscriptions')->get();
+        $advertisements = $advertisements->filter(function ($advertisement , $key){
+            return $advertisement->status == 0 ? $advertisement : null ;
+        });
+
+        // return $advertisements ;
+        return view('admin.advertisements.index')
+                ->with('advertisements' , $advertisements) ;
+    }
+    public function activeAdvertisements(){
+
+        $advertisements = Advertisement::with('user')->with('userSubscriptions')->get();
+        $advertisements = $advertisements->filter(function ($advertisement , $key){
+            return $advertisement->status == 1 ? $advertisement : null ;
+        });
+
+        // return $advertisements ;
+        return view('admin.advertisements.index')
+                ->with('advertisements' , $advertisements) ;
+    }
+    public function successAdvertisements(){
+
+        $advertisements = Advertisement::get()->map(function ($advetisement) {
+            return  $advetisement->reminnig_contributes == 0 ? $advetisement : null ; })->filter()->all() ;
+
+
+        // return $advertisements ;
+        return view('admin.advertisements.index')
+                ->with('advertisements' , $advertisements) ;
+    }
+    public function accept(Advertisement $advertisement){
+        $advertisement->update([
+            'accepted' => 1
+        ]);
+        session()->flash('msg' , 's: تم قبول  الاعلان بنجاح');
+        return redirect(route('admin.index'));
+    }
 }

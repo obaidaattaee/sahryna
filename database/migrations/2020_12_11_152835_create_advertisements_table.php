@@ -40,6 +40,7 @@ class CreateAdvertisementsTable extends Migration
             $table->uuid('code')->nullable();
             $table->integer('active')->default(0) ; // 0 to inactive 1 to active 2 to complete contribute 3 closed
             $table->boolean('verified')->default(0) ;
+            $table->boolean('accepted')->default(0) ;
             $table->timestamps();
         });
 

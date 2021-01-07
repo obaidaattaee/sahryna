@@ -87,8 +87,12 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function
      // start delivery_time routes
      Route::resource('advertisements' , 'App\Http\Controllers\Admin\AdvertisementController')->except('destroy') ;
      Route::get('advertisements/buyers/data' , 'App\Http\Controllers\Admin\AdvertisementController@buyersAdvertisements')->name('advertisements.index.buyers') ;
+     Route::get('inactive/advertisements' , 'App\Http\Controllers\Admin\AdvertisementController@inactiveAdvertisements')->name('advertisements.index.inactive') ;
+     Route::get('active/advertisements' , 'App\Http\Controllers\Admin\AdvertisementController@activeAdvertisements')->name('advertisements.index.active') ;
+     Route::get('success/advertisements' , 'App\Http\Controllers\Admin\AdvertisementController@successAdvertisements')->name('advertisements.index.success') ;
      Route::get('advertisements/{advertisement}/delete' , 'App\Http\Controllers\Admin\AdvertisementController@delete')->name('advertisements.destroy') ;
      Route::get('advertisements/{advertisement}/status' , 'App\Http\Controllers\Admin\AdvertisementController@changeStatus')->name('advertisements.cahnge.states') ;
+     Route::get('advertisements/{advertisement}/accept' , 'App\Http\Controllers\Admin\AdvertisementController@accept')->name('advertisements.accept') ;
      // end delivery_time routes
 
 
