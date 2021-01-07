@@ -142,4 +142,11 @@ class UserCntroller extends Controller{
         session()->flash('msg' , 's: تم  اضافة العضو  '.$user->first_name . " " . $user->last_name . 'بنجاح');
         return redirect(route('users.index'));
     }
+    public function acceptUser(User $user){
+        $user->update([
+            'active' => 1
+        ]);
+        session()->flash('msg' , 's: تم قبول  العضوية بنجاح');
+        return redirect(route('admin.index'));
+    }
 }

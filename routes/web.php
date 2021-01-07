@@ -30,6 +30,7 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function
     Route::get('users/{user}/change_delete_status' ,"App\Http\Controllers\Admin\UserCntroller@changeDeleteStatus" )->name('users.change.delete.status');
     Route::get('users/users/inactive' ,"App\Http\Controllers\Admin\UserCntroller@inactiveUsers" )->name('users.inactive');
     Route::get('users/users/deleted' ,"App\Http\Controllers\Admin\UserCntroller@deletedUsers" )->name('users.deleted');
+    Route::get('users/{user}/accept' ,"App\Http\Controllers\Admin\UserCntroller@acceptUser" )->name('users.accept');
     // end user routes
 
     // start roles routes

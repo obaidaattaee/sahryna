@@ -63,7 +63,7 @@
         <div class="portlet box blue-steel">
             <div class="portlet-title">
                 <div class="caption">
-                    <i class="fa fa-thumb-tack"></i>Overview
+                    <i class="fa fa-thumb-tack"></i> طلبات تفعيل الاعلانات الجديدة
                 </div>
                 <div class="tools">
                     <a href="javascript:;" class="collapse" data-original-title="" title="">
@@ -111,6 +111,76 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('advertisements.accept' , ['advertisement' => $advertisement->id]) }}" class="btn default btn-xs green-stripe">
+                                            قبول </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End: life time stats -->
+    </div>
+    <div class="col-md-6">
+        <!-- Begin: life time stats -->
+        <div class="portlet box blue-steel">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="fa fa-thumb-tack"></i>طلبات تفعيل المستخدمين الجدد
+                </div>
+                <div class="tools">
+                    <a href="javascript:;" class="collapse" data-original-title="" title="">
+                    </a>
+                    <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title="">
+                    </a>
+                    <a href="javascript:;" class="reload" data-original-title="" title="">
+                    </a>
+                    <a href="javascript:;" class="remove" data-original-title="" title="">
+                    </a>
+                </div>
+            </div>
+            <div class="portlet-body">
+                <div class="tabbable-line">
+
+                    <div class="tab-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-bordered" id="example">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        الاسم
+                                    </th>
+                                    <th>
+                                        العضوية
+                                    </th>
+                                    <th>
+                                        الرقم الوطني
+                                    </th>
+                                    <th>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($users as $user)
+                                    <tr>
+                                        <td>
+                                            <a href="{{route('users.show' , ['user' => $user->id])}}">'{{ $user->user_name  }}</a>
+                                        </td>
+                                        <td>
+                                            <ul>
+                                                @foreach ($user->roles as $role)
+                                                    <li>{{$role->display_name}}</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        <td>
+                                            {{ $user->person_id }}
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('users.accept' , ['user' => $user->id]) }}" class="btn default btn-xs green-stripe">
                                             قبول </a>
                                         </td>
                                     </tr>

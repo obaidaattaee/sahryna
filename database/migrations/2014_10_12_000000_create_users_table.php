@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('code')->nullable();
             $table->string('phone')->unique();
             $table->string('alternative_phone')->nullable();
-            $table->boolean('active')->default(1);
+            $table->boolean('active')->default(0);
             $table->softDeletes();
             $table->string('person_id')->unique();
             $table->string('person_image')->nullable();
