@@ -65,6 +65,7 @@
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+@auth
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav" style="direction: rtl">
@@ -92,7 +93,7 @@
                             </div>
                         </div>
                     </div>
-
+@endauth
                     <div class="navbar-nav">
                         @guest
                 @if (Route::current()->getName() == 'login')
