@@ -57,13 +57,39 @@
 @endauth
           <!--navbar-->
           <nav class="navbar navbar-expand-md fixed-top navbar-org">
+
             <div class="container">
                 <a href="{{ route('main')}}" class="navbar-brand">
                     <img src="{{ asset('user_images/settings/'.($settings->logo_image ?? "اشترينا001.jpg"))}}"   >
                 </a>
+@auth
+<a class="nav-link dropdown-toggle a-navbar li-navbar" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="fa-stack fa cursor" data-count="{{ count(auth()->user()->unreadnotifications) + $message_count }}">
+        <i class="fa fa-circle fa-stack-2x" style="color: #580707"></i>
+        <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+    </span>
+</a>
+<div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
+    @if (count(auth()->user()->unreadnotifications) == 0)
+        <a class="dropdown-item" href="#">لا يوجد اشعارات جديدة حتى الان</a>
+    @if($message_count > 0)
+    <a class="dropdown-item" href="{{ route('site.dashboard') }}"> يوجد لديك <span style="border-radius: 10px; background-color: rgb(240, 69, 69) ; padding: 5px "> {{auth()->user()->inbox->count()}}</span> رساله واردة جديدة</a>
+
+    @endif
+        @else
+        @foreach (auth()->user()->unreadnotifications->take(10) as $item)
+        <a class="dropdown-item" href="{{ route('site.dashboard') }}">{{ $item->data['title'] }}</a>
+
+        @endforeach
+    @endif
+
+</div>
+@endauth
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+
 
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav">
@@ -71,84 +97,63 @@
                     </div>
 
                     <div class="navbar-nav">
+
                         @guest
-                @if (Route::current()->getName() == 'login')
-                <a href="{{ route('register')}}" class="nav-item nav-link a-navbar li-navbar">   تسجيل اشتراك  <i class="fas fa-user-plus"></i> </a>
+                            @if (Route::current()->getName() == 'login')
+                                <a href="{{ route('register')}}" class="nav-item nav-link a-navbar li-navbar">   تسجيل اشتراك  <i class="fas fa-user-plus"></i> </a>
 
-                @else
-                <a href="{{ route('login')}}" class="nav-item nav-link a-navbar li-navbar">   تسجيل دخول  <i class="fas fa-user-plus"></i> </a>
+                            @else
+                                <a href="{{ route('login')}}" class="nav-item nav-link a-navbar li-navbar">   تسجيل دخول  <i class="fas fa-user-plus"></i> </a>
 
-                @endif
-                @endguest
+                            @endif
+                        @endguest
                         @auth
 
-                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    {{-- <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
                         <a class="nav-link a-navbar add-ads li-navbar" href="#"> اضف اعلانك <i class="fas fa-tag"></i> </a>
-                    </button>
+                    </button> --}}
+                            <ul class="navbar-nav">
 
-                    <div class="collapse navbar-collapse justify-content-between" id="#">
-                        <ul class="navbar-nav">
-
-                        </ul>
-
-                        <ul class="navbar-nav">
-
-                            <li class="nav-item active">
-                                <a class="nav-link a-navbar li-navbar" href="{{ route('site.dashboard') }}" target="_blanck">    لوحة التحكم   <i class="fas fa-chart-pie"></i></a>
-                            </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link a-navbar li-navbar" href="{{ route('site.dashboard') }}" target="_blanck">    لوحة التحكم   <i class="fas fa-chart-pie"></i></a>
+                                </li>
 
 
-                            <li class="nav-item dropdown ">
-                                <a class="nav-link dropdown-toggle a-navbar li-navbar" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="fa-stack fa cursor" data-count="{{ count(auth()->user()->unreadnotifications) + $message_count }}">
-                                        <i class="fa fa-circle fa-stack-2x" style="color: #580707"></i>
-                                        <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                                    @if (count(auth()->user()->unreadnotifications) == 0)
-                                        <a class="dropdown-item" href="#">لا يوجد اشعارات جديدة حتى الان</a>
-                                    @if($message_count > 0)
-                                    <a class="dropdown-item" href="{{ route('site.dashboard') }}"> يوجد لديك <span style="border-radius: 10px; background-color: rgb(240, 69, 69) ; padding: 5px "> {{auth()->user()->inbox->count()}}</span> رساله واردة جديدة</a>
 
-                                    @endif
-                                        @else
-                                        @foreach (auth()->user()->unreadnotifications->take(10) as $item)
-                                        <a class="dropdown-item" href="{{ route('site.dashboard') }}">{{ $item->data['title'] }}</a>
 
-                                        @endforeach
-                                    @endif
+                                <li class="nav-item active">
+                                    <a class="nav-link a-navbar add-ads li-navbar" href="{{ route('advertismenets.create') }}"  > اضف اعلانك <i class="fas fa-tag"></i> </a>
+                                </li>
 
-                                </div>
-                            </li>
+                                <li class="nav-item active">
+                                    <a class="nav-link a-navbar add-ads li-navbar" href="{{ route('buyers.advertisements') }}" > اعلانات التجار <i class="fas fa-th-list"></i> </a>
+                                </li>
 
-                            <li class="nav-item active">
-                                <a class="nav-link a-navbar add-ads li-navbar" href="{{ route('advertismenets.create') }}"  > اضف اعلانك <i class="fas fa-tag"></i> </a>
-                            </li>
+                                <li class="nav-item dropdown ">
+                                    <a class="nav-link dropdown-toggle a-navbar li-navbar" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="cursor" style="cursor: pointer;"> {{ auth()->user()->first_name }} <i class="fa fa-user" style="cursor: pointer;"></i></span> </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
+                                        <a class="dropdown-item" href="{{ route('my.profile')}}">حسابي</a>
 
-                            <li class="nav-item active">
-                                <a class="nav-link a-navbar add-ads li-navbar" href="{{ route('buyers.advertisements') }}" > اعلانات التجار <i class="fas fa-th-list"></i> </a>
-                            </li>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                                document.getElementById('logout-form').submit();">
+                                                    {{ __('تسجيل الخروج') }}
+                                                </a>
 
-                            <li class="nav-item dropdown ">
-                                <a class="nav-link dropdown-toggle a-navbar li-navbar" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="cursor" style="cursor: pointer;"> {{ auth()->user()->first_name }} <i class="fa fa-user" style="cursor: pointer;"></i></span> </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
-                                    <a class="dropdown-item" href="{{ route('my.profile')}}">حسابي</a>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                    @csrf
+                                                </form>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="collapse navbar-collapse justify-content-between" id="#">
+                                <ul class="navbar-nav">
 
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                               onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
-                                                {{ __('تسجيل الخروج') }}
-                                            </a>
+                                </ul>
 
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                @csrf
-                                            </form>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
+
+                            </div>
                         @endauth
                     </div>
                 </div>
