@@ -75,8 +75,8 @@
             </ol>
             <div class="carousel-inner">
                 @foreach (json_decode($settings->slider_images) as $key => $slider)
-                <div class="carousel-item {{ $key == 0 ? 'active' : ''}}" style="max-height: 600px">
-                    <img class="d-block img-responsive" style="width: 100%;height: 100%;" src="{{ asset('user_images/settings/'.($slider ?? '')) }}"  alt="First slide">
+                <div class="carousel-item {{ $key == 0 ? 'active' : ''}}" style="max-height: 400px">
+                    <img class="d-block img-responsive" style="width: 100%;height: 100%;display: block;position: relative;top: 50%;left: 50%;min-height: 100%;min-width: 100%;transform: translate(-50%, -50%);" src="{{ asset('user_images/settings/'.($slider ?? '')) }}"  alt="First slide">
                 </div>
                 @endforeach
                 {{-- <div class="carousel-item active">
@@ -117,7 +117,7 @@
 
 
     @foreach ($advertisements as $advertisement)
-        <div class="col-md-3" style="margin-top:20px;margin-bottom:20px">
+        <div class="col-md-3 ml-3" style="margin-top:20px;margin-bottom:20px">
 
             <div class="card crad-no1 Cards"  >
             <a href="{{ route('site.advertismenets.show' , ['advertisement' => $advertisement->id , 'title' => $advertisement->title]) }}">

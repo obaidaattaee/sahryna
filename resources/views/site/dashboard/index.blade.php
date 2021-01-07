@@ -549,7 +549,7 @@
                                             <td id="dataEnd">{{ $advertisement->cost_of_share }}</td>
                                             <td id="dataEnd">{{ $advertisement->end_publish_date }}</td>
                                             <td><button
-                                                    class="btn @switch( $advertisement->active)
+                                                    class="btn @switch( $advertisement->status)
                                                     @case(0)
                                                         {{"btn-warning"}}
                                                         @break
@@ -561,7 +561,7 @@
                                                         @break
                                                     @default
 
-                                                @endswitch">@switch( $advertisement->active)
+                                                @endswitch">@switch( $advertisement->status)
                                                 @case(0)
                                                     {{"غير مفعل"}}
                                                     @break
