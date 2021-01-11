@@ -4,8 +4,7 @@
 
 @endsection
 @section('content')
-
-
+<br><br><br><br>
 <!--content page-->
 <div class="container login-container" style="margin-top:120px;">
     <div class="row">

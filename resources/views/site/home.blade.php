@@ -121,7 +121,7 @@
 
             <div class="card crad-no1 Cards"  >
             <a href="{{ route('site.advertismenets.show' , ['advertisement' => $advertisement->id , 'title' => $advertisement->title]) }}">
-                    <img class="card-img-top" src="{{ asset('user_images/images/'.json_decode($advertisement->images)[0])}}"  alt="Card image cap" style="max-height: 250px">
+                    <img class="card-img-top" src="{{ asset('user_images/images/'.json_decode($advertisement->images)[0]) ?? ""}}"  alt="Card image cap" style="max-height: 250px">
 
                 <div class="card-img-overlay d-flex align-items-center">
                     <div>
