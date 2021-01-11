@@ -147,7 +147,7 @@
 
                     <div class="tab-content">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover table-bordered" id="example">
+                            <table class="table table-striped table-hover table-bordered" id="example1">
                             <thead>
                                 <tr>
                                     <th>
@@ -199,7 +199,20 @@
 @section('js')
 <script>
         $(document).ready(function() {
-    $('#example').DataTable( {
+        $('#example').DataTable( {
+            buttons: [
+                {
+                    extend: 'pdf',
+                    text: 'Save current page',
+                    exportOptions: {
+                        modifier: {
+                            page: 'current'
+                        }
+                    }
+                }
+            ],
+        } );
+$('#example1').DataTable( {
     buttons: [
         {
             extend: 'pdf',

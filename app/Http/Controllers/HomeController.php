@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $advertisements = Advertisement::where('active' , 1)
+        $advertisements = Advertisement::whereIn('active' , [1,2])
                             ->where('verified' , 1)
                             ->where('end_publish_date' , '>' , Carbon::now())
                             ->with(['city']);
