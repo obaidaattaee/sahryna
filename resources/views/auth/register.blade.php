@@ -50,8 +50,8 @@
                             <strong>{{ $message }}</strong>
                         </div>
                     @enderror
-                    <div class="form-group">
-                        <input type="text" name="phone" class="form-control" placeholder="رقم الهاتف"
+                    <div class="form-group" >
+                        <input type="text" name="phone" class="form-control" placeholder="966XXXXXXXXX"
                             value="{{ old('phone') ?? '' }}" style="    font-size: 1.1rem;" />
                     </div>
                     @error('phone')
@@ -60,7 +60,7 @@
                         </div>
                     @enderror
                     <div class="form-group">
-                        <input type="text" name="person_id" class="form-control" placeholder="الرقم الوطني"
+                        <input type="text" name="person_id" class="form-control" placeholder="الرقم الوطني (9 ارقام)"
                             value="{{ old('person_id') ?? '' }}" style="    font-size: 1.1rem;" />
                     </div>
                     @error('person_id')
@@ -125,4 +125,7 @@
     </div>
     <br /><br /><br />
 
+@endsection
+@section('js')
+<script src='{{ asset("assets/Js/PersonalDetailes.js")}}'></script>
 @endsection

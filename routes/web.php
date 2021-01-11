@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\Admin\BaseAdminControllers;
 use App\Http\Controllers\Auth\CodeVerificationController;
-use App\Http\Controllers\TestController;
 use App\Models\Advertisement;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth ;
@@ -112,7 +112,6 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ]
     Route::get('polices' , 'PolicesController@index')->name('site.polices') ;
     Route::get('advertisements/show/{advertisement}/{title}' , 'AdvertismenetController@show')->name('site.advertismenets.show');
 
-    Route::get('test' , [TestController::class , 'store']) ;
     Route::middleware(['auth'])->group(function (){
         Route::get('advertisements/{advertisement}/{user}/delete' , 'AdvertismenetController@delete')->name('site.advertismenets.delete');
         Route::get('dashboard' , 'DashboardController@index')->name('site.dashboard');
@@ -133,6 +132,7 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ]
         //end prodile routes
         Route::group(['middleware'=> 'profileverirfication'] , function(){
             Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
+            Route::get('advertisements/{advertisement}/edit' , [App\Http\Controllers\Admin\AdvertisementController::class, 'edit'])->name('advertismenets.edit');
             Route::post('advertisements/create' , 'AdvertismenetController@store')->name('advertismenets.store');
             Route::post('user/{user}/advertisements/{advertisement}/create/supscription' , 'AdvertismenetController@addSubscription')->name('advertismenets.add.subscription');
             Route::get('user/{user}/advertisements/{advertisement}/delete/{subscription}/supscription' , 'AdvertismenetController@deleteSubscription')->name('advertismenets.delete.subscription');
@@ -146,3 +146,6 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ]
 
 });
 
+Route::get('test' , function (){
+    return view('test') ;
+});

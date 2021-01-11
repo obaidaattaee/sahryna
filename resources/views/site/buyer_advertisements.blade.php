@@ -62,16 +62,7 @@
                         <!-- Text -->
                         <p class="card-text  ProductDes" id="ProductDes" style="font-weight: 500;font-family: 'Cairo', sans-serif;color: #580707;text-align: end;"> {{ $advertisement->description }}</p>
                         <!-- Button -->
-                        <div class="col col-forText">
-
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star checked"></span>
-                            <span class="fa fa-star"></span>
-                            <span class="fa fa-star"></span>
-
-
-                        </div>
+                       
                     </div>
 
                     </div>

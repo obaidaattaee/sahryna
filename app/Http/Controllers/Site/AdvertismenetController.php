@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MyFatoorah as ControllersMyFatoorah;
 use App\Http\Requests\AdvertisementRequest;
+use App\Http\Requests\AdvertisementUpdateRequest;
 use App\Models\Advertisement;
 use App\Models\AdvertisementType;
 use App\Models\Category;
@@ -103,11 +104,11 @@ class AdvertismenetController extends Controller{
                 // dd($result);
                 return isset($result['RedirectUrl']) ? redirect()->to($result['RedirectUrl']) : back()->with('error', (string) $result["Message"]);
             }else{
-                $advertisement->active = 0 ;
+                $advertisement->active = 1 ;
                 $advertisement->verified = 1 ;
                 $advertisement->save();
-                Alert::alert('تم اضافة اعلانك بنجاح') ;
-                return redirect(route('main'));
+                Alert::success('تم اضافة اعلانك بنجاح') ;
+                return redirect(route('home'));
             }
     }else{
         $data['subscription_id'] = null ;
@@ -230,5 +231,47 @@ class AdvertismenetController extends Controller{
         Alert::warning('شكرا لتعاملكم معنا ');
         return redirect(route('site.dashboard'));
 
+    }
+    public function edit(Advertisement $advertisement){
+        $categories = Category::where('active' , 1)->get() ;
+        $cities = City::where('active' , 1)->get() ;
+        $deleviry_times = DeliveryTime::where('active' , 1)->get() ;
+        $advertisement_types = AdvertisementType::where('active' , 1)->get() ;
+
+
+        // dd($subscriptions_roles_ids);
+        $buyer_subscription = Settings::first()->buyer_subscription;
+        if ( $buyer_subscription == 0 && in_array( 2 , auth()->user()->roles->pluck('id')->toArray() ) ) {
+            $subscriptions = Subscription::where('active' , 1)->whereIn('role_id'  , auth()->user()->roles->pluck('id')->toArray()  )->get() ;
+        }elseif(in_array( 3 , auth()->user()->roles->pluck('id')->toArray() )){
+            $subscriptions = Subscription::where('active' , 1)->whereIn('role_id'  , auth()->user()->roles->pluck('id')->toArray()  )->get() ;
+        }else{
+            $subscriptions = collect();
+        }
+        return view('site.advertisements.edit')
+                ->with('categories' , $categories)
+                ->with('cities' , $cities)
+                ->with('deleviry_times' , $deleviry_times)
+                ->with('advertisement_types' , $advertisement_types)
+                ->with('subscriptions' , $subscriptions)
+                ->with('adv' , $advertisement);
+
+    }
+    public function update(AdvertisementUpdateRequest $request , Advertisement $advertisement){
+        $images = [] ;
+        if($request["imagesFiles"] != null){
+            foreach($request["imagesFiles"] as $image){
+                 array_push($images , basename($image->store('images' , 'public'))) ;
+            }
+        }
+        if (count($images) > 0) {
+            $request['images']  = json_encode($images ) ;
+        }else{
+            $request['images']  = $advertisement->images ;
+        }
+
+        $data = $request->except('imagesFiles') ;
+        $advertisement->update($data);
+        return redirect()->back();
     }
 }

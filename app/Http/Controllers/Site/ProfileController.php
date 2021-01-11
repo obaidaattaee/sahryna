@@ -41,6 +41,8 @@ class ProfileController extends Controller{
                 'card.card_exp_month.*' => 'يرجى التاكد من  شهر انتهاء البطاقة  ' ,
                 'card.card_exp_year.*' => 'يرجى التاكد من  سنه انتهاء البطاقة  ' ,
                 'card.card_code.*' => 'يرجى التاكد من  كود البطاقة  ' ,
+            ] , [
+                'alternative_phone' => "الهاتف البديل"
             ]);
 
         if ((request()->person_image) != null) {

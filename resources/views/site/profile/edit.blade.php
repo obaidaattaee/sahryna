@@ -45,28 +45,28 @@
                                 </div>
                             </div>
                             <label class="fieldlabels">الاسم الاول </label>
-                            <input class="input-section1" type="text" name="first_name" value="{{ old('first_name') ?? $user->first_name ?? '' }} " placeholder="الاسم الاول" />
+                            <input class="input-section1" type="text" name="first_name" required value="{{ old('first_name') ?? $user->first_name ?? '' }} " placeholder="الاسم الاول" />
                             @error('first_name')
                             <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                             <label class="fieldlabels">  الكنية</label>
-                        <input  class="input-section1" type="text" name="last_name" value="{{ old('last_name') ?? $user->last_name ?? "" }}" placeholder="الكنية " />
+                        <input  class="input-section1" type="text" name="last_name" required value="{{ old('last_name') ?? $user->last_name ?? "" }}" placeholder="الكنية " />
                         @error('last_name')
                         <div class="alert alert-danger">{{$message}}</div>
                         @enderror
 
                              <label class="fieldlabels">  رقم الاتصال</label>
-                        <input class="input-section1" type="text" name="phone" value="{{ old('phone') ?? $user->phone ?? '' }}" placeholder="رقم الاتصال" />
+                        <input class="input-section1" type="text" name="phone" required value="{{ old('phone') ?? $user->phone ?? '' }}" placeholder="رقم الاتصال" />
                         @error('phone')
                         <div class="alert alert-danger">{{$message}}</div>
                         @enderror
                              <label class="fieldlabels"> رقم الاتصال البديل</label>
-                        <input class="input-section1"     type="text" name="alternative_phone" value="{{ old('alternative_phone') ?? $user->alternative_phone ?? '' }}" placeholder="رقم الاتصال البديل" />
+                        <input class="input-section1"  required   type="text" name="alternative_phone" value="{{ old('alternative_phone') ?? $user->alternative_phone ?? '' }}" placeholder="رقم الاتصال البديل" />
                         @error('alternative_phone')
                         <div class="alert alert-danger">{{$message}}</div>
                         @enderror
                     </div>
-                         <input type="button" name="next" class="next action-button" value="التالي" /> <input type="button" name="previous" class="previous action-button-previous" value="السابق" />
+                         <input type="button" name="next"  class="next action-button" value="التالي" /> <input type="button" name="previous" class="previous action-button-previous" value="السابق" />
                     </fieldset>
 
 
@@ -82,13 +82,13 @@
                             </div>
 
                             <label class="fieldlabels">مالك بطاقة</label>
-                             <input class="input-section1" type="text" name="card[owner_card_name]" value="{{ old('owner_card_name') ?? $user->payment_data['owner_card_name'] ?? '' }}" placeholder="اسم مالك البطاقة" />
+                             <input class="input-section1" type="text" name="card[owner_card_name]" required value="{{ old('owner_card_name') ?? $user->payment_data['owner_card_name'] ?? '' }}" placeholder="اسم مالك البطاقة" />
                              @error('card.owner_card_name')
                              <div class="alert alert-danger">{{$message}}</div>
                              @enderror
 
                              <label class="fieldlabels"> رقم البطاقة</label>
-                        <input  class="input-section1" type="text" name="card[card_number]" value="{{ old('card_number') ?? $user->payment_data['card_number'] ?? '' }}" placeholder=" رقم البطاقة" />
+                        <input  class="input-section1" type="text" name="card[card_number]" required value="{{ old('card_number') ?? $user->payment_data['card_number'] ?? '' }}" placeholder=" رقم البطاقة" />
                         @error('card.card_number')
                         <div class="alert alert-danger">{{$message}}</div>
                         @enderror
@@ -101,7 +101,7 @@
                             <div class="row">
                                 <div class="col-6">
                                     <label class="fieldlabels"> الشهر </label>
-                                    <input  class="input-section1" type="text" name="card[card_exp_month]" value="{{ old('card_exp_month') ?? $user->payment_data['card_exp_month'] ?? '' }}" placeholder=" الشهر" />
+                                    <input  class="input-section1" type="text" required name="card[card_exp_month]" value="{{ old('card_exp_month') ?? $user->payment_data['card_exp_month'] ?? '' }}" placeholder=" الشهر" />
                                     @error('card.card_exp_month')
                                     <div class="alert alert-danger">{{$message}}</div>
                                     @enderror
@@ -109,7 +109,7 @@
 
                                 <div class="col-6">
                                     <label class="fieldlabels"> السنه </label>
-                                    <input  class="input-section1" type="text" name="card[card_exp_year]" value="{{ old('card_exp_year') ?? $user->payment_data['card_exp_year'] ?? '' }}" placeholder="السنة" />
+                                    <input  class="input-section1" type="text" required name="card[card_exp_year]" value="{{ old('card_exp_year') ?? $user->payment_data['card_exp_year'] ?? '' }}" placeholder="السنة" />
                                     @error('card.card_exp_year')
                                     <div class="alert alert-danger">{{$message}}</div>
                                     @enderror
@@ -118,7 +118,7 @@
                             </div>
 
                              <label class="fieldlabels">رقم الكود الموجود على بطاقة الاتمان</label>
-                             <input  class="input-section1" type="text" name="card[card_code]" value="{{ old('card_code') ?? $user->payment_data['card_code'] ?? '' }}" placeholder=" رقم البطاقة" />
+                             <input  class="input-section1" type="text" required name="card[card_code]" value="{{ old('card_code') ?? $user->payment_data['card_code'] ?? '' }}" placeholder=" رقم البطاقة" />
                             </div>
                             @error('card.card_code')
                                 <div class="alert alert-danger">{{$message}}</div>
@@ -155,35 +155,6 @@
                     </fieldset>
 
 
-
-
-
-
-
-
-
-
-                    <fieldset>
-                        <div class="form-card">
-                            <div class="row">
-                                <div class="col-7">
-
-                                </div>
-                                <div class="col-5">
-
-                                </div>
-                            </div> <br><br>
-                            <h2 class="purple-text text-center"><strong>تم الانتهاء بنجاح شكرا لك </strong></h2> <br>
-                            <div class="row justify-content-center">
-                                <div class="col-3"></div>
-                            </div> <br><br>
-                            <div class="row justify-content-center">
-                                <div class="col-7 text-center">
-                                    <h5 class="purple-text text-center"> تم النجاح في استكمال بياناتك  </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
 
                 </form>
             </div>

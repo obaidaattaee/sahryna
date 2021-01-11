@@ -5,7 +5,6 @@
 
 
 <link href="{{ asset('assets/Css/Add-ADS.css')}}" rel="stylesheet" />
-
 @endsection
 @section('content')
 <br /> <br /><br /> <br /> <br />

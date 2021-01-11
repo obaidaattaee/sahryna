@@ -578,6 +578,8 @@
                                             <td><a href="{{ route('site.advertismenets.delete', ['advertisement' => $advertisement->id, 'user' => $user->id]) }}"
                                                     onclick="return alert('هل انت متاكد من حذف الاعلان')"
                                                     class="btn btn-danger">حذف الاعلان</a></td>
+                                            <td><a href="{{ route('advertismenets.edit', ['advertisement' => $advertisement->id]) }}"
+                                                    class="btn btn-info">تعديل </a></td>
                                         </tr>
                                     @endforeach
                                 @endisset

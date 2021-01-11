@@ -78,9 +78,15 @@ class AdvertisementController extends Controller{
                  array_push($images , basename($image->store('images' , 'public'))) ;
             }
         }
-        $request['images']  = json_encode($images ) ;
+        if (count($images) > 0) {
+            $request['images']  = json_encode($images ) ;
+        }else{
+            $request['images']  = $advertisement->images ;
+        }
         $data = $request->except('imagesFiles') ;
         $advertisement->update($data);
+        session()->flash('msg' , 'تم تعديل الاعلان بنجاح');
+        Alert::success('تم تعديل الاعلان بنجاح');
         return redirect()->back();
     }
     public function create(){
@@ -157,6 +163,7 @@ class AdvertisementController extends Controller{
             'accepted' => 1
         ]);
         session()->flash('msg' , 's: تم قبول  الاعلان بنجاح');
+
         return redirect(route('admin.index'));
     }
 }

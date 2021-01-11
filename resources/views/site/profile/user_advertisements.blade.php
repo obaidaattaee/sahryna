@@ -11,18 +11,9 @@
         <div class="media border p-3" style=" background-color: #c4c4a3; margin-top: 10px;margin-bottom: 40px; border: 1px solid #580707;">
             <div class="media-body">
               <h4 class="Text-Card">{{ $user->user_name }} <small> <i>    </i></small></h4>
-              <div class="col col-forText Text-Card-Des" style="font-weight: 300;">
-
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-
 
             </div>
-            </div>
-            <img src="{{ asset('user_images/public/'.$user->person_image)}}" alt="John Doe" class="ml-3 mt-3 rounded-circle" style="width:60px;">
+            <img src="{{ asset('user_images/public/'.$user->person_image)}}" alt="John Doe" class="ml-3 mt-3 rounded-circle" style="width:60px; height: 60px;">
           </div>
       </div>
     </div>
@@ -77,16 +68,7 @@
                 <!-- Text -->
                 <p class="card-text  ProductDes" id="ProductDes" style="font-weight: 500;font-family: 'Cairo', sans-serif;color: #580707;text-align: end;"> {{ $advertisement->description }}</p>
                 <!-- Button -->
-                <div class="col col-forText">
 
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
-
-
-                </div>
             </div>
 
             </div>

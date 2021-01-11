@@ -55,7 +55,6 @@
 
                         <textarea name="description" required class="form-control inputs-AddADS textareaDes DefaultFormTextArea" id="ProductDesc1" placeholder="أدرج وصفا مفصّلا ودقيقا لإعلانك" rows="4">{{ old('description') ?? $adv->description ?? ""}}</textarea>
                     </div>
-
                     @error('category_id')
                     <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
     @enderror
@@ -64,7 +63,8 @@
 
                         <select id="ProductDesc2" required name="category_id" class="form-control selectpicker inputs-AddADS Productsection" title=" اختر  القسم   ">
                             @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{ $adv->category->id == $category->id ? "selected" : "e" }}>{{ $category->title }}</option>
+
+                            <option value="{{ $category->id }}" {{ $adv->category_id == $category->id ? "selected" : "" }}>{{ $category->title }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -330,7 +330,7 @@
                     <div class="row">
 
                         <div class="col">
-                            <input type="submit" class="btnSubmit  " value="نشر الاعلان" />
+                            <input type="submit" class="btnSubmit  " value="تعديل الاعلان" />
                         </div>
                     </div>
                     <div class="form-group">

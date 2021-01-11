@@ -465,22 +465,15 @@ section {
 <br /><br />
 
 <div class="container-fluid">
-    <div class="col-12 section-ForTitle">
-        <h5>
-            <h5 class="h5-titleforPage"> {{ $advertisement->title }} </h5>
+    @error('number_of_parts')
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="text-align: end;">
+       {{ $message }}
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+         <span aria-hidden="true">&times;</span>
+       </button>
+     </div>
 
-
-            <div class="Stars">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-            </div>
-        </h5>
-
-
-    </div>
+        @enderror
     <br />
     <div class="row">
         <div class="col-md-12" style="   margin-bottom: 20px;">
@@ -683,11 +676,11 @@ section {
                         </div>
 
                     </div>
-                    @error('number_of_parts')
+                    {{-- @error('number_of_parts')
                     <div class="row" style="direction: rtl">
                         <div class="alert alert-danger" style="text-align: right">{{$message}}</div>
                     </div>
-                        @enderror
+                        @enderror --}}
                 </form>
                 <br>
                 <div class="row">
