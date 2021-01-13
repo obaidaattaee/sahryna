@@ -98,9 +98,9 @@ img {
 
 .section-style {
     text-align: end;
-    background-color: #d2d2af;
     color: #580707;
     padding: 15px;
+    border: 1px solid;
 }
 
 .p-forfont {

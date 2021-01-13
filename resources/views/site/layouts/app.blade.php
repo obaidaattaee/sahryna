@@ -45,11 +45,39 @@
   font-weight:bold;
 }
 </style>
-<link href="{{ asset('css/app.css')}}" rel="stylesheet" />
+<style>
+    .tooltip {
+      position: relative;
+      display: inline-block;
+      border-bottom: 1px dotted black;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: black;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px 0;
+
+      /* Position the tooltip */
+      position: absolute;
+      z-index: 1;
+      top: -5px;
+      left: 105%;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+    }
+</style>
+{{-- <link href="{{ asset('css/app.css')}}" rel="stylesheet" /> --}}
 <link href="{{ asset('assets/Css/HomePage.css')}}" rel="stylesheet" />
 @yield('css')
 </head>
-<body>
+<body style="font-family: cairo">
+
     @auth
 @php
     $message_count = auth()->user()->inbox->where('readed' , 0)->count() ;
@@ -96,13 +124,23 @@
 @endauth
                     <div class="navbar-nav">
                         @guest
-                @if (Route::current()->getName() == 'login')
-                <a href="{{ route('register')}}" class="nav-item nav-link a-navbar li-navbar">   تسجيل اشتراك  <i class="fas fa-user-plus"></i> </a>
+                <a href="{{ route('register')}}" class="nav-item nav-link a-navbar li-navbar">   تسجيل جديد   </a>
 
-                @else
-                <a href="{{ route('login')}}" class="nav-item nav-link a-navbar li-navbar">   تسجيل دخول  <i class="fas fa-user-plus"></i> </a>
+                <a href="{{ route('login')}}" class="nav-item nav-link a-navbar add-ads li-navbar" >    تسجيل الدخول  </a>
+                <a href="{{ route('home')}}" class="nav-item nav-link a-navbar  li-navbar" >    الرئيسية  <i class="fa fa-home"></i> </a>
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle a-navbar li-navbar" style="color: #580707" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="cursor" style="cursor: pointer;"> الاقسام <i class="fas fa-th-list" style="cursor: pointer;"></i></span> </a>
+                    <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
+                        <a class="dropdown-item" href="https://ardhwatalab.com.sa/" >عرض و طلب</a>
 
-                @endif
+                        <div class="dropdown-divider"></div>
+                          @foreach (App\Models\Category::where('active' , 1)->get()  as $category)
+                          <div class="dropdown-item">
+                            <a href="{{route('home' , ['category' => $category->id ])}}"> {{$category->title}}</a>
+                        </div>
+                        @endforeach
+                    </div>
+                </li>
                 @endguest
                         @auth
 
@@ -120,9 +158,19 @@
                             </li>
 
                             <li class="nav-item active">
-                                <a class="nav-link a-navbar add-ads li-navbar" href="{{ route('buyers.advertisements') }}" > اعلانات التجار <i class="fas fa-th-list"></i> </a>
+                                <a class="nav-link a-navbar  li-navbar" href="{{ route('buyers.advertisements') }}" > اعلانات التجار <i class="fas fa fa-delicious"></i> </a>
                             </li>
 
+
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link dropdown-toggle a-navbar li-navbar" style="color: #580707" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="cursor" style="cursor: pointer;"> الاقسام <i class="fas fa-th-list" style="cursor: pointer;"></i></span> </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
+                                    <a class="dropdown-item" href="https://ardhwatalab.com.sa/" >عرض و طلب</a>
+
+                                    <div class="dropdown-divider"></div>
+
+                                </div>
+                            </li>
                             <li class="nav-item dropdown ">
                                 <a class="nav-link dropdown-toggle a-navbar li-navbar" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="cursor" style="cursor: pointer;"> {{ auth()->user()->first_name }} <i class="fa fa-user" style="cursor: pointer;"></i></span> </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
@@ -165,7 +213,7 @@
 
 
     <!-- Footer -->
-<footer class="page-footer font-small stylish-color-dark pt-4">
+<footer class="page-footer font-small stylish-color-dark pt-4" style="background-color: #e5e5ca">
 
     <!-- Footer Links -->
     <div class="container text-center text-md-right">
@@ -232,7 +280,7 @@
 
                 <!-- Content -->
                 <h5 class="font-weight-bold text-uppercase mt-3 mb-4 Title-Head" >{{ $settings->title ?? "موقع اشترينا" }}</h5>
-                <p class="TextForFooter">
+                <p class="TextForFooter" style="color: #6d1c1c">
                     {{$settings->description ?? ".موقع يهدف الى  إتاحة خيار الشراكة في شراء سلع بالجملة ثم تفريقها بين الشركاء" }}
                 </p>
 

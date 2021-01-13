@@ -116,9 +116,9 @@
 
 .section-style {
     text-align: end;
-    background-color: #d2d2af;
     color: #580707;
     padding: 15px;
+    border: 1px solid ;
 }
 
 .p-forfont {
@@ -624,7 +624,7 @@ section {
             <div class="col-12">
                 <h3 class="h3-forDE">  السعر   </h3>
             </div>
-            <p class="section-style p-forfont">  سعر الحصة :  {{ round($advertisement->cost_of_share , 2) }} ر.س</p>
+            <p class="section-style p-forfont" style="background-color: #e5e5ca;border: none">  سعر الحصة :  {{ round($advertisement->cost_of_share , 2) }} ر.س</p>
             <div class="form-group col-md-12">
                 <p class="p-ForP" style="  font-family: 'Cairo', sans-serif;font-size: 15px;font-weight: 600;color: #580707;margin-top: 21px; margin-bottom: 20px;">
                     عدد الاعضاء المطلوبين  :
@@ -683,7 +683,7 @@ section {
                         @enderror --}}
                 </form>
                 <br>
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col">
                         <label class="Label-AddADS Productsection" for="Productsection"> التبليغ عن هذا الاعلان </label>
                         <select id="ProductDesc2" name="Section" class="form-control selectpicker inputs-AddADS Productsection" title=" اختر  القسم   ">
@@ -694,7 +694,7 @@ section {
                             <option  >  المنتج مسروق </option>
                         </select>
                     </div>
-                </div>
+                </div> --}}
             </div>
             @endif
 

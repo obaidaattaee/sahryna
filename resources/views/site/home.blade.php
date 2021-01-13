@@ -1,6 +1,53 @@
 @extends('site.layouts.app')
+@section('css')
+<style>
 
+        /*search box css start here*/
+    .search-sec{
+        padding: 2rem;
+    }
+    .search-slt{
+        display: block;
+        width: 100%;
+        font-family: cairo;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: #55595c;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        height: calc(3rem + 2px) !important;
+        border-radius:0;
+    }
+    .wrn-btn{
+        width: 100%;
+        font-size: 16px;
+        font-weight: 400;
+        text-transform: capitalize;
+        height: calc(3rem + 2px) !important;
+        border-radius:0;
+    }
+    @media (min-width: 992px){
+        .search-sec{
+            position: relative;
+            top: -114px;
+            background: rgba(26, 70, 104, 0.51);
+        }
+    }
+
+    @media (max-width: 992px){
+        .search-sec{
+            background: #1A4668;
+        }
+    }
+    .hover-p:hover{
+        cursor: pointer;
+    }
+</style>
+
+@endsection
 @section('content')
+
 @php
         $settings = \App\Models\Settings::first()
     @endphp
@@ -8,7 +55,7 @@
 <!--A moving bar-->
 <div class="container-fluid" style="margin-top: 118px;">
     <div class="row">
-        <marquee class="for-marquee" direction="left" width="100%" height="50" bgcolor="#CCC" scrolldelay="80" scrollamount="3" onmouseover="this.setAttribute('scrollamount', 0, 0);" onmouseout="this.setAttribute('scrollamount', 6, 0);">
+        <marquee class="for-marquee" direction="left" width="100%" height="50" style="background-color: #dfdfd3" bgcolor="#CCC" scrolldelay="80" scrollamount="3" onmouseover="this.setAttribute('scrollamount', 0, 0);" onmouseout="this.setAttribute('scrollamount', 6, 0);">
             <p>{{ $settings->wellcom_message }}</p>
         </marquee>
     </div>
@@ -17,41 +64,6 @@
 
 
 <!--A static bar-->
-<div class="container-fluid Dis-Ds-lab" style="margin-top:0px; background-color:#ecf0f1;">
-    <div class="row" style="padding:10px">
-        <div class="col-md-1" style="    margin-top: 15px;">
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    اختر المدينة
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    @foreach ($cities as $city)
-                        <a class="dropdown-item" href="{{ route('home' , ['city' => $city->id]) }}">{{ $city->title }}</a>
-                    @endforeach
-
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4"></div>
-
-        <div class="col-md-2">
-
-
-        </div>
-        <div class="col-md-3" style="    margin-top: 15px;">
-            <!-- Search form -->
-            <form action="">
-                <div class="input-group mb-3" style="margin-bottom:0px">
-                    <input type="text" class="form-control" name="q" placeholder="بحث">
-                    <div class="input-group-append">
-                        <button class="btn btn-default" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 
 
 
@@ -61,55 +73,70 @@
 {{-- <hr class="w-100" />
 <br /> --}}
 <!--img slide-->
-@if(json_decode($settings->slider_images) !== null)
 
-<div class=" container-fluid" >
-    <div class="row text-center">
-        <div id="carouselExampleIndicators" class="carousel slide img-slider" data-ride="carousel">
-            <ol class="carousel-indicators">
-                @foreach (json_decode($settings->slider_images) as $key => $slider)
-                <li data-target="#carouselExampleIndicators" data-slide-to="{{ $key }}" class="{{ $key == 0 ? 'active' : '' }}"></li>
-                @endforeach
-                {{-- <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> --}}
-            </ol>
-            <div class="carousel-inner">
-                @foreach (json_decode($settings->slider_images) as $key => $slider)
-                <div class="carousel-item {{ $key == 0 ? 'active' : ''}}" style="max-height: 400px">
-                    <img class="d-block img-responsive" style="width: 100%;height: 100%;display: block;position: relative;top: 50%;left: 50%;min-height: 100%;min-width: 100%;transform: translate(-50%, -50%);" src="{{ asset('user_images/settings/'.($slider ?? '')) }}"  alt="First slide">
-                </div>
-                @endforeach
-                {{-- <div class="carousel-item active">
-                    <img class="d-block w-100" src="{{ asset('assets/img/8240786d-c31f-4036-80e1-033e137f04e6.jpg') }}"  alt="First slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="{{ asset('assets/img/c1b77235-3aec-44d0-8da2-806cfa1af443.jpg')}}"  alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                    <img class="d-block w-100" src="{{ asset('assets/img/IL201906281038533186.jpg')}}"  alt="Third slide">
-                </div> --}}
+
+
+<section>
+    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
+        <div class="carousel-inner">
+            @foreach (json_decode($settings->slider_images) as $key => $slider)
+            <div class="carousel-item {{ $key == 0 ? "active" : "" }}">
+                <img src="{{ asset('user_images/settings/'.($slider ?? '')) }}" style="max-height: 500px" class="d-block w-100" alt="...">
             </div>
-            <a class="carousel-control-prev" href="img/#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-    </div>
-</div>
-@endif
+            @endforeach
 
-<br /> <br /> <br /> <br />
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</section>
+<section class="search-sec">
+    <div class="container">
+        <form action="" method="get" novalidate="novalidate">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row"  style="border-radius: 20px">
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <input type="text" class="form-control search-slt" name="q" placeholder="كلمة البحث" style="direction: rtl">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <select class="form-control search-slt" style="direction: rtl" name="category" id="exampleFormControlSelect1">
+                                <option value="" style="direction: rtl">اختر القسم</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{$category->id}}">{{ $category->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <select class="form-control search-slt"  style="direction: rtl" name="city" id="exampleFormControlSelect1">
+                                <option value="" style="direction: rtl"> اختر المدينة</option>
+                                @foreach ($cities as $city)
+                                <option value="{{$city->id}}">{{ $city->title }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <button type="submit" class="btn wrn-btn" style="background-color: #7d0505;color: white">بحث</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
 
 <!--content-->
+
 @if(count($trinds_advertisements) > 0)
-
 <div class="container-fluid" style="direction: rtl">
-    <h1 style="background-color: #580707;color: white;padding: 10px;border-radius: 10px;font-family: cairo;font-size: 28px;text-align: right;padding-right: 35px">  احدث المشاركات</h1>
-
+    <h1 style="background-color: #580707;color: white;padding: 10px;border-radius: 10px;font-family: cairo;font-size: 28px;text-align: right;padding-right: 35px">   احدث  طلبات المشاركة</h1>
    <div class="row Row-Cards ml-1">
 
 
@@ -118,23 +145,21 @@
 
             <div class="card crad-no1 Cards"  >
             <a href="{{ route('site.advertismenets.show' , ['advertisement' => $advertisement->id , 'title' => $advertisement->title]) }}">
-                    <img class="card-img-top" src="{{ asset('user_images/images/'.(json_decode($advertisement->images)[0] ?? ""))}}"  alt="Card image cap" style="max-height: 250px;min-height: 250px">
+                <img class="card-img-top" src="{{ asset('user_images/images/'.(json_decode($advertisement->images)[0] ?? ""))}}"  alt="Card image cap" style="max-height: 250px;min-height: 250px">
 
-                <div class="card-img-overlay d-flex align-items-center">
+                <div class="card-img d-flex align-items-center">
                     <div>
-                        <h5 class="h2 card-title   PriceFor-ADs-exp1" >    ر. س <span class="number"> &nbsp; {{ $advertisement->wholesale_price }} </span></h5>
+                        <h5 class="h2 card-title   PriceFor-ADs-exp1" >    ر. س <span class="number"> &nbsp; {{ $advertisement->retail_price }} </span></h5>
                     </div>
-
                 </div>
+            </a>
 
                 <div class="card-body">
-                    <a href="Sign-up Page.html"> <h5 class="card-title">{{ $advertisement->title }}</h5></a>
-                    <p class="card-text p-ForCards" style="margin-bottom: 2px;margin-top: -8px; ">{{  mb_strimwidth($advertisement->description , 0 , 10 , '....') }}</p>
-
-
-                        <p class="card-text TwoProp" >
+                    <p  style="font-size: 12px;text-align: right" class="hover-p" data-toggle="popover" title="التفاصيل" data-content="{{  mb_strimwidth($advertisement->description , 0 , 250 , '....') }}">اضغط هنا لمشاهدة التفاصيل</p>
+                    <h5 class="card-title" style="text-align: right">{{ $advertisement->title }}</h5>
+                        <p class="card-text TwoProp" style="text-align: left">
                             <span class="p-forprice" style="    float: right;">سعر الحصة :  {{ round($advertisement->cost_of_share , 2) }}</span>
-                            <span class="p-forcity" >     مدينة {{ $advertisement->city->title }}  <i class="fas fa-map-marker-alt"></i></span>
+                            <span class="p-forcity p-ForP" style="text-align: left" >     مدينة {{ $advertisement->city->title }}  <i class="fas fa-map-marker-alt"></i></span>
                             </p>
 
 
@@ -143,7 +168,7 @@
                         <div class="form-row" style="    margin-top: -3px;">
 
                             <div class="form-group col-md-12">
-                                <p class="p-ForP">عدد الاعضاء المطلوبين : <span>{{$advertisement->number_of_partners}}</span> </p>
+                                <p class="p-ForP" style="text-align: right; font-size: 12px">عدد الاعضاء المطلوبين : <span>{{$advertisement->number_of_partners}}</span> </p>
 
                                 <div class="progress"  >
                                     @php
@@ -164,7 +189,6 @@
 
                 </div>
             </div>
-            </a>
         </div>
     @endforeach
 
@@ -176,12 +200,14 @@
 
 </div>
 
+@else
+<center>
+    <div class="alert alert-danger col-8" style="text-align: center">عذرا لا يوجد اعلانات</div>
+</center>
 @endif
 @if(count($buyers_advertisements) > 0)
-
 <div class="container-fluid" style="direction: rtl">
-    <h1 style="background-color: #580707;color: white;padding: 10px;border-radius: 10px;font-family: cairo;font-size: 28px;text-align: right;padding-right: 35px"> اعلانات التجار</h1>
-
+    <h1 style="background-color: #580707;color: white;padding: 10px;border-radius: 10px;font-family: cairo;font-size: 28px;text-align: right;padding-right: 35px">  جميع طلبات المشاركة</h1>
    <div class="row Row-Cards ml-1">
 
 
@@ -190,23 +216,21 @@
 
             <div class="card crad-no1 Cards"  >
             <a href="{{ route('site.advertismenets.show' , ['advertisement' => $advertisement->id , 'title' => $advertisement->title]) }}">
-                    <img class="card-img-top" src="{{ asset('user_images/images/'.(json_decode($advertisement->images)[0] ?? ""))}}"  alt="Card image cap" style="max-height: 250px;min-height: 250px">
+                <img class="card-img-top" src="{{ asset('user_images/images/'.(json_decode($advertisement->images)[0] ?? ""))}}"  alt="Card image cap" style="max-height: 250px;min-height: 250px">
 
-                <div class="card-img-overlay d-flex align-items-center">
+                <div class="card-img d-flex align-items-center">
                     <div>
-                        <h5 class="h2 card-title   PriceFor-ADs-exp1" >    ر. س <span class="number"> &nbsp; {{ $advertisement->wholesale_price }} </span></h5>
+                        <h5 class="h2 card-title   PriceFor-ADs-exp1" >    ر. س <span class="number"> &nbsp; {{ $advertisement->retail_price }} </span></h5>
                     </div>
-
                 </div>
+            </a>
 
                 <div class="card-body">
-                    <a href="Sign-up Page.html"> <h5 class="card-title">{{ $advertisement->title }}</h5></a>
-                    <p class="card-text p-ForCards" style="margin-bottom: 2px;margin-top: -8px; ">{{  mb_strimwidth($advertisement->description , 0 , 10 , '....') }}</p>
-
-
-                        <p class="card-text TwoProp" >
+                    <p  style="font-size: 12px;text-align: right" class="hover-p" data-toggle="popover" title="التفاصيل" data-content="{{  mb_strimwidth($advertisement->description , 0 , 250 , '....') }}">اضغط هنا لمشاهدة التفاصيل</p>
+                    <h5 class="card-title" style="text-align: right">{{ $advertisement->title }}</h5>
+                        <p class="card-text TwoProp" style="text-align: left">
                             <span class="p-forprice" style="    float: right;">سعر الحصة :  {{ round($advertisement->cost_of_share , 2) }}</span>
-                            <span class="p-forcity" >     مدينة {{ $advertisement->city->title }}  <i class="fas fa-map-marker-alt"></i></span>
+                            <span class="p-forcity p-ForP" style="text-align: left" >     مدينة {{ $advertisement->city->title }}  <i class="fas fa-map-marker-alt"></i></span>
                             </p>
 
 
@@ -215,7 +239,7 @@
                         <div class="form-row" style="    margin-top: -3px;">
 
                             <div class="form-group col-md-12">
-                                <p class="p-ForP">عدد الاعضاء المطلوبين : <span>{{$advertisement->number_of_partners}}</span> </p>
+                                <p class="p-ForP" style="text-align: right; font-size: 12px">عدد الاعضاء المطلوبين : <span>{{$advertisement->number_of_partners}}</span> </p>
 
                                 <div class="progress"  >
                                     @php
@@ -236,7 +260,6 @@
 
                 </div>
             </div>
-            </a>
         </div>
     @endforeach
 
@@ -248,14 +271,16 @@
 
 </div>
 
+@else
+<center>
+    <div class="alert alert-danger col-8" style="text-align: center">عذرا لا يوجد اعلانات</div>
+</center>
 @endif
-
 
 <!--content-->
 @if(count($advertisements) > 0)
 <div class="container-fluid" style="direction: rtl">
-    <h1 style="background-color: #580707;color: white;padding: 10px;border-radius: 10px;font-family: cairo;font-size: 28px;text-align: right;padding-right: 35px">  جميع المشاركات</h1>
-
+    <h1 style="background-color: #580707;color: white;padding: 10px;border-radius: 10px;font-family: cairo;font-size: 28px;text-align: right;padding-right: 35px">  جميع طلبات المشاركة</h1>
    <div class="row Row-Cards ml-1">
 
 
@@ -264,23 +289,21 @@
 
             <div class="card crad-no1 Cards"  >
             <a href="{{ route('site.advertismenets.show' , ['advertisement' => $advertisement->id , 'title' => $advertisement->title]) }}">
-                    <img class="card-img-top" src="{{ asset('user_images/images/'.(json_decode($advertisement->images)[0] ?? ""))}}"  alt="Card image cap" style="max-height: 250px;min-height: 250px">
+                <img class="card-img-top" src="{{ asset('user_images/images/'.(json_decode($advertisement->images)[0] ?? ""))}}"  alt="Card image cap" style="max-height: 250px;min-height: 250px">
 
-                <div class="card-img-overlay d-flex align-items-center">
+                <div class="card-img d-flex align-items-center">
                     <div>
-                        <h5 class="h2 card-title   PriceFor-ADs-exp1" >    ر. س <span class="number"> &nbsp; {{ $advertisement->wholesale_price }} </span></h5>
+                        <h5 class="h2 card-title   PriceFor-ADs-exp1" >    ر. س <span class="number"> &nbsp; {{ $advertisement->retail_price }} </span></h5>
                     </div>
-
                 </div>
+            </a>
 
                 <div class="card-body">
-                    <a href="Sign-up Page.html"> <h5 class="card-title">{{ $advertisement->title }}</h5></a>
-                    <p class="card-text p-ForCards" style="margin-bottom: 2px;margin-top: -8px; ">{{  mb_strimwidth($advertisement->description , 0 , 10 , '....') }}</p>
-
-
-                        <p class="card-text TwoProp" >
+                    <p  style="font-size: 12px;text-align: right" class="hover-p" data-toggle="popover" title="التفاصيل" data-content="{{  mb_strimwidth($advertisement->description , 0 , 250 , '....') }}">اضغط هنا لمشاهدة التفاصيل</p>
+                    <h5 class="card-title" style="text-align: right">{{ $advertisement->title }}</h5>
+                        <p class="card-text TwoProp" style="text-align: left">
                             <span class="p-forprice" style="    float: right;">سعر الحصة :  {{ round($advertisement->cost_of_share , 2) }}</span>
-                            <span class="p-forcity" >     مدينة {{ $advertisement->city->title }}  <i class="fas fa-map-marker-alt"></i></span>
+                            <span class="p-forcity p-ForP" style="text-align: left" >     مدينة {{ $advertisement->city->title }}  <i class="fas fa-map-marker-alt"></i></span>
                             </p>
 
 
@@ -289,7 +312,7 @@
                         <div class="form-row" style="    margin-top: -3px;">
 
                             <div class="form-group col-md-12">
-                                <p class="p-ForP">عدد الاعضاء المطلوبين : <span>{{$advertisement->number_of_partners}}</span> </p>
+                                <p class="p-ForP" style="text-align: right; font-size: 12px">عدد الاعضاء المطلوبين : <span>{{$advertisement->number_of_partners}}</span> </p>
 
                                 <div class="progress"  >
                                     @php
@@ -310,7 +333,6 @@
 
                 </div>
             </div>
-            </a>
         </div>
     @endforeach
 
@@ -344,4 +366,16 @@
 </nav> --}}
 
 
+@endsection
+@section('js')
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    });
+    $(function () {
+  $('.example-popover').popover({
+        container: 'body'
+    });
+    });
+</script>
 @endsection

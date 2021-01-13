@@ -7,6 +7,9 @@
 <link href="{{ asset('assets/Css/Add-ADS.css')}}" rel="stylesheet" />
 @endsection
 @section('content')
+@php
+    $user_roles  =  auth()->user()->roles->pluck('id')->toArray() ;
+@endphp
 <br /> <br /><br /> <br /> <br />
 
         <div class="container">
@@ -105,6 +108,7 @@
                     </div>
 
                     <br />
+                    @if (in_array(2 , $user_roles))
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
@@ -121,7 +125,7 @@
                         <div class="col">
                             @error('cost')
                             <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
-            @enderror
+                            @enderror
                             <input type="number" required class="form-control inputs-AddADS DefaultForm"  value="{{ old('cost') ?? $adv->cost ?? ""}}" name="cost" id="exampleFormControlInput1" placeholder="ادخل سعر التكاليف">
                         </div>
                     </div>
@@ -130,24 +134,26 @@
                         <div class="col">
                             @error('number_of_partners')
                             <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
-            @enderror
+                            @enderror
                             <input type="number" required name="number_of_partners" value="{{ old('number_of_partners') ?? $adv->number_of_partners ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="عدد الشركاء المطلوب">
                         </div>
 
                         <div class="col">
                             @error('retail_price')
                             <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
-            @enderror
+                            @enderror
                             <input type="number" required name="retail_price" value="{{ old('retail_price') ?? $adv->retail_price ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="السعر مفرق">
                         </div>
 
                         <div class="col">
                             @error('wholesale_price')
                             <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
-            @enderror
+                            @enderror
                             <input type="number" required name="wholesale_price" value="{{ old('wholesale_price') ?? $adv->wholesale_price ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="السعر بالجملة ">
                         </div>
                     </div>
+                    @endif
+
                     <br />
                     @if ($subscriptions->count()  > 0)
                         <div class="row" style="margin-right: -50px;">
@@ -207,13 +213,17 @@
                     </div>
 
                     <div class="form-group" style="margin-bottom: 40px;">
-                        <label class="Label-AddADS" for="exampleFormControlInput1"> تحديد موقع تسليم المنتج لشركاء </label>
+                        @if (in_array(2 , $user_roles))
+                            <label class="Label-AddADS" for="exampleFormControlInput1"> تحديد موقع تسليم المنتج لشركاء </label>
+                        @else
+                            <label class="Label-AddADS" for="exampleFormControlInput1"> تحديد مكان التسليم </label>
+                        @endif
                      </div>
 
 
                      @error('address')
-                     <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
-     @enderror
+                        <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                    @enderror
                     <div class="row">
                         <div class="col-md-12">
                             <!--Card-->
@@ -260,16 +270,29 @@
                     @error('delivery_time_id')
                     <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
                 @enderror
+                @if (in_array(2 , $user_roles))
                     <div class="row">
                         <div class="col">
                             <select id="ProductDesc4" required name="delivery_time_id" class="form-control selectpicker   inputs-AddADS ProductDesc4" title="حدد موعد تسليم المنتج للشركاء">
-                               @foreach ($deleviry_times as $deleviry_time)
-                               <option value="{{ $deleviry_time->id }}" {{ old('delivery_time_id') == $deleviry_time->id ?? $adv->address ? "checked" : ""}}>{{ $deleviry_time->description }} </option>
-                               @endforeach
+                            @foreach ($deleviry_times as $deleviry_time)
+                            <option value="{{ $deleviry_time->id }}" {{ old('delivery_time_id') == $deleviry_time->id ?? $adv->address ? "checked" : ""}}>{{ $deleviry_time->description }} </option>
+                            @endforeach
                             </select>
                         </div>
                     </div>
+                    @else
+                    @error('title')
+                    <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                    @enderror
+                    <div class="form-group">
+                        <label class="Label-AddADS" for="ProductName"> سعر الجملة   </label>
+
+                    <input type="text" name="title" required value="{{ old('title') ?? $adv->title ?? ""}}" class="form-control inputs-AddADS ProductName DefaultForm" id="ProductName" placeholder="سعر المنتج بالجملة">
+                    </div>
+                @endif
+
                     <br />
+                    @if (in_array(2 , $user_roles))
                     <div class="row">
 
                         <div class="col">
@@ -297,24 +320,30 @@
                             </select>
                         </div>
                     </div>
+
+                    @endif
+
                     <br />
-                    @error('publish_date')
-                                <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
-                            @enderror
-                    <div class="row">
+                    @if ($subscriptions->count()  > 0)
+                        @error('publish_date')
+                            <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
+                        @enderror
+                        <div class="row">
 
 
-                        <div class="col">
-                             <label class="Label-AddADS" for="end_publish_date">  موعد انتهاء اعلانك </label>
-                            <input type="date" disabled name="end_publish_date" value="{{ old('end_publish_date') ?? $adv->end_publish_date ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="end_publish_date" placeholder="ادخل سعر التكاليف">
+                            <div class="col">
+                                <label class="Label-AddADS" for="end_publish_date">  موعد انتهاء اعلانك </label>
+                                <input type="date" disabled name="end_publish_date" value="{{ old('end_publish_date') ?? $adv->end_publish_date ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="end_publish_date" placeholder="ادخل سعر التكاليف">
+                            </div>
+
+                            <div class="col">
+
+                                <label class="Label-AddADS" for="publish_date"> تحديد موعد نشر اعلانك   </label>
+                                <input type="date" required name="publish_date" value="{{ old('publish_date') ?? $adv->publish_date ?? ""}}" onchange="event.preventDefault ; changeEndPublishDate()" class="form-control inputs-AddADS DefaultForm" id="publish_date" placeholder="ادخل سعر التكاليف">
+                            </div>
                         </div>
+                    @endif
 
-                        <div class="col">
-
-                            <label class="Label-AddADS" for="publish_date"> تحديد موعد نشر اعلانك   </label>
-                            <input type="date" required name="publish_date" value="{{ old('publish_date') ?? $adv->publish_date ?? ""}}" onchange="event.preventDefault ; changeEndPublishDate()" class="form-control inputs-AddADS DefaultForm" id="publish_date" placeholder="ادخل سعر التكاليف">
-                        </div>
-                    </div>
                     <br />
                     <div class="row">
 
