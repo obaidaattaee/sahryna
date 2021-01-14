@@ -20,12 +20,13 @@ class CreateBuyerAdvertisementsTable extends Migration
             $table->foreignId('category_id')->constrained('categories') ;
             $table->foreignId('city_id')->constrained('cities') ;
             $table->foreignId('user_id')->constrained('users') ;
+            $table->string('phone');
             $table->double('price');
             $table->integer('subscription_id')->nullable();
             $table->json('images');
             $table->string('address');
-            $table->date('publish_date');
-            $table->date('end_publish_date');
+            $table->timestamp('publish_date')->useCurrent();
+            $table->timestamp('end_publish_date')->useCurrent();
             $table->string('lat');
             $table->string('long');
             $table->softDeletes();

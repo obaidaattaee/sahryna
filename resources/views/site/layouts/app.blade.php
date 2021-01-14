@@ -134,10 +134,10 @@
                         <a class="dropdown-item" href="https://ardhwatalab.com.sa/" >عرض و طلب</a>
 
                         <div class="dropdown-divider"></div>
-                          @foreach (App\Models\Category::where('active' , 1)->get()  as $category)
-                          <div class="dropdown-item">
-                            <a href="{{route('home' , ['category' => $category->id ])}}"> {{$category->title}}</a>
-                        </div>
+                        @foreach (App\Models\Category::where('active' , 1)->get()  as $category)
+                            <div class="dropdown-item">
+                                <a href="{{route('home' , ['category' => $category->id ])}}"> {{$category->title}}</a>
+                            </div>
                         @endforeach
                     </div>
                 </li>
@@ -168,7 +168,11 @@
                                     <a class="dropdown-item" href="https://ardhwatalab.com.sa/" >عرض و طلب</a>
 
                                     <div class="dropdown-divider"></div>
-
+                                    @foreach (App\Models\Category::where('active' , 1)->get()  as $category)
+                                        <div class="dropdown-item">
+                                            <a href="{{route('home' , ['category' => $category->id ])}}"> {{$category->title}}</a>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </li>
                             <li class="nav-item dropdown ">

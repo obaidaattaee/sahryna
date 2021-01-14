@@ -5,8 +5,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\MyFatoorah as ControllersMyFatoorah;
 use App\Http\Requests\AdvertisementRequest;
 use App\Http\Requests\AdvertisementUpdateRequest;
+use App\Http\Requests\BuyerAdvertisementRequest;
 use App\Models\Advertisement;
 use App\Models\AdvertisementType;
+use App\Models\BuyerAdvertisement;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\DeliveryTime;
@@ -110,15 +112,15 @@ class AdvertismenetController extends Controller{
                 Alert::success('تم اضافة اعلانك بنجاح') ;
                 return redirect(route('home'));
             }
-    }else{
-        $data['subscription_id'] = null ;
-        $data['end_publish_date']  = $data['publish_date']  ;
-        $data['active']  = 1 ;
+        }else{
+            $data['subscription_id'] = null ;
+            $data['end_publish_date']  = $data['publish_date']  ;
+            $data['active']  = 1 ;
 
-        $advertisement = Advertisement::create($data);
-        Alert::alert('تم اضافة اعلانك بنجاح') ;
-        return redirect(route('main'));
-    }
+            $advertisement = Advertisement::create($data);
+            Alert::alert('تم اضافة اعلانك بنجاح') ;
+            return redirect(route('main'));
+        }
 
     }
     public function show(Advertisement $advertisement){
@@ -273,5 +275,74 @@ class AdvertismenetController extends Controller{
         $data = $request->except('imagesFiles') ;
         $advertisement->update($data);
         return redirect()->back();
+    }
+    public function buyerAdvertisementsStore(BuyerAdvertisementRequest $request){
+        $data = $request->all();
+        $images = [] ;
+        if($request["imagesFiles"] != null){
+            foreach($request["imagesFiles"] as $image){
+                 array_push($images , basename($image->store('images' , 'public'))) ;
+            }
+        }
+        $data['images'] = json_encode($images) ;
+        unset($data ['imagesFiles']) ;
+        $data['user_id'] = auth()->id() ;
+        if (isset($data['subscription_id'] )) {
+
+
+            $subscription = Subscription::findOrFail($data['subscription_id']) ;
+            $data['end_publish_date'] = Carbon::parse($data['publish_date'])->addDays($subscription->time_day)->toDateString() ;
+            // dd($data);
+            $advertisement = BuyerAdvertisement::create($data);
+            session()->put('advertisement' , [
+                'advertisement_id' => $advertisement->id ,
+                'user_id' => $advertisement->user_id ,
+            ]);
+
+            if($advertisement->subscription->price != 0){
+
+                $invoice_params = [
+                    "InvoiceValue" => (float)$subscription->price,
+                    "CustomerName" => auth()->user()->user_name,
+                    "CountryCodeId" => 1,
+                    "CustomerMobile" => substr(auth()->user()->phone , 2 ),
+                    "CustomerEmail" => auth()->user()->email,
+                    "DisplayCurrencyId" => 1,
+                    "SendInvoiceOption" => 1,
+                    'DisplayCurrencyIsoAlpha' => 'SAR',
+                    'CountryCodeId' => '+966',
+                    'DisplayCurrencyId' => 2,
+                    "InvoiceItems" => [
+                        "ProductName"=> (string)$advertisement->title,
+                        "UnitPrice"=> (string)$subscription->price,
+                        "Quantity"=> "1",
+                        "ExtendedAmount"=> "1,200.00"
+                    ] ,
+                    "CallBackUrl" => route('site.payment.callback'),
+                    "Language"=> 1,
+                    "adv_id" =>  $advertisement->id ,
+                ];
+
+                $myfatoorah = new ControllersMyFatoorah ;
+                $result = $myfatoorah->createProductInvoice($invoice_params);
+                // dd($result);
+                return isset($result['RedirectUrl']) ? redirect()->to($result['RedirectUrl']) : back()->with('error', (string) $result["Message"]);
+            }else{
+                $advertisement->active = 1 ;
+                $advertisement->verified = 1 ;
+                $advertisement->save();
+                Alert::success('تم اضافة اعلانك بنجاح') ;
+                return redirect(route('home'));
+            }
+        }else{
+            $data['subscription_id'] = null ;
+            $data['end_publish_date']  = $data['publish_date']  ;
+            $data['active']  = 1 ;
+
+            $advertisement = Advertisement::create($data);
+            Alert::alert('تم اضافة اعلانك بنجاح') ;
+            return redirect(route('main'));
+        }
+
     }
 }

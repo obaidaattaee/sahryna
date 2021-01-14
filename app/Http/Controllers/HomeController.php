@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
+use App\Models\BuyerAdvertisement;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\User;
@@ -49,11 +50,10 @@ class HomeController extends Controller
                             ->whereIn('id' , $trinds)
                             ->where('end_publish_date' , '>' , Carbon::now())
                             ->with(['city']);
-        $buyers_ids = User::whereHas('roles', function($q){
-                $q->where('id', 2);
-            })->pluck('id')->toArray();
-        $buyers_advertisements = Advertisement::where('active' , 1)
-                            ->whereIn('user_id' , $buyers_ids)
+        // $buyers_ids = User::whereHas('roles', function($q){
+        //         $q->where('id', 2);
+        //     })->pluck('id')->toArray();
+        $buyers_advertisements = BuyerAdvertisement::where('active' , 1)
                             ->with(['city']);
         if ($city !== null) {
 

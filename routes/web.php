@@ -134,6 +134,7 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ]
             Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');
             Route::get('advertisements/{advertisement}/edit' , [App\Http\Controllers\Admin\AdvertisementController::class, 'edit'])->name('advertismenets.edit');
             Route::post('advertisements/create' , 'AdvertismenetController@store')->name('advertismenets.store');
+            Route::post('buyer/advertisements/create' , 'AdvertismenetController@buyerAdvertisementsStore')->name('buyer.advertismenets.store');
             Route::post('user/{user}/advertisements/{advertisement}/create/supscription' , 'AdvertismenetController@addSubscription')->name('advertismenets.add.subscription');
             Route::get('user/{user}/advertisements/{advertisement}/delete/{subscription}/supscription' , 'AdvertismenetController@deleteSubscription')->name('advertismenets.delete.subscription');
 

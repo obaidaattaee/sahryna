@@ -39,7 +39,7 @@
                 </div>
 
 
-                <form class="Form-AddADS" enctype="multipart/form-data" action="{{ route('advertismenets.store')}}" method="post">
+                <form class="Form-AddADS" enctype="multipart/form-data" action="{{ in_array(2 , $user_roles) ?   route('buyer.advertismenets.store') : route('advertismenets.store')}}" method="post">
                     @csrf
                     @method('POST')
                     @error('title')
@@ -108,7 +108,7 @@
                     </div>
 
                     <br />
-                    @if (in_array(2 , $user_roles))
+                    @if (!in_array(2 , $user_roles))
                     <div class="row">
                         <div class="col">
                             <div class="form-check">
@@ -213,7 +213,7 @@
                     </div>
 
                     <div class="form-group" style="margin-bottom: 40px;">
-                        @if (in_array(2 , $user_roles))
+                        @if (!in_array(2 , $user_roles))
                             <label class="Label-AddADS" for="exampleFormControlInput1"> تحديد موقع تسليم المنتج لشركاء </label>
                         @else
                             <label class="Label-AddADS" for="exampleFormControlInput1"> تحديد مكان التسليم </label>
@@ -270,7 +270,7 @@
                     @error('delivery_time_id')
                     <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
                 @enderror
-                @if (in_array(2 , $user_roles))
+                @if (!in_array(2 , $user_roles))
                     <div class="row">
                         <div class="col">
                             <select id="ProductDesc4" required name="delivery_time_id" class="form-control selectpicker   inputs-AddADS ProductDesc4" title="حدد موعد تسليم المنتج للشركاء">
@@ -287,12 +287,12 @@
                     <div class="form-group">
                         <label class="Label-AddADS" for="ProductName"> سعر الجملة   </label>
 
-                    <input type="text" name="title" required value="{{ old('title') ?? $adv->title ?? ""}}" class="form-control inputs-AddADS ProductName DefaultForm" id="ProductName" placeholder="سعر المنتج بالجملة">
+                    <input type="text" name="price" required value="{{ old('price') ?? $adv->price ?? ""}}" class="form-control inputs-AddADS ProductName DefaultForm" id="ProductName" placeholder="سعر المنتج بالجملة">
                     </div>
                 @endif
 
                     <br />
-                    @if (in_array(2 , $user_roles))
+                    @if (!in_array(2 , $user_roles))
                     <div class="row">
 
                         <div class="col">
@@ -324,7 +324,7 @@
                     @endif
 
                     <br />
-                    @if ($subscriptions->count()  > 0)
+                    @if ($subscriptions->count()  > 0 )
                         @error('publish_date')
                             <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
                         @enderror
