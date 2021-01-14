@@ -19,7 +19,8 @@ class ProfileVerification
     {
         if (auth()->check()) {
             if (auth()->user()->code == null) {
-                if (auth()->user()->payment_data == null) {
+                if (auth()->user()->alternative_phone == null) {
+                    dd(auth()->user());
                     Alert::info('يرجى  استكمال بياناتك الشخصية لتتمكن من  الاستفادة من خدمات الموقع') ;
                     return redirect()->route('my.profile.edit') ;
                 }

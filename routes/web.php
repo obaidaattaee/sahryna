@@ -111,6 +111,7 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ]
     Route::get('payment/callback' , 'PaymentCallbackController@index')->name('site.payment.callback') ;
     Route::get('polices' , 'PolicesController@index')->name('site.polices') ;
     Route::get('advertisements/show/{advertisement}/{title}' , 'AdvertismenetController@show')->name('site.advertismenets.show');
+    Route::get('advertisements/buyer/show/{advertisement}/{title}' , 'BuyerAdvertisementController@buyerAdvertisementShow')->name('site.buyer.advertismenets.show');
 
     Route::middleware(['auth'])->group(function (){
         Route::get('advertisements/{advertisement}/{user}/delete' , 'AdvertismenetController@delete')->name('site.advertismenets.delete');

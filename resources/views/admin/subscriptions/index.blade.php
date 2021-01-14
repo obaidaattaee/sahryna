@@ -18,8 +18,8 @@
                     <div class="portlet-body">
                         <div class="alert alert-info">
                             <a href="{{ route('admin.settings.buyer.subscription.status') }}"
-                                class="btn btn-sm btn-{{ App\Models\Settings::first()->buyer_subscription == 0 ? 'success' : 'danger' }}">
-                                {{ App\Models\Settings::first()->buyer_subscription == 0 ? 'تفعيل الدفع للتجار' : 'ايقاف الدفع عن التجار' }}
+                                class="btn btn-sm btn-{{ App\Models\Settings::first()->buyer_subscription == 1 ? 'success' : 'danger' }}">
+                                {{ App\Models\Settings::first()->buyer_subscription == 1 ? 'تفعيل الدفع للتجار' : 'ايقاف الدفع عن التجار' }}
                             </a>
                         </div>
                         <table class="table table-striped table-bordered table-hover" id="example">

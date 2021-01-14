@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('code')->nullable();
             $table->string('phone')->unique();
-            $table->string('alternative_phone')->nullable();
+            $table->string('alternative_phone')->nullable()->default(null);
             $table->boolean('active')->default(0);
             $table->softDeletes();
             $table->string('person_id')->unique();

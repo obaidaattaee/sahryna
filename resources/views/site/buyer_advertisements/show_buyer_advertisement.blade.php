@@ -483,7 +483,7 @@ section {
             </p>
         </div>
 
-        <div class="col-md-8">
+        {{-- <div class="col-md-8">
 
             <div class="row" style="padding:20px">
                 <div class="col-12">
@@ -525,7 +525,7 @@ section {
             </div>
 
 
-        </div>
+        </div> --}}
         <div class="col-md-4 ">
             <div class="img-slider">
                 <div id="carouselExampleIndicators" class="carousel slide custom-slider" data-ride="carousel">
@@ -550,7 +550,7 @@ section {
                                 </div>
                             </div>
                         @endforeach
-                        {{-- <div class="carousel-item ">
+                        <div class="carousel-item ">
                             <div class="carousel-img-container d-flex justify-content-center">
                                 <img id="myimage" src="https://www.meridalivingrealestate.com/images/casas/2019-03-29_08-18-12_House_MeridaRealEstate09.JPG" class="d-block w-100" alt="..." style="width:300px;height:300px;">
                             </div>
@@ -559,7 +559,7 @@ section {
                             <div class="carousel-img-container d-flex justify-content-center">
                                 <img src="https://www.meridalivingrealestate.com/images/casas/2019-03-29_08-18-12_House_MeridaRealEstate01.JPG" class="d-block w-100" alt="...">
                             </div>
-                        </div> --}}
+                        </div>
 
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -606,7 +606,7 @@ section {
             </div>
         </div>
         <!-- ./Team member -->
-        <div class="col-md-5">
+        {{-- <div class="col-md-5">
             <div class="col-12">
                 <h3 class="h3-forDE">   موقع التسليم  </h3>
             </div>
@@ -617,15 +617,14 @@ section {
                 <div id="map" style="height: 400px">
                 </div>
             </div>
-{{-- {{ dd($advertisement) }} --}}
 
-        </div>
+        </div> --}}
         <div class="col-md-4">
             <div class="col-12">
                 <h3 class="h3-forDE">  السعر   </h3>
             </div>
-            <p class="section-style p-forfont" style="background-color: #e5e5ca;border: none">  سعر الحصة :  {{ round($advertisement->cost_of_share , 2) }} ر.س</p>
-            <div class="form-group col-md-12">
+            {{-- <p class="section-style p-forfont" style="background-color: #e5e5ca;border: none">  سعر الحصة :  {{ round($advertisement->cost_of_share , 2) }} ر.س</p> --}}
+            {{-- <div class="form-group col-md-12">
                 <p class="p-ForP" style="  font-family: 'Cairo', sans-serif;font-size: 15px;font-weight: 600;color: #580707;margin-top: 21px; margin-bottom: 20px;">
                     عدد الاعضاء المطلوبين  :
 
@@ -639,8 +638,9 @@ section {
                 </div>
 
 
-            </div>
-@auth
+            </div> --}}
+
+            @auth
 
             @if (auth()->user()->alternative_phone !== null && $advertisement->active && $advertisement->end_publish_date >= Carbon\Carbon::now() &&  $bar_percentage !== 100)
             <div class="col-12">

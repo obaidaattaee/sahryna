@@ -25,7 +25,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class AdvertismenetController extends Controller{
     public function create(){
-        if(auth()->user()->payment_data == null){
+        if(auth()->user()->alternative_phone == null){
             Alert::warning('عزيزي المشترك قم بتوثيق حسابك لتتمكن من نشر الاعلان');
             return redirect(route('my.profile.edit'));
         }
@@ -281,7 +281,7 @@ class AdvertismenetController extends Controller{
         $images = [] ;
         if($request["imagesFiles"] != null){
             foreach($request["imagesFiles"] as $image){
-                 array_push($images , basename($image->store('images' , 'public'))) ;
+                array_push($images , basename($image->store('images' , 'public'))) ;
             }
         }
         $data['images'] = json_encode($images) ;
@@ -336,10 +336,11 @@ class AdvertismenetController extends Controller{
             }
         }else{
             $data['subscription_id'] = null ;
-            $data['end_publish_date']  = $data['publish_date']  ;
+            $data['end_publish_date'] = Carbon::now()   ;
+            $data['publish_date'] = Carbon::now() ;
             $data['active']  = 1 ;
 
-            $advertisement = Advertisement::create($data);
+            $advertisement = BuyerAdvertisement::create($data);
             Alert::alert('تم اضافة اعلانك بنجاح') ;
             return redirect(route('main'));
         }

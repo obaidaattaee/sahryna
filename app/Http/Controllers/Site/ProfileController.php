@@ -30,11 +30,11 @@ class ProfileController extends Controller{
             'last_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'regex:/(966)[0-9]{9}/', 'max:255' , 'unique:users,phone,'.$user->id.',id'],
             'alternative_phone' => ['required', 'regex:/(966)[0-9]{9}/', 'max:255' , 'unique:users,alternative_phone,'.$user->id.',id'],
-            'card.owner_card_name' => ['required' , 'string'] ,
-            'card.card_number' => ['required' ] ,
-            'card.card_exp_month' => ['required' , 'size:2' ] ,
-            'card.card_exp_year' => ['required'  , 'size:4' ] ,
-            'card.card_code' => ['required' , 'size:3'] ,
+            // 'card.owner_card_name' => ['required' , 'string'] ,
+            // 'card.card_number' => ['required' ] ,
+            // 'card.card_exp_month' => ['required' , 'size:2' ] ,
+            // 'card.card_exp_year' => ['required'  , 'size:4' ] ,
+            // 'card.card_code' => ['required' , 'size:3'] ,
             ] , [
                 'card.owner_card_name.*' => 'يرجى التاكد من بيانات مالك البطاقة  ' ,
                 'card.card_number.*' => 'يرجى التاكد من  رقم البطاقة  ' ,
@@ -56,7 +56,7 @@ class ProfileController extends Controller{
         }else {
             $data['signature_image'] = $user->signature_image ;
         }
-        $data ['payment_data'] = encrypt($data ['card']);
+        // $data ['payment_data'] = encrypt($data ['card']);
         unset($data ['card']) ;
 
         $user->update($data) ;

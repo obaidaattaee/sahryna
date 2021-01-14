@@ -14,15 +14,15 @@
             <div class="card px-0 pt-4 pb-0 mt-3 mb-3" style="border: 0px;">
                 <h2 id="heading">استكمال بياناتك الشخصية</h2>
                 <p>املأ كل حقول النموذج للانتقال إلى الخطوة التالية</p>
-                <form id="msform" style="direction: rtl;" enctype="multipart/form-data" method="post" action="{{ route('my.profile.update' , ['user' => $user->id])}}">
+                <form id="msform" style="direction: rtl !important;" enctype="multipart/form-data" method="post" action="{{ route('my.profile.update' , ['user' => $user->id])}}">
                     <!-- progressbar -->
                     @csrf
                     @method('POST')
-                    <ul id="progressbar">
+                    <ul id="progressbar" style="margin-left: 100px;margin-right: auto; ">
 
                         <li class="active"  id="confirm"><strong>إنهاء</strong></li>
                         <li  class="active" id="payment"><strong>صورة</strong></li>
-                        <li class="active"  id="payment"><strong>بوابة الدفع اللكتروني</strong></li>
+                        {{-- <li class="active"  id="payment"><strong>بوابة الدفع اللكتروني</strong></li> --}}
                         <li  class="active" id="personal"><strong>معلومات شخصية</strong></li>
 
 
@@ -41,7 +41,7 @@
                                     <h2 class="fs-title">معلومات شخصية:</h2>
                                 </div>
                                 <div class="col-5">
-                                    <h2 class="steps">  1 - 4</h2>
+                                    <h2 class="steps">  1 - 3</h2>
                                 </div>
                             </div>
                             <label class="fieldlabels">الاسم الاول </label>
@@ -70,14 +70,14 @@
                     </fieldset>
 
 
-                    <fieldset>
+                    {{-- <fieldset>
                         <div class="form-card">
                             <div class="row">
                                 <div class="col-7">
                                     <h2 class="fs-title">بوابة الدفع الاكتروني</h2>
                                 </div>
                                 <div class="col-5">
-                                    <h2 class="steps">  2 - 4</h2>
+                                    <h2 class="steps">  2 - 3</h2>
                                 </div>
                             </div>
 
@@ -124,7 +124,7 @@
                                 <div class="alert alert-danger">{{$message}}</div>
                              @enderror
                          <input type="button" name="next" class="next action-button" value="التالي" /> <input type="button" name="previous" class="previous action-button-previous" value="السابق" />
-                    </fieldset>
+                    </fieldset> --}}
 
 
 
@@ -138,7 +138,7 @@
                                     <h2 class="fs-title">:تحميل الصورة</h2>
                                 </div>
                                 <div class="col-5">
-                                    <h2 class="steps">  3 - 4</h2>
+                                    <h2 class="steps">  2 - 3</h2>
                                 </div>
                             </div>
                             <label class="fieldlabels">قم بتحميل صورتك:</label>

@@ -96,7 +96,7 @@ class HomeController extends Controller
         $users_ids = User::whereHas('roles', function($q){
                 $q->where('id', 2);
             })->pluck('id')->toArray();
-        $advertisements = Advertisement::where('active' , 1)
+        $advertisements = BuyerAdvertisement::where('active' , 1)
                             ->whereIn('user_id' , $users_ids)
                             ->with(['city']);
         $city = request()['city'];

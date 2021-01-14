@@ -24,7 +24,7 @@ class BuyerAdvertisementRequest extends FormRequest
      */
     public function rules()
     {
-        if(in_array(2 , auth()->user()->roles->pluck('id')->toArray())  && in_array(1 , auth()->user()->roles->pluck('id')->toArray())  && Settings::first()->buyer_subscription == 0 ){
+        if(in_array(2 , auth()->user()->roles->pluck('id')->toArray())    && Settings::first()->buyer_subscription == 1 ){
             return [
                 "title" => [ 'required' ],
                 "description" =>  [ 'required' ],
@@ -33,7 +33,6 @@ class BuyerAdvertisementRequest extends FormRequest
                 "phone" =>  [ 'required' ],
                 "imagesFiles" => [ 'required' ],
                 "address" => [ 'required' ],
-                "publish_date" => [ 'required' ],
                 "lat" => [ 'required' ],
                 "price" => [ 'required' , 'integer' ],
                 "long" => [ 'required' ],
