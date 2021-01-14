@@ -169,9 +169,10 @@
 
                         <a href="{{ route('login') }}" class="nav-item nav-link a-navbar add-ads li-navbar"> تسجيل الدخول
                         </a>
-                        <a href="{{ route('home') }}" class="nav-item nav-link a-navbar  li-navbar"> الرئيسية <i
-                            class="fa fa-home"></i> </a>
+
                     @endguest
+                    <a href="{{ route('home') }}" class="nav-item nav-link a-navbar  li-navbar"> الرئيسية <i
+                        class="fa fa-home"></i> </a>
                     <li class="nav-item dropdown " style="text-align: right;">
                         <a class="nav-link dropdown-toggle a-navbar li-navbar" style="color: #580707;text-align: right;"
                             id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true"
