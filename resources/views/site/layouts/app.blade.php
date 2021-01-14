@@ -77,13 +77,117 @@
 @yield('css')
 </head>
 <body style="font-family: cairo">
-
     @auth
 @php
     $message_count = auth()->user()->inbox->where('readed' , 0)->count() ;
 @endphp
 @endauth
-          <!--navbar-->
+
+               <!--navbar-->
+               <nav class="navbar navbar-expand-md    fixed-top navbar-org">
+                <div class="container-fluid">
+                    <a href="{{ route('main')}}" class="navbar-brand">
+                        <img src="{{ asset('user_images/settings/'.($settings->logo_image ?? "اشترينا001.jpg"))}}"   >
+                    </a>
+
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <a class="nav-link a-navbar add-ads li-navbar" href="{{ route('advertismenets.create') }}"  > اضف اعلانك <i class="fas fa-tag"></i> </a>
+                    </button>
+
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <ul class="navbar-nav">
+
+                        </ul>
+
+                        <ul class="navbar-nav">
+
+                            <li class="nav-item active">
+                                <a class="nav-link a-navbar li-navbar" href="{{ route('site.dashboard') }}" >    لوحة التحكم   <i class="fas fa-chart-pie"></i></a>
+                            </li>
+
+
+                            <div class="navbar-nav" style="direction: rtl">
+                                <div class="nav-item dropdown " style="direction: rtl">
+                                    <a class="nav-link dropdown-toggle a-navbar li-navbar" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span class="fa-stack fa cursor" data-count="{{ count(auth()->user()->unreadnotifications) + $message_count }}">
+                                            <i class="fa fa-circle fa-stack-2x" style="color: #580707"></i>
+                                            <i class="fa fa-bell fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
+                                        @if (count(auth()->user()->unreadnotifications) == 0)
+                                            <a class="dropdown-item" href="#">لا يوجد اشعارات جديدة حتى الان</a>
+                                        @if($message_count > 0)
+                                        <a class="dropdown-item" href="{{ route('site.dashboard') }}"> يوجد لديك <span style="border-radius: 10px; background-color: rgb(240, 69, 69) ; padding: 5px "> {{auth()->user()->inbox->count()}}</span> رساله واردة جديدة</a>
+
+                                        @endif
+                                            @else
+                                            @foreach (auth()->user()->unreadnotifications->take(10) as $item)
+                                            <a class="dropdown-item" href="{{ route('site.dashboard') }}">{{ $item->data['title'] }}</a>
+
+                                            @endforeach
+                                        @endif
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <li class="nav-item active visible-h-Mobile">
+                                <a class="nav-link a-navbar add-ads li-navbar" href="{{ route('advertismenets.create') }}"  > اضف اعلانك <i class="fas fa-tag"></i> </a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link a-navbar  li-navbar" href="{{ route('buyers.advertisements') }}" > اعلانات التجار <i class="fas fa fa-delicious"></i> </a>
+                            </li>
+                            <li class="nav-item dropdown " style="text-align: right;">
+                                <a class="nav-link dropdown-toggle a-navbar li-navbar" style="color: #580707;text-align: right;" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="cursor" style="cursor: pointer;"> الاقسام <i class="fas fa-th-list" style="cursor: pointer;"></i></span> </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-cyan" style="text-align: right;" aria-labelledby="navbarDropdownMenuLink-4">
+                                    <a class="dropdown-item" href="https://ardhwatalab.com.sa/" >عرض و طلب</a>
+
+                                    <div class="dropdown-divider"></div>
+                                    @foreach (App\Models\Category::where('active' , 1)->get()  as $category)
+                                        <div class="dropdown-item">
+                                            <a href="{{route('home' , ['category' => $category->id ])}}"> {{$category->title}}</a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown ">
+                                <a class="nav-link dropdown-toggle a-navbar li-navbar" id="navbarDropdownMenuLink-4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="cursor" style="cursor: pointer;"> {{ auth()->user()->first_name }} <i class="fa fa-user" style="cursor: pointer;"></i></span> </a>
+
+
+                                <div class="dropdown-menu dropdown-menu-right dropdown-cyan"  style="text-align: right;" aria-labelledby="navbarDropdownMenuLink-4">
+                                    <a class="dropdown-item" href="{{ route('my.profile')}}">حسابي <i class="fas fa-user"></i></a>
+                                    <a class="dropdown-item" href="{{ route('site.dashboard') }}" >    لوحة التحكم   <i class="fas fa-chart-pie"></i></a>
+
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                               onclick="event.preventDefault();
+                                                             document.getElementById('logout-form').submit();">
+                                                {{ __('تسجيل الخروج') }}
+                                                <i class="fa fa-sign-out"></i>
+                                            </a>
+
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- End navbar-->
+
+
+
+
+
+          {{-- <!--navbar-->
           <nav class="navbar navbar-expand-md fixed-top navbar-org">
             <div class="container">
                 <a href="{{ route('main')}}" class="navbar-brand">
@@ -205,7 +309,7 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
         {{-- @include('admin.layouts.msg') --}}
 

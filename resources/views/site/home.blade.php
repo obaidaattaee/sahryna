@@ -249,7 +249,7 @@
     @endif
     <h1
         style="background-color: #580707;margin: 0px 20px 20px 20px ;color: white;padding: 10px;border-radius: 10px;font-family: cairo;font-size: 28px;text-align: right;padding-right: 35px">
-        جميع طلبات المشاركة</h1>
+        مشاركات التجار</h1>
 
     @if (count($buyers_advertisements) > 0)
         <div class="container-fluid" style="direction: rtl">
