@@ -617,7 +617,6 @@ section {
                 <div id="map" style="height: 400px">
                 </div>
             </div>
-{{-- {{ dd($advertisement) }} --}}
 
         </div>
         <div class="col-md-4">

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use LaratrustUserTrait;
     use HasFactory, Notifiable;
@@ -43,7 +43,7 @@ use SoftDeletes ;
         'email_verified_at' => 'datetime',
     ];
     public function advertisements(){
-        return $this->hasMany(Advertisement::class);
+        return in_array(2 , auth()->user()->roles->pluck('id')->toArray()) ? $this->hasMany(BuyerAdvertisement::class) : $this->hasMany(Advertisement::class);
     }
     public function getUserNameAttribute(){
         return $this->attributes['first_name'] . " " .$this->attributes['last_name'] ;

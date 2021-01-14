@@ -514,12 +514,15 @@
                                     <th scope="col">اعلان رقم </th>
                                     <th scope="col">اسم الاعلان</th>
                                     <th id="dataStart" scope="col">تاريخ بداية الاعلان </th>
+                                    @if(!in_array(2 , $user->roles->pluck('id')->toArray()))
                                     <th id="MemberNumberIn" scope="col"> الاعضاء المنضمون </th>
                                     <th id="MemberNumber" scope="col"> عدد الاعضاء المتبقون </th>
                                     <th id="MemberNumber" scope="col"> سعر الحصة   </th>
+                                    @endif
                                     <th id="dataEnd" scope="col">تاريخ نهاية الاعلان</th>
                                     <th scope="col"> حالة الاعلان</th>
                                     <th scope="col"> حذف الاعلان </th>
+                                    <th scope="col"> تعديل الاعلان </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -538,6 +541,7 @@
                                                 <a href="#" style="color: #000;">{{ $advertisement->title }}</a>
                                             </td>
                                             <td id="dataStart">{{ $advertisement->publish_date }}</td>
+                                            @if(!in_array(2 , $user->roles->pluck('id')->toArray()))
                                             <td id="MemberNumberIn">
                                                 <p>{{ $advertisement->userSubscriptions()->sum('number_of_parts') }}</p>
                                             </td>
@@ -547,6 +551,7 @@
                                             </td>
 
                                             <td id="dataEnd">{{ $advertisement->cost_of_share }}</td>
+                                            @endif
                                             <td id="dataEnd">{{ $advertisement->end_publish_date }}</td>
                                             <td><button
                                                     class="btn @switch( $advertisement->status)

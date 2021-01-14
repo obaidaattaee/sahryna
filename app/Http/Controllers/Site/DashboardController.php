@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller{
     public function index() {
-        $user = User::with('getMyMessageAttribute')
-                    ->with('getInboxAttribute')
-                    ->with('advertisements.userSubscriptions')
-                    ->with('users_advertisements')
-                    ->findOrFail(auth()->id()) ;
-
+        // $user = User::with('getMyMessageAttribute')
+        //             ->with('getInboxAttribute')
+        //             ->with('advertisements.userSubscriptions')
+        //             ->with('users_advertisements')
+        //             ->findOrFail(auth()->id()) ;
+        $user = auth()->user() ;
         $user_messages = Message::where('to' , auth()->id())
                                 ->orWhere('from' , auth()->id())
                                 ->with('toUser')

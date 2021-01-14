@@ -57,10 +57,10 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'first_name' => ['required', 'string', 'max:255'],
-            'last_name' => ['required', 'string', 'max:255'],
+            // 'last_name' => ['required', 'string', 'max:255'],
             'role' => ['required', 'exists:roles,id'],
-            // 'phone' => ['required', 'regex:/(966)[0-9]{9}/', 'unique:users' , 'max:255'],
-            'person_id' => ['required', 'regex:/[0-9]{9}/','unique:users' , 'max:255'],
+            'phone' => ['required', 'regex:/(966)[0-9]{9}/', 'unique:users' , 'max:255'],
+            // 'person_id' => ['required', 'regex:/[0-9]{9}/','unique:users' , 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -77,9 +77,9 @@ class RegisterController extends Controller
 
         $user = User::create([
             'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
+            // 'last_name' => $data['last_name'],
             'phone' => $data['phone'],
-            'person_id' => $data['person_id'],
+            // 'person_id' => $data['person_id'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'person_image' => 'avatar.png',

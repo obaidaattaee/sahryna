@@ -462,7 +462,6 @@ section {
         </div>
     </div>
 </div>
-<br /><br />
 
 <div class="container-fluid">
     @error('number_of_parts')
@@ -472,52 +471,34 @@ section {
          <span aria-hidden="true">&times;</span>
        </button>
      </div>
-
         @enderror
-    <br />
     <div class="row">
         <div class="col-md-12" style="   margin-bottom: 20px;">
             <h3 class="title-forSection">{{ $advertisement->title }}</h3>
             <p class="title-forSectionP" style="text-align:end; font-family: 'Cairo', sans-serif; font-weight:300;">
-{{$advertisement->description}}
+                {{$advertisement->description}}
             </p>
         </div>
-
-        {{-- <div class="col-md-8">
+        <div class="col-md-4">
 
             <div class="row" style="padding:20px">
                 <div class="col-12">
                     <h3 class="h3-forDE">معلومات   أساسية </h3>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12">
 
 
 
-                    <p class="section-style p-forfont">   موعد التسليم: {{ $advertisement->deleveiryTime->description }}    </p>
+                    <p class="section-style p-forfont">   موعد التسليم: المدة    </p>
 
 
-                    <p class="section-style p-forfont">  الضمان     : {{  $advertisement->active == 1 ? " ساري المفعول" : "انتهى التقديم لهذا الاعلان" }}</p>
+                    <p class="section-style p-forfont">  الضمان     :  ساري المفعول</p>
                     <p class="section-style p-forfont">    الحالة   : جديد </p>
-
-                </div>
-                <div class="col-md-6">
-
-                    <p class="section-style p-forfont">   قسم الإعلان    :  {{ $advertisement->category->title }} </p>
-
-
-                    <p class="section-style p-forfont">  نوع الإعلان    : {{ $advertisement->advertisementType->title }}</p>
-
-                    <p class="section-style p-forfont"> المدينة   :  {{ $advertisement->city->title }}  </p>
-
-
-
-
-
 
                 </div>
 
                 <div class="col-12">
-                    <p class="section-style p-forfont">  موعد انتهاء الإعلان :  {{ Carbon\Carbon::parse($advertisement->end_publish_date)->diffForHumans() }}  </p>
+                    <p class="section-style p-forfont">  موعد انتهاء الإعلان :  منذ أسبوع  </p>
 
                 </div>
 
@@ -525,8 +506,8 @@ section {
             </div>
 
 
-        </div> --}}
-        <div class="col-md-4 ">
+        </div>
+        <div class="col-md-8 ">
             <div class="img-slider">
                 <div id="carouselExampleIndicators" class="carousel slide custom-slider" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -572,27 +553,28 @@ section {
             </div>
         </div>
     </div>
+<br><br>
+    <div class="row">
 
-    <br />
-    <div class="row" style="margin-top:50px">
-
-        <!-- Team member -->
-        <div class="col-md-3">
-            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                <div class="mainflip">
-                    <div class="frontside" style="    margin-top: 53px;">
-                        <div class="card contact-card" style="background-color:#e5e5ca;">
+        <div class="col-md-4">
+            <div class="col-12">
+                <h3 class="h3-forDE">   صاحب الاعلان  </h3>
+            </div>
+            <div class="image-flip"  ontouchstart="this.classList.toggle('hover');">
+                <div class="mainflip" >
+                    <div class="frontside" >
+                        <div class="card contact-card" style="background-color:#e5e5ca;height: 400px;">
                             <div class="card-body text-center">
-                                <p><img class=" img-fluid" src="{{ asset('user_images/public/'.$advertisement->user->person_image) }}" alt="card image"></p>
-                                <h4 class="card-title" style="text-align: center;    font-family: 'Cairo', sans-serif;">{{ $advertisement->user->first_name . " " . $advertisement->user->last_name}}</h4>
-                                <ul class="list-inline">
+                                <p><img class=" img-fluid" src="{{ asset('user_images/public/'.$advertisement->user->person_image) }}" alt="card image" style="width: 180px;height: 180px;"></p>
+                                <h4 class="card-title" style="text-align: center;font-family: 'Cairo', sans-serif;margin-top: 30px;margin-bottom: 30px">{{ $advertisement->user->first_name . " " . $advertisement->user->last_name}}</h4>
+                                <ul class="list-inline" >
                                     <li class="list-inline-item">
-                                        <a class="social-icon text-xs-center contactbtn" href="{{ route('site.user.show' , ['user' => $advertisement->user->id ]) }}" style="background-color: #580707;padding: 4px;color: #fff;    font-size: 11px;">
+                                        <a class="social-icon text-xs-center contactbtn" href="{{ route('site.user.show' , ['user' => $advertisement->user->id ]) }}" style="background-color: #580707;padding: 5px;color: #fff;    font-size: 14px;">
                                             الاتصال بالمعلن
                                         </a>
                                     </li>
                                     <li class="list-inline-item">
-                                        <a class=" text-xs-center contactbtn" href="{{ route('site.dashboard' , ['user' => $advertisement->user->id ]) }}" style="background-color: #580707;padding: 4px;color: #fff;    font-size: 11px; text-decoration:none;">
+                                        <a class=" text-xs-center contactbtn" href="{{ route('site.dashboard' , ['user' => $advertisement->user->id ]) }}" style="background-color: #580707;padding: 5px;color: #fff;    font-size: 14px; text-decoration:none;">
                                             مراسلة صاحب الإعلان
                                         </a>
                                     </li>
@@ -605,131 +587,24 @@ section {
                 </div>
             </div>
         </div>
-        <!-- ./Team member -->
-        {{-- <div class="col-md-5">
+        <div class="col-md-8">
             <div class="col-12">
                 <h3 class="h3-forDE">   موقع التسليم  </h3>
             </div>
 
             <!--Card content-->
             <!--Google map-->
+            <input type="text" id="pac-input" value="{{ old('address') ?? $adv->address ?? ""}}">
             <div id="map-container-google-11" class="z-depth-1-half map-container-6" style="height: 400px">
-                <div id="map" style="height: 400px">
+                <div id="map" style="height: 400px;border-radius: 4px">
                 </div>
             </div>
-
-        </div> --}}
-        <div class="col-md-4">
-            <div class="col-12">
-                <h3 class="h3-forDE">  السعر   </h3>
-            </div>
-            {{-- <p class="section-style p-forfont" style="background-color: #e5e5ca;border: none">  سعر الحصة :  {{ round($advertisement->cost_of_share , 2) }} ر.س</p> --}}
-            {{-- <div class="form-group col-md-12">
-                <p class="p-ForP" style="  font-family: 'Cairo', sans-serif;font-size: 15px;font-weight: 600;color: #580707;margin-top: 21px; margin-bottom: 20px;">
-                    عدد الاعضاء المطلوبين  :
-
-                    <span href="#" class="   toolbar  ">{{ $advertisement->number_of_partners }}</span>
-                </p>
-                @php
-                    $bar_percentage = ($advertisement->userSubscriptions()->sum('number_of_parts') / $advertisement->number_of_partners) *100 ;
-                @endphp
-                <div class="progress" style="direction: rtl;background-color: #e5e5ca; height: 25px; ">
-                    <div class="progress-bar progress-bar-striped " role="progressbar" style=" font-family: 'Cairo', sans-serif;width: {{ $bar_percentage }}%;background-color: {{ $bar_percentage ==100 ?"#28a745" : "#6d1c1c"}};" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">تبقى   {{ $advertisement->number_of_partners - $advertisement->userSubscriptions()->sum('number_of_parts') }} اعضاء</div>
-                </div>
-
-
-            </div> --}}
-
-            @auth
-
-            @if (auth()->user()->alternative_phone !== null && $advertisement->active && $advertisement->end_publish_date >= Carbon\Carbon::now() &&  $bar_percentage !== 100)
-            <div class="col-12">
-                <form id="subscription_form" method="post" action="{{route('advertismenets.add.subscription' , ['user'=>auth()->id() , 'advertisement'=>$advertisement->id])}}">
-                @csrf
-                    <div class="row">
-                        <div class="col">
-                            <button type="button" class="btn btn-default btnblock btn-block" data-toggle="modal" data-target="#exampleModalLong" style="margin-top:27px">
-                                تقديم طلب مشاركة
-                            </button>
-                        </div>
-                        <div class="col" >
-
-                            <h6 class="p-forfont" style="  text-align: end; color: #580707;">عدد الحصص</h6>
-
-                            <div class="input-group">
-                                <span class="input-group-btn">
-                                    <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-type="minus" data-field="" style=" border-color: #fff;   background-color: #580707;">
-                                        <i class="fa fa-minus" aria-hidden="true"></i>
-                                    </button>
-                                </span>
-                                <input type="text" id="quantity" name="number_of_parts" class="form-control input-number" value="{{ $advertisement->number_of_partners }}" min="1" max="{{ $advertisement->number_of_partners }}">
-
-                                <span class="input-group-btn">
-                                    <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus" data-field="" style="    border-color: #fff;background-color: #580707;">
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </button>
-                                </span>
-                            </div>
-
-
-
-                        </div>
-
-                    </div>
-                    {{-- @error('number_of_parts')
-                    <div class="row" style="direction: rtl">
-                        <div class="alert alert-danger" style="text-align: right">{{$message}}</div>
-                    </div>
-                        @enderror --}}
-                </form>
-                <br>
-                {{-- <div class="row">
-                    <div class="col">
-                        <label class="Label-AddADS Productsection" for="Productsection"> التبليغ عن هذا الاعلان </label>
-                        <select id="ProductDesc2" name="Section" class="form-control selectpicker inputs-AddADS Productsection" title=" اختر  القسم   ">
-
-                            <option >مخالف للشرع  </option>
-                            <option  > ربا </option>
-                            <option  >يحتوي على اعلانات  تجارية كاذية</option>
-                            <option  >  المنتج مسروق </option>
-                        </select>
-                    </div>
-                </div> --}}
-            </div>
-            @endif
-
-
-            @endauth
 
         </div>
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="direction:rtl">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header model-no1">
-                <h5 class="modal-title modeltitle-no1" id="exampleModalLongTitle">تحديد المسؤولية  </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="display: none;">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="text-align: justify;">
-                <p class="modeltitle-no1P">
 
-                    بموجب هذا فإنت توافق على أن  تذك شروط الأعلان
-                    بأن المسلمون على شروطهم وأن طلب المشاركة سيتٌرتب عليهٌ شراء طالب الإعلان
-                    السلعة على حسابه وأن الذمة لا تبرأ بالتراجع عن المشاركة دون سبب يعٌود لطالب
-                    الشراكة أو لعيبٌ في السلعة وفي حال التراجع لابد من استئذان المعلن .
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" style="    background-color:  #d2d2af;border-color: #6d1c1c;color: #6d1c1c; margin-left: 8px;"> تراجع عن المشاركة </button>
-                <button type="submit" form="subscription_form"  class="btn btn-primary" data-toggle="modal" data-target="#centralModalSuccess" onclick="Popup()" style="background-color: #6d1c1c;border-color: #6d1c1c;"> تأكيد المشاركة </button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 

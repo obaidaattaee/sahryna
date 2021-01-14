@@ -11,7 +11,11 @@ return [
     | as the size rules. Feel free to tweak each of these messages here.
     |
     */
-
+    'A fresh verification link has been sent to your email address.' => 'تم ارسال رابط التحقق الى بريدك الالكتروني ' ,
+    'Before proceeding, please check your email for a verification link.' => 'قبل المتابعة ، يرجى التحقق من بريدك الإلكتروني للحصول على رابط التحقق. ' ,
+    'If you did not receive the email' => 'إذا لم تستلم البريد الإلكتروني ' ,
+    'click here to request another' => 'اضغط هنا لطلب رابط اخر ' ,
+    'Verify Your Email Address' => 'تحقق من عنوان بريدك الإلكتروني' ,
     'accepted'             => 'يجب قبول :attribute.',
     'active_url'           => ':attribute لا يُمثّل رابطًا صحيحًا.',
     'after'                => 'يجب على :attribute أن يكون تاريخًا لاحقًا للتاريخ :date.',

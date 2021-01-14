@@ -32,7 +32,7 @@
                             <strong>{{ $message }}</strong>
                         </div>
                     @enderror
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <input type="text" name="last_name" class="form-control" placeholder="الاسم الاخير"
                             value="{{ old('last_name') ?? '' }}" style="    font-size: 1.1rem;" />
                     </div>
@@ -40,7 +40,7 @@
                         <div class="alert alert-danger" style="text-align: right" role="alert">
                             <strong>{{ $message }}</strong>
                         </div>
-                    @enderror
+                    @enderror --}}
                     <div class="form-group">
                         <input type="email" name="email" class="form-control" placeholder="البريد الالكتروني"
                             value="{{ old('email') ?? '' }}" style="    font-size: 1.1rem;" />
@@ -59,7 +59,7 @@
                             <strong>{{ $message }}</strong>
                         </div>
                     @enderror
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <input type="text" name="person_id" class="form-control" placeholder="الرقم الوطني (9 ارقام)"
                             value="{{ old('person_id') ?? '' }}" style="    font-size: 1.1rem;" />
                     </div>
@@ -67,7 +67,7 @@
                         <div class="alert alert-danger" style="text-align: right" role="alert">
                             <strong>{{ $message }}</strong>
                         </div>
-                    @enderror
+                    @enderror --}}
                     <div class="form-group">
                         <input type="password" name="password" class="form-control" placeholder=" كلمة المرور " value=""
                             style="   font-size:  1.1rem;" />
