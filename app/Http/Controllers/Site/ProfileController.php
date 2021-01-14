@@ -30,6 +30,7 @@ class ProfileController extends Controller{
             'last_name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'regex:/(966)[0-9]{9}/', 'max:255' , 'unique:users,phone,'.$user->id.',id'],
             'alternative_phone' => ['required', 'regex:/(966)[0-9]{9}/', 'max:255' , 'unique:users,alternative_phone,'.$user->id.',id'],
+            'person_id' => ['required', 'numeric' , 'digits:9' , 'unique:users,person_id,'.$user->id.',id'],
             // 'card.owner_card_name' => ['required' , 'string'] ,
             // 'card.card_number' => ['required' ] ,
             // 'card.card_exp_month' => ['required' , 'size:2' ] ,

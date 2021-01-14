@@ -60,6 +60,13 @@
                         </div>
                     <br>
                         <div class="form-group">
+                            <label class="control-label col-md-2">تحديد المسؤولية</label>
+                            <div class="col-md-10">
+                                <textarea name="possible" rows="10">{{ old('possible') ?? $settings->possible ?? '' }}</textarea>
+                            </div>
+                        </div>
+                    <br>
+                        <div class="form-group">
                             <label class="control-label col-md-2"> الشروط و الاحكام</label>
                             <div class="col-md-10">
                                 <textarea name="polices" rows="10">{{ old('polices') ?? $settings->polices ?? '' }}</textarea>
@@ -114,5 +121,8 @@
 </script>
 <script>
     CKEDITOR.replace( 'polices' );
+</script>
+<script>
+    CKEDITOR.replace( 'possible' );
 </script>
 @endsection

@@ -22,12 +22,14 @@ class SettingsController extends Controller{
             'goals' => ['required'] ,
             'idea' => ['required'] ,
             'polices' => ['required'] ,
+            'possible' => ['required'] ,
         ] , [] ,[
             'wellcom_message' => 'الرساله الترحيبية ' ,
             'domain' => 'رابط الموقع '  ,
             'goals' => 'اهداف الموقع ',
             'idea' => 'فكرة الموقع ',
             'polices' => 'الشروط و السياسة الموقع ' ,
+            'polices' => 'الشروط و احكام الشراكة ' ,
         ]);
 dd(request()->all());
         if(!empty(request()->logo_image)){
@@ -49,12 +51,16 @@ dd(request()->all());
             'goals' => ['required'] ,
             'idea' => ['required'] ,
             'polices' => ['required'] ,
+            'possible' => ['required'] ,
+
         ] , [] ,[
             'wellcom_message' => 'الرساله الترحيبية ' ,
             'domain' => 'رابط الموقع ',
             'goals' => 'اهداف الموقع ',
             'idea' => 'فكرة الموقع ',
             'polices' => 'الشروط و السياسة الموقع ' ,
+            'possible' => 'الشروط و احكام الشراكة '  ,
+
         ]);
         $settings = Settings::first() ;
 // dd(request()->all());

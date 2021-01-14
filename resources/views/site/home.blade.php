@@ -1,6 +1,21 @@
 @extends('site.layouts.app')
 @section('css')
     <style>
+
+.h3-forDE {
+    text-align: end;
+    font-size: 18px;
+    margin-bottom: 12px;
+    padding: 10px;
+    border-bottom: 2px solid;
+    width: 25%;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    color: #580707;
+    text-align: right ;
+    direction: rtl ;
+}
+
         /*search box css start here*/
         .search-sec {
             padding: 2rem;
@@ -57,7 +72,7 @@
     @endphp
 
     <!--A moving bar-->
-    <div class="container-fluid" style="margin-top: 118px;">
+    <div class="container-fluid" style="margin-top: 95px;">
         <div class="row">
             <marquee class="for-marquee" direction="left" width="100%" height="50" style="background-color: #dfdfd3"
                 bgcolor="#CCC" scrolldelay="80" scrollamount="3" onmouseover="this.setAttribute('scrollamount', 0, 0);"
@@ -150,9 +165,12 @@
     </section>
 
     <!--content-->
-    <h1
+    <div class="col-12" style="direction: rtl;text-align: right;">
+        <h3 class="h3-forDE">احدث طلبات المشاركة</h3>
+    </div>
+    {{-- <h1
         style="background-color: #580707;margin: 0px 20px 20px 20px ;color: white;padding: 10px;border-radius: 10px;font-family: cairo;font-size: 28px;text-align: right;padding-right: 35px">
-        احدث طلبات المشاركة</h1>
+        احدث طلبات المشاركة</h1> --}}
 
     @if (count($trinds_advertisements) > 0)
         <div class="container-fluid" style="direction: rtl">
@@ -247,15 +265,128 @@
             <div class="alert alert-danger col-8" style="text-align: center">عذرا لا يوجد اعلانات</div>
         </center>
     @endif
-    <h1
+
+
+    <!--content-->
+    <div class="col-12" style="direction: rtl;text-align: right;">
+        <h3 class="h3-forDE">جميع طلبات المشاركة</h3>
+    </div>
+    {{-- <h1
         style="background-color: #580707;margin: 0px 20px 20px 20px ;color: white;padding: 10px;border-radius: 10px;font-family: cairo;font-size: 28px;text-align: right;padding-right: 35px">
-        مشاركات التجار</h1>
+        جميع طلبات المشاركة</h1> --}}
+
+    @if (count($advertisements) > 0)
+        <div class="container-fluid" style="direction: rtl">
+            <div class="row Row-Cards ml-1">
+
+
+                @foreach ($advertisements as $advertisement)
+                    <div class="col-md-3 " style="margin-top:20px;margin-bottom:20px">
+
+                        <div class="card crad-no1 Cards">
+                            <a
+                                href="{{ route('site.advertismenets.show', ['advertisement' => $advertisement->id, 'title' => $advertisement->title]) }}">
+                                <img class="card-img-top"
+                                    src="{{ asset('user_images/images/' . (json_decode($advertisement->images)[0] ?? '')) }}"
+                                    alt="Card image cap" style="max-height: 250px;min-height: 250px">
+
+                                <div class="card-img d-flex align-items-center">
+                                    <div>
+                                        <h5 class="h2 card-title   PriceFor-ADs-exp1" style="border: 2px solid;background-color: none"> ر. س <span class="number"> &nbsp;
+                                                {{ $advertisement->retail_price }} </span></h5>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <div class="card-body">
+                                <p style="font-size: 12px;text-align: right" class="hover-p" data-toggle="popover"
+                                    title="التفاصيل"
+                                    data-content="{{ mb_strimwidth($advertisement->description, 0, 250, '....') }}">اضغط هنا
+                                    لمشاهدة التفاصيل</p>
+                                <a
+                                    href="{{ route('site.advertismenets.show', ['advertisement' => $advertisement->id, 'title' => $advertisement->title]) }}">
+
+                                    <h5 class="card-title" style="text-align: right">{{ mb_strimwidth($advertisement->title, 0, 30, '....') }}</h5>
+                                </a>
+                                <p class="card-text TwoProp" style="text-align: left">
+                                    <span class="p-forprice" style="    float: right;">سعر الحصة :
+                                        {{ round($advertisement->cost_of_share, 2) }}</span>
+                                    <span class="p-forcity p-ForP" style="text-align: left"> مدينة
+                                        {{ $advertisement->city->title }} <i class="fas fa-map-marker-alt"></i></span>
+                                </p>
+
+
+
+                                <div class="card-text">
+                                    <div class="form-row" style="    margin-top: -3px;">
+
+                                        <div class="form-group col-md-12">
+                                            <p class="p-ForP" style="text-align: right; font-size: 12px">عدد الاعضاء
+                                                المطلوبين : <span>{{ $advertisement->number_of_partners }}</span> </p>
+
+                                            <div class="progress">
+                                                @php
+                                                $bar_percentage =
+                                                ($advertisement->userSubscriptions()->sum('number_of_parts') /
+                                                $advertisement->number_of_partners) *100 ;
+                                                @endphp
+                                                <div class="progress-bar progress-bar-striped " role="progressbar"
+                                                    style="width: {{ $bar_percentage == 0 ? 100 : $bar_percentage }}%;background-color: '#6d1c1c' ;background-color:{{ $bar_percentage == 0 ? '#6d1c1c' : '#28a745' }};"
+                                                    aria-valuemin="0" aria-valuemax="100">تبقى
+                                                    {{ $advertisement->number_of_partners - $advertisement->userSubscriptions()->sum('number_of_parts') }}
+                                                    اعضاء
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                                <p class="card-text Card-Footer" style="    padding: 1px">
+                                    <small class="text-muted">
+                                        <span class="text-muted dataEnd"> باقي على انتهاء الاعلان
+                                            {{ Carbon\Carbon::parse($advertisement->end_publish_date)->diffForHumans() }}
+                                        </span>
+                                        <i class="fa fa-clock-o" class="text-muted" aria-hidden="true"></i>
+                                    </small>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+
+
+
+
+            </div>
+
+        </div>
+
+    @else
+        <center>
+            <div class="alert alert-danger col-8" style="text-align: center">عذرا لا يوجد اعلانات</div>
+        </center>
+    @endif
+
+
+    {{ $advertisements->links() }}
+
+
+
+
+    {{-- <h1
+        style="background-color: #580707;margin: 0px 20px 20px 20px ;color: white;padding: 10px;border-radius: 10px;font-family: cairo;font-size: 28px;text-align: right;padding-right: 35px">
+        مشاركات التجار</h1> --}}
 
     @if (count($buyers_advertisements) > 0)
         <div class="container-fluid" style="direction: rtl">
             <div class="row Row-Cards ml-1">
 
-
+                <div class="col-12" style="direction: rtl;text-align: right;">
+                    <h3 class="h3-forDE">اعلانات التجار</h3>
+                </div>
                 @foreach ($buyers_advertisements as $advertisement)
                     <div class="col-md-3 " style="margin-top:20px;margin-bottom:20px">
 
@@ -337,112 +468,11 @@
             </div>
 
         </div>
-    @else
+    {{-- @else
         <center>
             <div class="alert alert-danger col-8" style="text-align: center">عذرا لا يوجد اعلانات</div>
-        </center>
+        </center> --}}
     @endif
-
-    <!--content-->
-    <h1
-        style="background-color: #580707;margin: 0px 20px 20px 20px ;color: white;padding: 10px;border-radius: 10px;font-family: cairo;font-size: 28px;text-align: right;padding-right: 35px">
-        جميع طلبات المشاركة</h1>
-
-    @if (count($advertisements) > 0)
-        <div class="container-fluid" style="direction: rtl">
-            <div class="row Row-Cards ml-1">
-
-
-                @foreach ($advertisements as $advertisement)
-                    <div class="col-md-3 " style="margin-top:20px;margin-bottom:20px">
-
-                        <div class="card crad-no1 Cards">
-                            <a
-                                href="{{ route('site.advertismenets.show', ['advertisement' => $advertisement->id, 'title' => $advertisement->title]) }}">
-                                <img class="card-img-top"
-                                    src="{{ asset('user_images/images/' . (json_decode($advertisement->images)[0] ?? '')) }}"
-                                    alt="Card image cap" style="max-height: 250px;min-height: 250px">
-
-                                <div class="card-img d-flex align-items-center">
-                                    <div>
-                                        <h5 class="h2 card-title   PriceFor-ADs-exp1"> ر. س <span class="number"> &nbsp;
-                                                {{ $advertisement->retail_price }} </span></h5>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <div class="card-body">
-                                <p style="font-size: 12px;text-align: right" class="hover-p" data-toggle="popover"
-                                    title="التفاصيل"
-                                    data-content="{{ mb_strimwidth($advertisement->description, 0, 250, '....') }}">اضغط هنا
-                                    لمشاهدة التفاصيل</p>
-                                <a
-                                    href="{{ route('site.advertismenets.show', ['advertisement' => $advertisement->id, 'title' => $advertisement->title]) }}">
-
-                                    <h5 class="card-title" style="text-align: right">{{ $advertisement->title }}</h5>
-                                </a>
-                                <p class="card-text TwoProp" style="text-align: left">
-                                    <span class="p-forprice" style="    float: right;">سعر الحصة :
-                                        {{ round($advertisement->cost_of_share, 2) }}</span>
-                                    <span class="p-forcity p-ForP" style="text-align: left"> مدينة
-                                        {{ $advertisement->city->title }} <i class="fas fa-map-marker-alt"></i></span>
-                                </p>
-
-
-
-                                <div class="card-text">
-                                    <div class="form-row" style="    margin-top: -3px;">
-
-                                        <div class="form-group col-md-12">
-                                            <p class="p-ForP" style="text-align: right; font-size: 12px">عدد الاعضاء
-                                                المطلوبين : <span>{{ $advertisement->number_of_partners }}</span> </p>
-
-                                            <div class="progress">
-                                                @php
-                                                $bar_percentage =
-                                                ($advertisement->userSubscriptions()->sum('number_of_parts') /
-                                                $advertisement->number_of_partners) *100 ;
-                                                @endphp
-                                                <div class="progress-bar progress-bar-striped " role="progressbar"
-                                                    style="width: {{ $bar_percentage == 0 ? 100 : $bar_percentage }}%;background-color: '#6d1c1c' ;background-color:{{ $bar_percentage == 0 ? '#6d1c1c' : '#28a745' }};"
-                                                    aria-valuemin="0" aria-valuemax="100">تبقى
-                                                    {{ $advertisement->number_of_partners - $advertisement->userSubscriptions()->sum('number_of_parts') }}
-                                                    اعضاء
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                    </div>
-                                </div>
-                                <p class="card-text Card-Footer" style="    padding: 1px">
-                                    <small class="text-muted">
-                                        <span class="text-muted dataEnd"> باقي على انتهاء الاعلان
-                                            {{ Carbon\Carbon::parse($advertisement->end_publish_date)->diffForHumans() }}
-                                        </span>
-                                        <i class="fa fa-clock-o" class="text-muted" aria-hidden="true"></i>
-                                    </small>
-                                </p>
-
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-
-
-
-
-
-            </div>
-
-        </div>
-
-    @else
-        <center>
-            <div class="alert alert-danger col-8" style="text-align: center">عذرا لا يوجد اعلانات</div>
-        </center>
-    @endif
-    {{ $advertisements->links() }}
     {{--
     <nav aria-label="Page navigation example">
         <ul class="pagination pg-blue justify-content-center">

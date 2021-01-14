@@ -185,9 +185,9 @@
 
 
                     <br />
-                    <div class="form-group d-none" id="checkout" style="margin-bottom:25px">
+                    {{-- <div class="form-group d-none" id="checkout" style="margin-bottom:25px">
                         <div class="form-control inputs-AddADS   Pay-ADS" id="checkout-price"></div>
-                    </div>
+                    </div> --}}
 
                     <div class="row">
                         <div class="col">

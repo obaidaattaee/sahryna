@@ -91,7 +91,7 @@
                             @error('phone')
                                 <div class="alert alert-danger" style="text-align: right;background-color: #ec969e;9">{{ $message }}</div>
                             @enderror
-                            <input type="number" required name="phone" value="{{ old('phone') ?? $adv->phone ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="ادخل رقم الهاتف">
+                            <input type="number" required name="phone" value="{{ auth()->user()->phone ??  old('phone') ?? $adv->phone ?? ""}}" class="form-control inputs-AddADS DefaultForm" id="exampleFormControlInput1" placeholder="ادخل رقم الهاتف">
                         </div>
                         <div class="col">
                             @error('city_id')
@@ -191,9 +191,9 @@
 
 
                     <br />
-                    <div class="form-group d-none" id="checkout" style="margin-bottom:25px">
+                    {{-- <div class="form-group d-none" id="checkout" style="margin-bottom:25px">
                         <div class="form-control inputs-AddADS   Pay-ADS" id="checkout-price"></div>
-                    </div>
+                    </div> --}}
 
                     <div class="row">
                         <div class="col">
@@ -345,15 +345,16 @@
                     @endif
 
                     <br />
+                    <div class="form-group" style="direction: rtl;text-align: right;">
+                        <input type="checkbox" required name="possible" class="Noties" style="text-align: end;margin-top: 10px;font-family: 'Cairo', sans-serif;color: #6d1c1c;font-weight: 500;"> اوافق على شروط و اتفاقية المنصة </a>
+                    </div>
                     <div class="row">
 
                         <div class="col">
                             <input type="submit" class="btnSubmit  " value="نشر الاعلان" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <p   class="Noties" style="text-align: end;margin-top: 10px;font-family: 'Cairo', sans-serif;color: #6d1c1c;font-weight: 500;"> ملاحظة : لن يتم نشر اعلانك إلا بعد عملية سداد قيمة الاعلان </a>
-                    </div>
+
 
 
                     <input type="hidden" name="lat" id="latitude">

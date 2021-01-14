@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://www.fontstatic.com/f=hanimation" />
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    {{-- <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@700&family=Tajawal:wght@300&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@700&family=Tajawal:wght@300&display=swap" --}}
         rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://www.fontstatic.com/f=dubai-bold" />
 
@@ -91,7 +91,7 @@
     @endauth
 
     <!--navbar-->
-    <nav class="navbar navbar-expand-md    fixed-top navbar-org">
+    <nav class="navbar navbar-expand-md    fixed-top navbar-org" style="background-color: white">
         <div class="container-fluid">
             <a href="{{ route('main') }}" class="navbar-brand">
                 <img src="{{ asset('user_images/settings/' . ($settings->logo_image ?? 'اشترينا001.jpg')) }}">
@@ -395,7 +395,7 @@
 
 
     <!-- Footer -->
-    <footer class="page-footer font-small stylish-color-dark pt-4" style="background-color: #e5e5ca">
+    <footer class="page-footer font-small stylish-color-dark pt-4" style="background-color: white">
 
         <!-- Footer Links -->
         <div class="container text-center text-md-right">

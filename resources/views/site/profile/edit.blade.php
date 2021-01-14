@@ -60,9 +60,15 @@
                         @error('phone')
                         <div class="alert alert-danger">{{$message}}</div>
                         @enderror
+
                              <label class="fieldlabels"> رقم الاتصال البديل</label>
                         <input class="input-section1"  required   type="text" name="alternative_phone" value="{{ old('alternative_phone') ?? $user->alternative_phone ?? '' }}" placeholder="رقم الاتصال البديل" />
                         @error('alternative_phone')
+                        <div class="alert alert-danger">{{$message}}</div>
+                        @enderror
+                        <label class="fieldlabels">  رقم الوطني</label>
+                        <input class="input-section1" type="text" name="person_id" required value="{{ old('person_id') ?? $user->person_id ?? '' }}" placeholder="الرقم الوطني (9 ارقام)" />
+                        @error('person_id')
                         <div class="alert alert-danger">{{$message}}</div>
                         @enderror
                     </div>

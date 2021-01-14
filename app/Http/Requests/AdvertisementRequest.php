@@ -44,6 +44,7 @@ class AdvertisementRequest extends FormRequest
                 "publish_date" => [ 'required' ],
                 "lat" => [ 'required' ],
                 "long" => [ 'required' ],
+                'possible' => ['required'],
             ] ;
         }else{
 
@@ -66,6 +67,7 @@ class AdvertisementRequest extends FormRequest
             "publish_date" => [ 'required' ],
             "lat" => [ 'required' ],
             "long" => [ 'required' ],
+            'possible' => ['required'],
         ] ;
 
     }

@@ -56,6 +56,7 @@ class AdvertismenetController extends Controller{
         $request['distribute_cost'] = $request['distribute_cost'] ? 1 : 0 ;
         $data = $request->validated();
         // dd($data) ;
+
         $images = [] ;
         if($request["imagesFiles"] != null){
             foreach($request["imagesFiles"] as $image){
@@ -64,6 +65,7 @@ class AdvertismenetController extends Controller{
         }
         $data['images'] = json_encode($images) ;
         unset($data ['imagesFiles']) ;
+        unset($data ['possible']) ;
         $data['user_id'] = auth()->id() ;
         if (isset($data['subscription_id'] )) {
 

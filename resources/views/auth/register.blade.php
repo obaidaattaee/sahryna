@@ -24,7 +24,7 @@
                     @csrf
 
                     <div class="form-group">
-                        <input type="text" name="first_name" class="form-control" placeholder="الاسم الاول"
+                        <input type="text" name="first_name" class="form-control" placeholder="الاسم كامل"
                             value="{{ old('first_name') ?? '' }}" style="    font-size: 1.1rem;" />
                     </div>
                     @error('first_name')

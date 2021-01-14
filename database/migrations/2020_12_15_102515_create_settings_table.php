@@ -21,6 +21,7 @@ class CreateSettingsTable extends Migration
             $table->string('logo_image');
             $table->longText('goals');
             $table->longText('idea');
+            $table->longText('possible');
             $table->longText('polices');
             $table->json('social')->nullable();
             $table->json('slider_images')->nullable();
