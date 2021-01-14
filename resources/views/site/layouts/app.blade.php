@@ -114,10 +114,10 @@
 
                 <ul class="navbar-nav">
                     @auth
-                        <li class="nav-item active">
+                        {{-- <li class="nav-item active">
                             <a class="nav-link a-navbar li-navbar" href="{{ route('site.dashboard') }}"> لوحة التحكم <i
                                     class="fas fa-chart-pie"></i></a>
-                        </li>
+                        </li> --}}
 
                     <div class="navbar-nav" style="direction: rtl">
                         <div class="nav-item dropdown " style="direction: rtl">
