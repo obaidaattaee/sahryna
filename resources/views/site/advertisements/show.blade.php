@@ -504,7 +504,7 @@ section {
             </div>
             @auth
 
-                @if (auth()->user()->alternative_phone !== null && $advertisement->active && $advertisement->end_publish_date >= Carbon\Carbon::now() &&  $bar_percentage !== 100)
+                @if ($settings->profile_verification == 1 && $advertisement->active && $advertisement->end_publish_date >= Carbon\Carbon::now() &&  $bar_percentage !== 100)
                 <div class="col-12">
                     <form id="subscription_form" method="post" action="{{route('advertismenets.add.subscription' , ['user'=>auth()->id() , 'advertisement'=>$advertisement->id])}}">
                     @csrf
@@ -545,7 +545,7 @@ section {
                             @enderror --}}
                     </form>
                     <br><br>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col">
                             <label class="Label-AddADS Productsection" for="Productsection"> التبليغ عن هذا الاعلان </label>
                             <select id="ProductDesc2" name="Section" class="form-control selectpicker inputs-AddADS Productsection" title=" اختر  القسم   ">
@@ -556,7 +556,7 @@ section {
                                 <option  >  المنتج مسروق </option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 @endif
 
@@ -723,7 +723,7 @@ section {
             <div class="modal-body" style="text-align: justify;">
                 <p class="modeltitle-no1P">
 
-                        {{ App\Models\Settings::first()->possible }}
+                        {{ $settings->possible }}
                 </p>
             </div>
             <div class="modal-footer">

@@ -45,6 +45,9 @@ use SoftDeletes ;
     public function userSubscriptions(){
         return $this->belongsToMany(User::class , 'users_advertisements' , 'advertisement_id' , 'user_id');
     }
+    public function likes(){
+        return $this->belongsToMany(User::class , 'user_like_advertisements' , 'advertisement_id' , 'user_id');
+    }
     public function contributes (){
         return $this->hasMany(UserAdvertisement::class  , 'advertisement_id' , 'id');
     }
@@ -54,4 +57,5 @@ use SoftDeletes ;
     public function getStatusAttribute(){
         return $this->attributes['active'] == 1 && $this->attributes['verified'] == 1 && $this->end_publish_date > Carbon::now() ? 1 : 0 ;
     }
+
 }

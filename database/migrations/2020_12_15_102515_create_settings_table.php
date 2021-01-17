@@ -27,6 +27,7 @@ class CreateSettingsTable extends Migration
             $table->json('slider_images')->nullable();
             $table->string('description');
             $table->boolean('buyer_subscription')->default(0) ;
+            $table->boolean('profile_verification')->default(0) ; // 0 user must verify profile 
             $table->timestamps();
         });
     }

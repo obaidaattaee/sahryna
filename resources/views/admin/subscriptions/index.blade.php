@@ -21,6 +21,10 @@
                                 class="btn btn-sm btn-{{ App\Models\Settings::first()->buyer_subscription == 1 ? 'success' : 'danger' }}">
                                 {{ App\Models\Settings::first()->buyer_subscription == 1 ? 'تفعيل الدفع للتجار' : 'ايقاف الدفع عن التجار' }}
                             </a>
+                            <a href="{{ route('admin.settings.prfile.verificaton') }}"
+                                class="btn btn-sm btn-{{ App\Models\Settings::first()->profile_verification == 1 ? 'success' : 'danger' }}">
+                                {{ App\Models\Settings::first()->profile_verification == 1 ? 'تفعيل تاكيد الحساب ' : 'ايقاف تاكيد الحساب' }}
+                            </a>
                         </div>
                         <table class="table table-striped table-bordered table-hover" id="example">
                             <thead>

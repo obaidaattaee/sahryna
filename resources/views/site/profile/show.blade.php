@@ -29,8 +29,10 @@
                         <img src="{{ asset('user_images/public/'.$user->person_image)}}" alt="" />
                     </div>
                 </div>
+
                 <div class="col-md-2">
-                    <a href="{{ route('my.profile.edit' )}}" class="profile-edit-btn" name="btnAddMore" style="font-family: 'Cairo', sans-serif;" >توثيق الحساب</a>
+                    <a href="{{ route('my.profile.edit' )}}" class="btn btn-danger" name="btnAddMore" style="font-family: 'Cairo', sans-serif;margin: 10px;background-color: #6d1c1c" >تعديل البيانات</a>
+                    <a href="{{ route('my.profile.edit.password' )}}" class="btn btn-danger" name="btnAddMore" style="font-family: 'Cairo', sans-serif;margin: 10px;background-color: #6d1c1c" >تعديل كلمة المرور</a>
                 </div>
                 <div class="col-md-6" style="margin-top: 10px;">
                     <div class="profile-head">

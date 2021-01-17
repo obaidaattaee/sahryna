@@ -5,7 +5,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\UserPaymentData;
 use App\Notifications\VerifyUserProfileNotification;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Notification;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -21,6 +23,12 @@ class ProfileController extends Controller{
         $user = auth()->user() ;
         $user['payment_data'] = isset($user['payment_data']) ? decrypt($user->payment_data ) : [] ;
         return view('site.profile.edit')
+                ->with('user' , $user);
+    }
+    public function editPassword(){
+        $user = auth()->user() ;
+        $user['payment_data'] = isset($user['payment_data']) ? decrypt($user->payment_data ) : [] ;
+        return view('site.profile.edit_password')
                 ->with('user' , $user);
     }
     public function update(User $user){
@@ -73,5 +81,20 @@ class ProfileController extends Controller{
     public function userAdvertisements(User $user){
         return view('site.profile.user_advertisements')
                 ->with('user' , $user);
+    }
+    public function updatePassword(User $user){
+        $data = request()->validate([
+            'current_password' => ['required', function ($attribute, $value, $fail) {
+                if (!Hash::check($value, Auth::user()->password)) {
+                    return $fail(__('كلمة المرور الحالية غير صحيحة.'));
+                }
+            }],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        $user->update([
+            'password' => bcrypt($data['current_password'])
+        ]);
+        Alert::success('تم تعديل كلمة المرور بنجاح ');
+        return redirect(route('my.profile'));
     }
 }

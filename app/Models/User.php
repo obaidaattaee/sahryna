@@ -57,6 +57,9 @@ use SoftDeletes ;
     public function users_advertisements(){
         return $this->belongsToMany(Advertisement::class , 'users_advertisements' ,'user_id' , 'advertisement_id' );
     }
+    public function likes(){
+        return $this->belongsToMany(Advertisement::class , 'user_like_advertisements' ,'user_id' , 'advertisement_id' );
+    }
     public function contributes(){
         return $this->hasMany(UserAdvertisement::class ,'user_id' , 'id' );
     }

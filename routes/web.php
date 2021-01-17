@@ -66,6 +66,7 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function
     Route::post('settings/social/create' , 'App\Http\Controllers\Admin\SettingsController@insertSocial')->name('admin.settings.social.insert');
     Route::get('settings/social/delete' , 'App\Http\Controllers\Admin\SettingsController@deleteSocial')->name('admin.settings.social.delete');
     Route::get('settings/buyer_subscriptions/change_status' , 'App\Http\Controllers\Admin\SettingsController@buyerSubscriptionStatus')->name('admin.settings.buyer.subscription.status');
+    Route::get('settings/profile_verification/change_status' , 'App\Http\Controllers\Admin\SettingsController@ProfileVerificationSubscriptionStatus')->name('admin.settings.prfile.verificaton');
     Route::post('settings' , 'App\Http\Controllers\Admin\SettingsController@store')->name('admin.settings.store');
     Route::post('settings/update' , 'App\Http\Controllers\Admin\SettingsController@update')->name('admin.settings.update');
 
@@ -128,8 +129,10 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication'])
         Route::get('my/profile' , 'ProfileController@show')->name('my.profile');
         Route::get('user/{user}' , 'ProfileController@userShow')->name('site.user.show');
         Route::get('my/profile/edit' , 'ProfileController@edit')->name('my.profile.edit');
+        Route::get('my/profile/edit_password' , 'ProfileController@editPassword')->name('my.profile.edit.password');
         Route::get('user/{user}/advertisements' , 'ProfileController@userAdvertisements')->name('user.advertisements');
         Route::post('my/profile/{user}/update' , 'ProfileController@update')->name('my.profile.update');
+        Route::post('my/profile/{user}/update_password' , 'ProfileController@updatePassword')->name('my.profile.update.password');
         //end prodile routes
         Route::group(['middleware'=> 'profileverirfication'] , function(){
             Route::get('advertisements/create' , 'AdvertismenetController@create')->name('advertismenets.create');

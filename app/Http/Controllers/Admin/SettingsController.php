@@ -194,4 +194,14 @@ dd(request()->all());
         $buyer_subscription->buyer_subscription ? session()->flash('msg' , 's: تم تفعيل الدفع للتجار ') : session()->flash('msg' , 's: تم ايقاف الدفع للتجار ');
         return redirect(route('subscriptions.index'));
     }
+    public function ProfileVerificationSubscriptionStatus(){
+        $profile_verification = Settings::first();
+        // dd($profile_verification);
+        $profile_verification->update([
+            'profile_verification' => !$profile_verification->profile_verification
+        ]);
+
+        $profile_verification->buyer_subscription ? session()->flash('msg' , 's: تم تفعيل الزامية تاكيد الحساب للمستخدمين ') : session()->flash('msg' , 's: تم ايقاف الزامية تاكيد الحساب للمستخدمين ');
+        return redirect(route('subscriptions.index'));
+    }
 }

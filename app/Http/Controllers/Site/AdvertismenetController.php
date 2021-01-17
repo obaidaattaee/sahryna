@@ -25,7 +25,8 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class AdvertismenetController extends Controller{
     public function create(){
-        if(auth()->user()->alternative_phone == null){
+        $settings = Settings::first() ;
+        if($settings->profile_verification == 0){
             Alert::warning('عزيزي المشترك قم بتوثيق حسابك لتتمكن من نشر الاعلان');
             return redirect(route('my.profile.edit'));
         }
@@ -37,7 +38,7 @@ class AdvertismenetController extends Controller{
 
 
         // dd($subscriptions_roles_ids);
-        $buyer_subscription = Settings::first()->buyer_subscription;
+        $buyer_subscription = $settings->buyer_subscription;
         if ( $buyer_subscription == 0 && in_array( 2 , auth()->user()->roles->pluck('id')->toArray() ) ) {
             $subscriptions = Subscription::where('active' , 1)->whereIn('role_id'  , auth()->user()->roles->pluck('id')->toArray()  )->get() ;
         }elseif(in_array( 3 , auth()->user()->roles->pluck('id')->toArray() )){
@@ -132,6 +133,7 @@ class AdvertismenetController extends Controller{
         // dd($advertisement);
         // dd(Carbon::parse($advertisement->end_publish_date)->diffForHumans());
         return view('site.advertisements.show')
+                ->with('settings' , Settings::first())
                 ->with('advertisement' , $advertisement) ;
     }
 
