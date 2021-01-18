@@ -615,6 +615,7 @@
                                     <th scope="col">سعر الحصة الواحدة </th>
                                     <th scope="col">اجمالي الحصص </th>
                                     <th scope="col">كود التحقق  </th>
+                                    <th scope="col">هاتف المعلن</th>
                                     <th scope="col">الحالة </th>
                                     <th scope="col"> </th>
 
@@ -631,8 +632,8 @@
 
 
                                     @foreach ($contributes as $contribute)
-                                        {{-- {{ dd($contribute) }}
-                                        --}}
+                                        {{-- {{ dd($contribute->advertisement()->first()->user) }} --}}
+
                                         {{--
                                         {{ dd($contribute->advertisement()->first()->reminnig_contributes) }}
                                         --}}
@@ -644,7 +645,8 @@
                                         <tr>
                                             <td scope="row">{{ $contribute->advertisement()->first()->id }}</td>
                                             <td id="ADS-Name" style="color: #000;">
-                                                <a href="#"
+
+                                                <a href="{{ route('site.advertismenets.show', ['advertisement' => $contribute->advertisement()->first()->id, 'title' =>$contribute->advertisement()->first()->title]) }}"
                                                     style="color: #000;">{{ $contribute->advertisement()->first()->title }}</a>
                                             </td>
                                             <td id="dataStart">{{ $contribute->created_at }}</td>
@@ -667,6 +669,10 @@
                                                 <p>{{ $contribute->code }}
                                                 </p>
                                             </td>
+                                            <td id="MemberNumber">
+                                                <p>{{ $contribute->status == 1 || $contribute->status == 2 ?  $contribute->advertisement()->first()->user->phone : "" }}
+                                                </p>
+                                            </td>
                                             <td style="overflow:hidden; text-overflow:ellipsis;"><button
                                                 class="btn @switch( $contribute->status)
                                                 @case(0)
@@ -682,10 +688,10 @@
 
                                             @endswitch">@switch( $contribute->status)
                                             @case(0)
-                                                {{"لم تكتمل الشراكة"}}
+                                                {{"لم يكتمل "}}
                                                 @break
                                             @case(1)
-                                                {{"اكتمل عدد الشركاء"}}
+                                                {{"مكتمل "}}
                                                 @break
                                             @case(2)
                                                 {{"مستلمة"}}
@@ -696,7 +702,7 @@
                                         </td>
                                             <td><a href="{{ route('advertismenets.delete.subscription', ['advertisement' =>  $contribute->advertisement()->first()->id, 'user' => $user->id , 'subscription' => $contribute->id]) }}"
                                                     onclick="return alert('هل انت متاكد من  الانسحاب من الشراكة')"
-                                                    class="btn btn-danger">انسحاب من الشراكة </a></td>
+                                                    class="btn btn-danger">انسحاب  </a></td>
                                         </tr>
                                     @endforeach
                                 @endisset

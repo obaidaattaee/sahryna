@@ -22,7 +22,19 @@
                             <label for="form_control_1">العنوان</label>
 
                         </div>
-                       
+                    </div>
+                    <div class="form-body">
+                        <div class="form-group form-md-line-input">
+                            <label for="form_control_1">الدولة</label>
+                            <select class="form-control" name="country_id">
+                                <option value="">اختر الدولة</option>
+                                @foreach ($countries as $country)
+                                    <option value="{{$country->id}}"  {{ old('country_id') == $country->id || $city->country_id == $country->id ? "selected" : "" }}>{{$country->title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group form-md-line-input">
                         <label class="col-md-2 control-label" for="form_control_1"> الحالة </label>
                         <div class="col-md-10">

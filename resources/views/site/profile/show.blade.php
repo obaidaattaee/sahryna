@@ -33,6 +33,7 @@
                 <div class="col-md-2">
                     <a href="{{ route('my.profile.edit' )}}" class="btn btn-danger" name="btnAddMore" style="font-family: 'Cairo', sans-serif;margin: 10px;background-color: #6d1c1c" >تعديل البيانات</a>
                     <a href="{{ route('my.profile.edit.password' )}}" class="btn btn-danger" name="btnAddMore" style="font-family: 'Cairo', sans-serif;margin: 10px;background-color: #6d1c1c" >تعديل كلمة المرور</a>
+                    <a href="{{ route('my.profile.show.contact.data' )}}" class="btn btn-{{ $user->show_phone_number == 1 ? 'danger' : 'success'}}" name="btnAddMore" style="font-family: 'Cairo', sans-serif;margin: 10px;" >{{ $user->show_phone_number == 1 ? 'اخفاء بيانات التواصل' : 'اظهار بيانات التواصل' }}</a>
                 </div>
                 <div class="col-md-6" style="margin-top: 10px;">
                     <div class="profile-head">

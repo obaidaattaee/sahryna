@@ -97,4 +97,12 @@ class ProfileController extends Controller{
         Alert::success('تم تعديل كلمة المرور بنجاح ');
         return redirect(route('my.profile'));
     }
+    public function ShowContactData(){
+        $user = auth()->user() ;
+        $user->update([
+            'show_phone_number' => !$user->show_phone_number
+        ]);
+        $user->show_phone_number == 1 ? Alert::success('تم تفعيل اظهار بيانات التواثل بنجاح') : Alert::info('تم ايقاف اظهار بيانات التواصل بينجاح') ;
+        return redirect (route('my.profile'));
+    }
 }

@@ -8,33 +8,20 @@
             <div class="portlet-title">
                 <div class="caption font-red-sunglo">
                     <i class="icon-settings font-red-sunglo"></i>
-                    <span class="caption-subject bold uppercase">المدن / اضافة مدينة جديد<span>
+                    <span class="caption-subject bold uppercase">التصنيفات / تعديل  بيانات الدولة<span>
                 </div>
 
             </div>
             <div class="portlet-body form">
-                <form role="form" method="post" action="{{ route('cities.store') }}">
+                <form role="form" method="post" action="{{ route('countries.update' , ['country' => $country->id]) }}">
                     @csrf
-                    @method('post')
+                    @method('PUT')
                     <div class="form-body">
                         <div class="form-group form-md-line-input">
-                            <input type="text" class="form-control" name="title" value="{{ old('title') ?? $city->title ?? '' }}" id="form_control_1" placeholder="عنوان التصنيف ">
+                            <input type="text" class="form-control" name="title" value="{{ old('title') ?? $country->title ?? '' }}" id="form_control_1" placeholder="عنوان الدولة">
                             <label for="form_control_1">العنوان</label>
 
                         </div>
-                    </div>
-                    <div class="form-body">
-                        <div class="form-group form-md-line-input">
-                            <label for="form_control_1">الدولة</label>
-                            <select class="form-control" name="country_id">
-                                <option value="">اختر الدولة</option>
-                                @foreach ($countries as $country)
-                                    <option value="{{$country->id}}"  {{ old('country_id') == $country->id ? "selected" : "" }}>{{$country->title}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
 
                     <div class="form-group form-md-line-input">
                         <label class="col-md-2 control-label" for="form_control_1"> الحالة </label>
@@ -43,7 +30,7 @@
 
 
                                     <div class="md-checkbox">
-                                    <input type="checkbox" id="checkbox1" class="md-check" name="active"  {{ old('active') ? "checked" : ""}}>
+                                    <input type="checkbox" id="checkbox1" class="md-check" name="active"  {{ $country->active  ? "checked" : ""}}>
                                         <label for="checkbox1">
                                         <span class="inc"></span>
                                         <span class="check"></span>

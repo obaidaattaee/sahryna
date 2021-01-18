@@ -56,6 +56,11 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function
     Route::get('cities/{city}/delete' , 'App\Http\Controllers\Admin\CityController@delete')->name('cities.destroy') ;
     Route::get('cities/{city}/status' , 'App\Http\Controllers\Admin\CityController@changeStatus')->name('cities.cahnge.states') ;
     // end cities routes
+    // start countries routes
+    Route::resource('countries' , 'App\Http\Controllers\Admin\CountryController')->except('show , destroy') ;
+    Route::get('countries/{country}/delete' , 'App\Http\Controllers\Admin\CountryController@delete')->name('countries.destroy') ;
+    Route::get('countries/{country}/status' , 'App\Http\Controllers\Admin\CountryController@changeStatus')->name('countries.cahnge.states') ;
+    // end cities routes
 
     // start settings routes
     Route::get('settings' , 'App\Http\Controllers\Admin\SettingsController@create')->name('admin.settings');
@@ -130,6 +135,7 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication'])
         Route::get('user/{user}' , 'ProfileController@userShow')->name('site.user.show');
         Route::get('my/profile/edit' , 'ProfileController@edit')->name('my.profile.edit');
         Route::get('my/profile/edit_password' , 'ProfileController@editPassword')->name('my.profile.edit.password');
+        Route::get('my/profile/show_contact/data' , 'ProfileController@ShowContactData')->name('my.profile.show.contact.data');
         Route::get('user/{user}/advertisements' , 'ProfileController@userAdvertisements')->name('user.advertisements');
         Route::post('my/profile/{user}/update' , 'ProfileController@update')->name('my.profile.update');
         Route::post('my/profile/{user}/update_password' , 'ProfileController@updatePassword')->name('my.profile.update.password');

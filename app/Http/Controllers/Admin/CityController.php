@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Country;
 
 class CityController extends Controller{
     public function index () {
@@ -12,20 +13,25 @@ class CityController extends Controller{
 
     }
     public function create(){
-        return view('admin.cities.create');
+        $countries = Country::get();
+        return view('admin.cities.create')
+                ->with('countries' , $countries);
     }
     public function store(){
         request()['active'] = request()['active'] ? 1 : 0 ;
         $data = request()->validate([
             'title' => 'required' ,
             'active' => 'required' ,
+            'country_id' => ['required' , 'exists:countries,id'] ,
         ]);
         City::create($data);
         session()->flash('msg' , 's: تم اضافة المدينة بنجاح') ;
         return redirect(route('cities.index'));
     }
     public function edit(City $city){
+        $countries = Country::get();
         return view('admin.cities.edit')
+                    ->with('countries' , $countries)
                     ->with('city' , $city) ;
     }
     public function changeStatus(City $city){
@@ -48,6 +54,7 @@ class CityController extends Controller{
         request()['active'] = request()['active'] ? 1 : 0 ;
         $data = request()->validate([
             'title' => 'required' ,
+            'country_id' => 'required' ,
             'active' => 'required' ,
         ]);
         $city->update($data);

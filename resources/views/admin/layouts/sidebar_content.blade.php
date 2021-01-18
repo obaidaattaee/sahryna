@@ -122,6 +122,29 @@ active
             </li>
     </ul>
 </li>
+<li class="start @if (substr(Route::current()->getName() , 0 ,9 ) == "countries" )
+active
+@endif">
+
+    <a href="javascript:;">
+        <i class="icon-home"></i>
+    <span class="title">ادارة  الدول</span>
+    <span class="arrow "></span>
+
+    </a>
+    <ul class="sub-menu">
+        <li >
+        <a href="{{ route('countries.index') }} ">
+            <i class="icon-bar-chart"></i>
+            عرض الدول</a>
+        </li>
+        <li >
+            <a href="{{ route('countries.create') }} ">
+                <i class="icon-bar-chart"></i>
+                اضافة جديد </a>
+            </li>
+    </ul>
+</li>
 <li class="start @if (substr(Route::current()->getName() , 0 ,13 ) == "subscriptions" )
     active
     @endif">

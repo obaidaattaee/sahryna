@@ -504,7 +504,7 @@ section {
             </div>
             @auth
 
-                @if ($settings->profile_verification == 1 && $advertisement->active && $advertisement->end_publish_date >= Carbon\Carbon::now() &&  $bar_percentage !== 100)
+                @if ($settings->profile_verification == 1 && $advertisement->status &&  $bar_percentage !== 100)
                 <div class="col-12">
                     <form id="subscription_form" method="post" action="{{route('advertismenets.add.subscription' , ['user'=>auth()->id() , 'advertisement'=>$advertisement->id])}}">
                     @csrf

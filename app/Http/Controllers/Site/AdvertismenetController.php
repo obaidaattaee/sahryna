@@ -11,6 +11,7 @@ use App\Models\AdvertisementType;
 use App\Models\BuyerAdvertisement;
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Country;
 use App\Models\DeliveryTime;
 use App\Models\Settings;
 use App\Models\Subscription;
@@ -32,7 +33,7 @@ class AdvertismenetController extends Controller{
         }
         // dd(auth()->user()->roles->pluck('id')->toArray());
         $categories = Category::where('active' , 1)->get() ;
-        $cities = City::where('active' , 1)->get() ;
+        $countries = Country::where('active' , 1)->with('cities')->get();
         $deleviry_times = DeliveryTime::where('active' , 1)->get() ;
         $advertisement_types = AdvertisementType::where('active' , 1)->get() ;
 
@@ -48,7 +49,7 @@ class AdvertismenetController extends Controller{
         }
         return view('site.advertisements.create')
                 ->with('categories' , $categories)
-                ->with('cities' , $cities)
+                ->with('countries' , $countries)
                 ->with('deleviry_times' , $deleviry_times)
                 ->with('advertisement_types' , $advertisement_types)
                 ->with('subscriptions' , $subscriptions);

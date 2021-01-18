@@ -78,44 +78,52 @@
                                 <div class="col-md-6">
                                     <label>اسم المستخدم</label>
                                 </div>
-
                             </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p>{{ $user->email }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <label>البريد الاكتروني</label>
-                                </div>
+                            @if ($user->show_phone_number == 1)
 
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p> {{ $user->phone }} </p>
+                                @if ($user->email !== null)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p>{{ $user->email }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>البريد الاكتروني</label>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label>رقم الهاتف</label>
-                                </div>
+                                @endif
+                                @if ($user->phone !== null)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p> {{ $user->phone }} </p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>رقم الهاتف</label>
+                                        </div>
+                                    </div>
+                                @endif
+                                @if ($user->alternative_phone !== null)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p> {{ $user->alternative_phone }} </p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label> رقم الهاتف البديل</label>
+                                        </div>
+                                    </div>
+                                @endif
 
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p> {{ $user->alternative_phone }} </p>
+                            @endif
+                            {{-- @if ($user->person_id !== null)
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p> {{ $user->person_id }} </p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label> الرقم الوطني  </label>
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <label> رقم الهاتف البديل</label>
-                                </div>
+                            @endif --}}
 
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <p> {{ $user->person_id }} </p>
-                                </div>
-                                <div class="col-md-6">
-                                    <label> الرقم الوطني  </label>
-                                </div>
-
-                            </div>
 
                         </div>
 
@@ -124,4 +132,6 @@
             </div>
         </form>
     </div>
+
 @endsection
+

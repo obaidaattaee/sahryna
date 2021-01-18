@@ -35,7 +35,7 @@ class HomeController extends Controller
         $users_ids = User::whereHas('roles', function($q){
             $q->where('id', 3);
         })->pluck('id')->toArray();
-        $advertisements = Advertisement::whereIn('active' , [1,2])
+        $advertisements = Advertisement::whereIn('active' , [1,3])
                             ->where('verified' , 1)
                             ->whereIn('user_id' , $users_ids)
                             ->where('end_publish_date' , '>' , Carbon::now())
@@ -44,7 +44,7 @@ class HomeController extends Controller
         UserAdvertisement::orderBy('created_at' , 'desc')->get()->groupBy('advertisement_id')->take(4)->map(function ($item) use(&$trinds){
             $trinds = array_merge($trinds , $item->pluck('advertisement_id')->toArray());
         });
-        $trinds_advertisements = Advertisement::whereIn('active' , [1,2])
+        $trinds_advertisements = Advertisement::whereIn('active' , [1,3])
                             ->where('verified' , 1)
                             ->whereIn('user_id' , $users_ids)
                             ->whereIn('id' , $trinds)

@@ -502,4 +502,5 @@
         });
 
     </script>
+    
 @endsection

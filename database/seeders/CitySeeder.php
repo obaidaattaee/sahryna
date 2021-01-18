@@ -14,6 +14,7 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
+        
         City::insert([
             [
                 'title' => 'مكة المكرمة' ,
