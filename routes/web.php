@@ -110,7 +110,7 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function
 });
 
 Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication'])->group(function(){
-    Route::get('/', function () {return redirect(route('home'));})->name('main');
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('main');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/buyers/advertisements', [App\Http\Controllers\HomeController::class, 'buyerAdvertisements'])->name('buyers.advertisements');
     Route::get('about' , 'AboutController@index')->name('site.about') ;
@@ -146,6 +146,7 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication'])
             Route::post('advertisements/create' , 'AdvertismenetController@store')->name('advertismenets.store');
             Route::post('buyer/advertisements/create' , 'AdvertismenetController@buyerAdvertisementsStore')->name('buyer.advertismenets.store');
             Route::post('user/{user}/advertisements/{advertisement}/create/supscription' , 'AdvertismenetController@addSubscription')->name('advertismenets.add.subscription');
+            Route::get('user/advertisements/{advertisement}/add/like' , 'AdvertismenetController@addLike')->name('advertismenets.add.like');
             Route::get('user/{user}/advertisements/{advertisement}/delete/{subscription}/supscription' , 'AdvertismenetController@deleteSubscription')->name('advertismenets.delete.subscription');
 
 

@@ -82,6 +82,7 @@ class HomeController extends Controller
         $trinds_advertisements = $trinds_advertisements->take(4)->get() ;
         $buyers_advertisements = $buyers_advertisements->take(4)->get() ;
         // dd($advertisements) ;
+        
         $cities = City::where('active' , 1) -> get() ;
         $categories = Category::where('active' , 1) -> get() ;
         return view('site.home')

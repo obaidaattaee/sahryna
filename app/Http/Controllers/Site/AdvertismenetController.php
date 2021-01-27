@@ -17,6 +17,7 @@ use App\Models\Settings;
 use App\Models\Subscription;
 use App\Models\User;
 use App\Models\UserAdvertisement;
+use App\Models\UserLikeAdvertisement;
 use App\Notifications\VerifyUserProfileNotification;
 use bawes\myfatoorah\MyFatoorah;
 use Carbon\Carbon;
@@ -344,10 +345,25 @@ class AdvertismenetController extends Controller{
             $data['end_publish_date'] = Carbon::now()   ;
             $data['publish_date'] = Carbon::now() ;
             $data['active']  = 1 ;
-
             $advertisement = BuyerAdvertisement::create($data);
             Alert::alert('تم اضافة اعلانك بنجاح') ;
             return redirect(route('main'));
+        }
+    }
+    public function addLike(Advertisement $advertisement){
+        $user = auth()->user() ;
+        $like = UserLikeAdvertisement::firstOrNew([
+            'user_id' => $user->id ,
+            'advertisement_id' => $advertisement->id
+        ]);
+        $like->save() ;
+        if($like->wasRecentlyCreated){
+            Alert::success('تم اضافة الاعلان الى المفضله');
+            return redirect()->back() ;
+        }else{
+            $like->delete() ;
+            Alert::info('تم ازالة الاعلان من المفضله');
+            return redirect()->back() ;
         }
 
     }

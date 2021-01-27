@@ -83,7 +83,11 @@
     </div>
 
 
-
+@auth
+    @php
+        $user_likes = auth()->user()->likes->pluck('id')->toArray() ;
+    @endphp
+@endauth
     <!--A static bar-->
 
 
@@ -196,10 +200,21 @@
                             </a>
 
                             <div class="card-body">
+
                                 <p style="font-size: 12px;text-align: right" class="hover-p" data-toggle="popover"
                                     title="التفاصيل"
                                     data-content="{{ mb_strimwidth($advertisement->description, 0, 250, '....') }}">اضغط هنا
                                     لمشاهدة التفاصيل</p>
+                                    @auth
+                                    <a href="{{route('advertismenets.add.like' , [ 'advertisement' => $advertisement->id])}}">
+                                        <i class="fa {{ in_array($advertisement->id , $user_likes) ? 'fa-star' : 'fa-star-o' }}" aria-hidden="true"></i>
+                                    </a>
+                                @endauth
+                                @guest
+                                    <a href="{{route('advertismenets.add.like' , [ 'advertisement' => $advertisement->id])}}">
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    </a>
+                                @endguest
                                     <a
                                     href="{{ route('site.advertismenets.show', ['advertisement' => $advertisement->id, 'title' => $advertisement->title]) }}">
 
@@ -303,6 +318,16 @@
                                     title="التفاصيل"
                                     data-content="{{ mb_strimwidth($advertisement->description, 0, 250, '....') }}">اضغط هنا
                                     لمشاهدة التفاصيل</p>
+                                    @auth
+                                        <a href="{{route('advertismenets.add.like' , [ 'advertisement' => $advertisement->id])}}">
+                                            <i class="fa {{ in_array($advertisement->id , $user_likes) ? 'fa-star' : 'fa-star-o' }}" aria-hidden="true"></i>
+                                        </a>
+                                    @endauth
+                                    @guest
+                                        <a href="{{route('advertismenets.add.like' , [ 'advertisement' => $advertisement->id])}}">
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        </a>
+                                    @endguest
                                 <a
                                     href="{{ route('site.advertismenets.show', ['advertisement' => $advertisement->id, 'title' => $advertisement->title]) }}">
 
@@ -502,5 +527,5 @@
         });
 
     </script>
-    
+
 @endsection
