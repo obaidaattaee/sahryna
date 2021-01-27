@@ -314,6 +314,10 @@
                 <a class="nav-item nav-link  key-tabs" id="nav-Yourrequests-tab" data-toggle="tab" href="#nav-Yourrequests"
                     role="tab" aria-controls="nav-Yourrequests" aria-selected="false">الطلبات الخاصة بك</a>
             </li>
+            <li>
+                <a class="nav-item nav-link  key-tabs" id="nav-Yourrequests-tab" data-toggle="tab" href="#submitions"
+                    role="submitions" aria-controls="nav-Yourrequests" aria-selected="false">المفضلة</a>
+            </li>
         </ul>
 
         <div class="tab-content">
@@ -704,6 +708,115 @@
                                                     onclick="return alert('هل انت متاكد من  الانسحاب من الشراكة')"
                                                     class="btn btn-danger">انسحاب  </a></td>
                                         </tr>
+                                    @endforeach
+                                @endisset
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="tab-pane fade" id="submitions" role="tabpanel" aria-labelledby="nav-Yourrequests-tab">
+                <br />
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <div class="col-md-12 title-ofADS">
+                            <h5 class="">المفضلة</h5>
+                        </div>
+                        <table class="table" dir="rtl">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">اعلان رقم </th>
+                                    <th scope="col">اسم الاعلان</th>
+                                    <th scope="col">تاريخ طلب المشاركة</th>
+                                    <th scope="col">عدد الحصص المطلوبة </th>
+                                    <th scope="col">الحصصص المتبيقية للاعلان </th>
+                                    <th scope="col">سعر الحصة الواحدة </th>
+                                    <th scope="col">اجمالي الحصص </th>
+                                    <th scope="col">كود التحقق  </th>
+                                    <th scope="col">هاتف المعلن</th>
+                                    <th scope="col">الحالة </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{-- {{ dd($user->advertisements) }}
+                                --}}
+                                @php
+                                    $likes = $user->likes()->get();
+                                    // dd($contributes);
+                                @endphp
+                                @isset($likes)
+
+
+                                    @foreach ($likes as $like)
+                                        {{-- {{ dd($contribute->advertisement()->first()->user) }} --}}
+
+                                        {{--
+                                        {{ dd($contribute->advertisement()->first()->reminnig_contributes) }}
+                                        --}}
+
+                                        <tr>
+                                            <td scope="row">{{ $like->id }}</td>
+                                            <td id="ADS-Name" style="color: #000;">
+
+                                                <a href="{{ route('site.advertismenets.show', ['advertisement' => $like->id, 'title' =>$like->title]) }}"
+                                                    style="color: #000;">{{ $like->title }}</a>
+                                            </td>
+                                            <td id="dataStart">{{ $like->created_at }}</td>
+                                            <td id="MemberNumberIn">
+                                                <p>{{ $like->number_of_parts }}</p>
+                                            </td>
+                                            <td id="MemberNumber">
+                                                <p>{{ $like->reminnig_contributes }}
+                                                </p>
+                                            </td>
+                                            <td id="MemberNumber">
+                                                <p>{{ $like->cost_of_share }}
+                                                </p>
+                                            </td>
+                                            <td id="MemberNumber">
+                                                <p>{{ $like->cost_of_share * $like->number_of_parts }}
+                                                </p>
+                                            </td>
+                                            <td id="MemberNumber">
+                                                <p>{{ $like->code }}
+                                                </p>
+                                            </td>
+                                            <td id="MemberNumber">
+                                                <p>{{ $like->status == 1 || $like->status == 2 ?  $like->user->phone : "" }}
+                                                </p>
+                                            </td>
+                                            <td style="overflow:hidden; text-overflow:ellipsis;"><button
+                                                class="btn @switch( $like->status)
+                                                @case(0)
+                                                    {{"btn-warning"}}
+                                                    @break
+                                                @case(1)
+                                                    {{"btn-success"}}
+                                                    @break
+                                                @case(2)
+                                                    {{"btn-info"}}
+                                                    @break
+                                                @default
+
+                                            @endswitch">@switch( $like->status)
+                                            @case(0)
+                                                {{"لم يكتمل "}}
+                                                @break
+                                            @case(1)
+                                                {{"مكتمل "}}
+                                                @break
+                                            @case(2)
+                                                {{"مستلمة"}}
+                                                @break
+                                            @default
+
+                                        @endswitch</button>
+
                                     @endforeach
                                 @endisset
 
