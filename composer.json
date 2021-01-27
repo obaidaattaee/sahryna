@@ -9,7 +9,6 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
-        "barryvdh/laravel-debugbar": "^3.5",
         "bawes/myfatoorah-php": "^1.0",
         "fakerphp/faker": "^1.9.1",
         "fideloper/proxy": "^4.4",
@@ -22,6 +21,7 @@
         "santigarcor/laratrust": "^6.3"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.5",
         "facade/ignition": "^2.5",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
