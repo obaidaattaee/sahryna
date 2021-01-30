@@ -22,6 +22,7 @@ class CountrySeeder extends Seeder
             Country::create(
                 [
                     'title' => $data->title ,
+                    'active' => 1
                 ]
             );
         }
@@ -31,6 +32,7 @@ class CountrySeeder extends Seeder
             City::create([
                 'title' => $data->title ,
                 'country_id' => $data->country_id,
+                'active' => 1,
             ]);
         }
     }

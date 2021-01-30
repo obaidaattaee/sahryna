@@ -14,7 +14,7 @@ class AddColumnToAdvertisementsTable extends Migration
     public function up()
     {
         Schema::table('advertisements', function (Blueprint $table) {
-            $table->foreignId('country_id')->constrained('countries');
+            $table->integer('country_id');
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnToAdvertisementsTable extends Migration
     public function down()
     {
         Schema::table('advertisements', function (Blueprint $table) {
-            $table->dropForeign('country_id') ;
+            $table->dropColumn('country_id') ;
         });
     }
 }

@@ -25,6 +25,7 @@ class AdvertisementRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->all());
         if(in_array(2 , auth()->user()->roles->pluck('id')->toArray())  &&in_array(1 , auth()->user()->roles->pluck('id')->toArray())  && Settings::first()->buyer_subscription == 0 ){
             return [
                 "title" => [ 'required' ],
@@ -53,7 +54,7 @@ class AdvertisementRequest extends FormRequest
             "title" => [ 'required' ],
             "description" =>  [ 'required' ],
             "category_id" =>  [ 'required' ],
-            "city_id" =>  [ 'required' , 'exists:city,id'],
+            "city_id" =>  [ 'required' , 'exists:cities,id' ],
             "country_id" =>  [ 'required' , 'exists:countries,id'],
             "phone" =>  [ 'required' ],
             "cost" => [ 'required' ],

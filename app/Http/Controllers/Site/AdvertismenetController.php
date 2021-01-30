@@ -48,6 +48,7 @@ class AdvertismenetController extends Controller{
         }else{
             $subscriptions = collect();
         }
+        // dd($countries );
         return view('site.advertisements.create')
                 ->with('categories' , $categories)
                 ->with('countries' , $countries)

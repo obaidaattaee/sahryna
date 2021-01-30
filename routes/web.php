@@ -109,7 +109,7 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function
      // end errors routes
 });
 
-Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication'])->group(function(){
+Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' , 'verified'])->group(function(){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('main');
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/buyers/advertisements', [App\Http\Controllers\HomeController::class, 'buyerAdvertisements'])->name('buyers.advertisements');
