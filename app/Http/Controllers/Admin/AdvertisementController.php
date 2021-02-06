@@ -87,7 +87,7 @@ class AdvertisementController extends Controller{
         $advertisement->update($data);
         session()->flash('msg' , 'تم تعديل الاعلان بنجاح');
         Alert::success('تم تعديل الاعلان بنجاح');
-        return redirect()->back();
+        return redirect()->route('home');
     }
     public function create(){
         if(auth()->user()->payment_data == null){

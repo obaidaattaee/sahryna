@@ -111,7 +111,7 @@
                                 <label class="form-check-label check-no1" for="defaultCheck1">
                                     إضافة تكاليفٌ ومصاريفٌ الشراء والتوصيلٌ لتتفرق على الحصص
                                 </label>
-                                <input class="form-check-input form-control-md DefaultForm" value="{{ $adv->distribute_cost == 1 ?? ""}}" type="checkbox" name="distribute_cost" id="defaultCheck1">
+                                <input class="form-check-input form-control-md DefaultForm" {{ $adv->distribute_cost ? 'checked' : "" }} type="checkbox" name="distribute_cost" id="defaultCheck1">
 
                             </div>
                         </div>

@@ -92,7 +92,7 @@ Route::prefix('admin')->middleware('auth' , 'role:super_admin' )->group(function
     Route::get('subscriptions/{subscription}/status' , 'App\Http\Controllers\Admin\SubscriptionController@changeStatus')->name('subscriptions.cahnge.states') ;
     // end delivery_time routes
      // start delivery_time routes
-     Route::resource('advertisements' , 'App\Http\Controllers\Admin\AdvertisementController')->except('destroy') ;
+     Route::resource('advertisements' , 'App\Http\Controllers\Admin\AdvertisementController')->except('destroy', 'update') ;
      Route::get('advertisements/buyers/data' , 'App\Http\Controllers\Admin\AdvertisementController@buyersAdvertisements')->name('advertisements.index.buyers') ;
      Route::get('inactive/advertisements' , 'App\Http\Controllers\Admin\AdvertisementController@inactiveAdvertisements')->name('advertisements.index.inactive') ;
      Route::get('active/advertisements' , 'App\Http\Controllers\Admin\AdvertisementController@activeAdvertisements')->name('advertisements.index.active') ;
@@ -120,6 +120,7 @@ Route::namespace('App\Http\Controllers\Site')->middleware(['codeverirfication' ,
     Route::get('advertisements/buyer/show/{advertisement}/{title}' , 'BuyerAdvertisementController@buyerAdvertisementShow')->name('site.buyer.advertismenets.show');
 
     Route::middleware(['auth'])->group(function (){
+        Route::put('advertisements/{advertisement}/update' , '\App\Http\Controllers\Admin\AdvertisementController@update')->name('advertisements.update');
         Route::get('advertisements/{advertisement}/{user}/delete' , 'AdvertismenetController@delete')->name('site.advertismenets.delete');
         Route::get('dashboard' , 'DashboardController@index')->name('site.dashboard');
 

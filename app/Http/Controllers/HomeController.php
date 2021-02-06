@@ -35,8 +35,7 @@ class HomeController extends Controller
         $users_ids = User::whereHas('roles', function($q){
             $q->where('id', 3);
         })->pluck('id')->toArray();
-        $advertisements = Advertisement::whereIn('active' , [1,3])
-                            ->where('verified' , 1)
+        $advertisements = Advertisement::where('verified' , 1)
                             ->whereIn('user_id' , $users_ids)
                             ->where('end_publish_date' , '>' , Carbon::now())
                             ->with(['city']);
@@ -44,8 +43,7 @@ class HomeController extends Controller
         UserAdvertisement::orderBy('created_at' , 'desc')->get()->groupBy('advertisement_id')->take(4)->map(function ($item) use(&$trinds){
             $trinds = array_merge($trinds , $item->pluck('advertisement_id')->toArray());
         });
-        $trinds_advertisements = Advertisement::whereIn('active' , [1,3])
-                            ->where('verified' , 1)
+        $trinds_advertisements = Advertisement::where('verified' , 1)
                             ->whereIn('user_id' , $users_ids)
                             ->whereIn('id' , $trinds)
                             ->where('end_publish_date' , '>' , Carbon::now())
@@ -82,7 +80,7 @@ class HomeController extends Controller
         $trinds_advertisements = $trinds_advertisements->take(4)->get() ;
         $buyers_advertisements = $buyers_advertisements->take(4)->get() ;
         // dd($advertisements) ;
-        
+
         $cities = City::where('active' , 1) -> get() ;
         $categories = Category::where('active' , 1) -> get() ;
         return view('site.home')

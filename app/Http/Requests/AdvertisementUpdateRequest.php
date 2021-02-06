@@ -24,6 +24,7 @@ class AdvertisementUpdateRequest extends FormRequest
      */
     public function rules()
     {
+        $this['distribute_cost'] = $this['distribute_cost'] ? 1 : 0 ;
         if(in_array(2 , auth()->user()->roles->pluck('id')->toArray())    && Settings::first()->buyer_subscription == 0  || in_array(1 , auth()->user()->roles->pluck('id')->toArray())){
             return [
                 "title" => [ 'required' ],

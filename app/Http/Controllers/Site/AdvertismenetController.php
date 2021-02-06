@@ -278,9 +278,11 @@ class AdvertismenetController extends Controller{
         }else{
             $request['images']  = $advertisement->images ;
         }
-
         $data = $request->except('imagesFiles') ;
+        dd($data);
         $advertisement->update($data);
+        session()->flash('msg' , 'تم تعديل الاعلان بنجاح');
+        Alert::success('تم تعديل الاعلان بنجاح');
         return redirect()->back();
     }
     public function buyerAdvertisementsStore(BuyerAdvertisementRequest $request){
